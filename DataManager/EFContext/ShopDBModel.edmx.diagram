@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bf61bef6e1b1482aa73d756757ee695a" Name="Diagram1" >
+        <EntityTypeShape EntityType="ShopDBModel.Good" Width="1.5" PointX="1.125" PointY="1" />
+        <EntityTypeShape EntityType="ShopDBModel.Category" Width="1.5" PointX="6.125" PointY="0.75" />
+        <EntityTypeShape EntityType="ShopDBModel.Purchase" Width="1.5" PointX="3.5" PointY="3.625" />
+        <AssociationConnector Association="ShopDBModel.GoodCategory" />
+        <AssociationConnector Association="ShopDBModel.PurchaseCategory" ManuallyRouted="true" >
+          <ConnectorPoint PointX="4.25" PointY="3.625" />
+          <ConnectorPoint PointX="4.25" PointY="2.8324104231770835" />
+          <ConnectorPoint PointX="5.50625" PointY="2.8324104231770835" />
+          <ConnectorPoint PointX="5.50625" PointY="2.509493756510417" />
+          <ConnectorPoint PointX="5.9208125" PointY="2.509493756510417" />
+          <ConnectorPoint PointX="5.9208125" PointY="2.0824104231770835" />
+          <ConnectorPoint PointX="6.057618125" PointY="2.0824104231770835" />
+          <ConnectorPoint PointX="6.057618125" PointY="1.2282437565104167" />
+          <ConnectorPoint PointX="6.125" PointY="1.2282437565104167" />
+        </AssociationConnector>
+        <AssociationConnector Association="ShopDBModel.GoodPurchase" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

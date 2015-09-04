@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ShopDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ShopDBModelStoreContainer">
+    <EntitySet Name="GoodSet" EntityType="ShopDBModel.Store.GoodSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="CategorySet" EntityType="ShopDBModel.Store.CategorySet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PurchaseSet" EntityType="ShopDBModel.Store.PurchaseSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="GoodCategory" EntityType="ShopDBModel.Store.GoodCategory" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PurchaseCategory" EntityType="ShopDBModel.Store.PurchaseCategory" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_GoodCategory_Good" Association="ShopDBModel.Store.FK_GoodCategory_Good">
+      <End Role="Good" EntitySet="GoodSet" />
+      <End Role="GoodCategory" EntitySet="GoodCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GoodCategory_Category" Association="ShopDBModel.Store.FK_GoodCategory_Category">
+      <End Role="Category" EntitySet="CategorySet" />
+      <End Role="GoodCategory" EntitySet="GoodCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchaseCategory_Purchase" Association="ShopDBModel.Store.FK_PurchaseCategory_Purchase">
+      <End Role="Purchase" EntitySet="PurchaseSet" />
+      <End Role="PurchaseCategory" EntitySet="PurchaseCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PurchaseCategory_Category" Association="ShopDBModel.Store.FK_PurchaseCategory_Category">
+      <End Role="Category" EntitySet="CategorySet" />
+      <End Role="PurchaseCategory" EntitySet="PurchaseCategory" />
+    </AssociationSet>
+    <AssociationSet Name="GoodPurchase" Association="ShopDBModel.Store.GoodPurchase">
+      <End Role="Good" EntitySet="GoodSet" />
+      <End Role="Purchase" EntitySet="PurchaseSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="GoodSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CategorySet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PurchaseSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GoodId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GoodCategory">
+    <Key>
+      <PropertyRef Name="Good_Id" />
+      <PropertyRef Name="Category_Id" />
+    </Key>
+    <Property Name="Good_Id" Type="int" Nullable="false" />
+    <Property Name="Category_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PurchaseCategory">
+    <Key>
+      <PropertyRef Name="Purchase_Id" />
+      <PropertyRef Name="Category_Id" />
+    </Key>
+    <Property Name="Purchase_Id" Type="int" Nullable="false" />
+    <Property Name="Category_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="GoodPurchase">
+    <End Role="Good" Type="ShopDBModel.Store.GoodSet" Multiplicity="1" />
+    <End Role="Purchase" Type="ShopDBModel.Store.PurchaseSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Good">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Purchase">
+        <PropertyRef Name="GoodId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GoodCategory_Good">
+    <End Role="Good" Type="ShopDBModel.Store.GoodSet" Multiplicity="1" />
+    <End Role="GoodCategory" Type="ShopDBModel.Store.GoodCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Good">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GoodCategory">
+        <PropertyRef Name="Good_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GoodCategory_Category">
+    <End Role="GoodCategory" Type="ShopDBModel.Store.GoodCategory" Multiplicity="*" />
+    <End Role="Category" Type="ShopDBModel.Store.CategorySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GoodCategory">
+        <PropertyRef Name="Category_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchaseCategory_Purchase">
+    <End Role="Purchase" Type="ShopDBModel.Store.PurchaseSet" Multiplicity="1" />
+    <End Role="PurchaseCategory" Type="ShopDBModel.Store.PurchaseCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Purchase">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PurchaseCategory">
+        <PropertyRef Name="Purchase_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PurchaseCategory_Category">
+    <End Role="PurchaseCategory" Type="ShopDBModel.Store.PurchaseCategory" Multiplicity="*" />
+    <End Role="Category" Type="ShopDBModel.Store.CategorySet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PurchaseCategory">
+        <PropertyRef Name="Category_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ShopDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ShopDBModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GoodSet" EntityType="ShopDBModel.Good" />
+          <EntitySet Name="CategorySet" EntityType="ShopDBModel.Category" />
+          <EntitySet Name="PurchaseSet" EntityType="ShopDBModel.Purchase" />
+          <AssociationSet Name="GoodCategory" Association="ShopDBModel.GoodCategory">
+            <End Role="Good" EntitySet="GoodSet" />
+            <End Role="Category" EntitySet="CategorySet" />
+          </AssociationSet>
+          <AssociationSet Name="PurchaseCategory" Association="ShopDBModel.PurchaseCategory">
+            <End Role="Purchase" EntitySet="PurchaseSet" />
+            <End Role="Category" EntitySet="CategorySet" />
+          </AssociationSet>
+          <AssociationSet Name="GoodPurchase" Association="ShopDBModel.GoodPurchase">
+            <End Role="Good" EntitySet="GoodSet" />
+            <End Role="Purchase" EntitySet="PurchaseSet" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Good">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <NavigationProperty Name="Category" Relationship="ShopDBModel.GoodCategory" FromRole="Good" ToRole="Category" />
+          <NavigationProperty Name="Purchase" Relationship="ShopDBModel.GoodPurchase" FromRole="Good" ToRole="Purchase" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" />
+          <NavigationProperty Name="Good" Relationship="ShopDBModel.GoodCategory" FromRole="Category" ToRole="Good" />
+          <NavigationProperty Name="Purchase" Relationship="ShopDBModel.PurchaseCategory" FromRole="Category" ToRole="Purchase" />
+        </EntityType>
+        <EntityType Name="Purchase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Category" Relationship="ShopDBModel.PurchaseCategory" FromRole="Purchase" ToRole="Category" />
+          <NavigationProperty Name="Good" Relationship="ShopDBModel.GoodPurchase" FromRole="Purchase" ToRole="Good" />
+          <Property Name="GoodId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="GoodCategory">
+          <End Type="ShopDBModel.Good" Role="Good" Multiplicity="*" />
+          <End Type="ShopDBModel.Category" Role="Category" Multiplicity="*" />
+        </Association>
+        <Association Name="PurchaseCategory">
+          <End Type="ShopDBModel.Purchase" Role="Purchase" Multiplicity="*" />
+          <End Type="ShopDBModel.Category" Role="Category" Multiplicity="*" />
+        </Association>
+        <Association Name="GoodPurchase">
+          <End Type="ShopDBModel.Good" Role="Good" Multiplicity="1" />
+          <End Type="ShopDBModel.Purchase" Role="Purchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Good">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Purchase">
+              <PropertyRef Name="GoodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ShopDBModelStoreContainer" CdmEntityContainer="ShopDBModelContainer">
+    <EntitySetMapping Name="GoodSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ShopDBModel.Good)">
+        <MappingFragment StoreEntitySet="GoodSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CategorySet">
+      <EntityTypeMapping TypeName="IsTypeOf(ShopDBModel.Category)">
+        <MappingFragment StoreEntitySet="CategorySet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PurchaseSet">
+      <EntityTypeMapping TypeName="IsTypeOf(ShopDBModel.Purchase)">
+        <MappingFragment StoreEntitySet="PurchaseSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="GoodId" ColumnName="GoodId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="GoodCategory" TypeName="ShopDBModel.GoodCategory" StoreEntitySet="GoodCategory">
+      <EndProperty Name="Good">
+        <ScalarProperty Name="Id" ColumnName="Good_Id" />
+      </EndProperty>
+      <EndProperty Name="Category">
+        <ScalarProperty Name="Id" ColumnName="Category_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="PurchaseCategory" TypeName="ShopDBModel.PurchaseCategory" StoreEntitySet="PurchaseCategory">
+      <EndProperty Name="Purchase">
+        <ScalarProperty Name="Id" ColumnName="Purchase_Id" />
+      </EndProperty>
+      <EndProperty Name="Category">
+        <ScalarProperty Name="Id" ColumnName="Category_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
