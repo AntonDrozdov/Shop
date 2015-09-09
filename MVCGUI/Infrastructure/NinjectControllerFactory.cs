@@ -6,8 +6,12 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Ninject;
 
+using DataManager.EFContext.CFContext;
+using DataManager.Abstract;
+using DataManager.Concrete;
 
-namespace Emps.Infrastructure
+
+namespace MVCGUI.Infrastructure
 {
     public class NinjectControllerFactory : DefaultControllerFactory
     {
@@ -27,7 +31,7 @@ namespace Emps.Infrastructure
         }
         private void AddBindings()
         {
-
+            ninjectKernel.Bind<IRepository>().To<CFRepository>();
         }
     }
 }

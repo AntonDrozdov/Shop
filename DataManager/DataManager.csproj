@@ -41,6 +41,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,59 +50,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IRepository.cs" />
-    <Compile Include="EFContext\Category.cs">
-      <DependentUpon>ShopDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EFContext\Good.cs">
-      <DependentUpon>ShopDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EFContext\Purchase.cs">
-      <DependentUpon>ShopDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EFContext\ShopDBModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ShopDBModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EFContext\ShopDBModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ShopDBModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="EFContext\ShopDBModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ShopDBModel.edmx</DependentUpon>
-    </Compile>
+    <Compile Include="Concrete\CFRepository.cs" />
+    <Compile Include="EFContext\CFContext\CFContext.cs" />
+    <Compile Include="Model\Good.cs" />
+    <Compile Include="Model\Purchase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="EFContext\ShopDBModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ShopDBModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="EFContext\ShopDBModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ShopDBModel.Context.cs</LastGenOutput>
-      <DependentUpon>ShopDBModel.edmx</DependentUpon>
-    </None>
-    <None Include="EFContext\ShopDBModel.edmx.diagram">
-      <DependentUpon>ShopDBModel.edmx</DependentUpon>
-    </None>
-    <None Include="EFContext\ShopDBModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ShopDBModel.cs</LastGenOutput>
-      <DependentUpon>ShopDBModel.edmx</DependentUpon>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Concrete\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="EFContext\ShopDBModel.edmx.sql" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>

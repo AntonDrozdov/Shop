@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using DataManager.Model;
+
+
 namespace DataManager.Abstract
 {
-    interface IRepository
+    public interface IRepository
     {
+        IQueryable<Good> Goods { get; }
+        IQueryable<Purchase> Purchases { get; }
     }
 }

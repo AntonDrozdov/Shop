@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DataManager.Model.Purchase>
+
+@{
+    ViewBag.Title = "PurchasesList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>PurchasesList</h2>
+<table>
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Date</td>
+            <td>GoodTitle</td>
+            <td>Amount</td>
+            <td>PurchasePrice</td>
+        </tr>
+    </thead>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Good.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PurchasePricePerItem)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+</table>
+
