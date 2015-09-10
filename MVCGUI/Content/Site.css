@@ -9,6 +9,43 @@ header, footer, nav, section {
     display: block;
 }
 
+.menu {
+
+    padding:10px;
+    font-size:16px;
+    width:100%;
+    margin:auto;
+}
+    .menu table {
+        margin:auto;
+    }
+.menuitem {
+    text-align:center;
+    border:1px solid black;
+    padding:2px;
+    margin:auto;
+    width:80px;
+    font-weight:bold;
+    color:black;
+}
+.menuitem:hover {
+    background-color:aquamarine ;
+}
+.inTableLink {
+    font-size:larger;
+    text-decoration:underline;
+}
+
+a {text-decoration:none;color:black;}
+a:after {text-decoration:none;color:black;}
+a:active {text-decoration:none;color:black;}
+a:hover{text-decoration:none;color:black;}
+a:before {text-decoration:none;color:black;}
+a:checked {text-decoration:none;color:black;}
+
+.content table TD { font-family: Segoe UI, Verdana }
+.content TABLE TD, TABLE TH {margin:25px; border-bottom: 1px dotted gray; border-left:1px dotted gray;  text-align:left; }
+.content  TABLE {  width:100%; }
 
 /* Styles for basic forms
 -----------------------------------------------------------*/

@@ -13,5 +13,10 @@ namespace DataManager.Abstract
     {
         IQueryable<Good> Goods { get; }
         IQueryable<Purchase> Purchases { get; }
+        void CreatePurchase(Purchase purchase);
+        Purchase FindPurchase(int? id);
+        void SaveEditedPurchase(Purchase purchase);
+        void DeletePurchase(Purchase purchase);
+        
     }
 }

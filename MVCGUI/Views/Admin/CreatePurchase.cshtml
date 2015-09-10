@@ -1,0 +1,27 @@
+﻿@model DataManager.Model.Purchase
+
+@{
+    ViewBag.Title = "CreatePurchase";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Create Purchase</h2>
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Purchase</legend>
+        <p>
+            Amount:<br />
+            @Html.EditorFor(model =>model.Amount)
+        </p>
+        <p>
+            Purchase Price Per Item:<br />
+            @Html.EditorFor(model => model.PurchasePricePerItem)
+        </p>
+        <p>
+            Good:<br />
+            @Html.DropDownListFor(model => model.GoodId, ViewBag.Goods as SelectList)
+        </p>
+        <input type="submit" value="Create Purchase" />
+    </fieldset>
+}

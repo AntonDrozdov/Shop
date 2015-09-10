@@ -2,10 +2,13 @@
 
 @{
     ViewBag.Title = "PurchasesList";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h2>PurchasesList</h2>
+<p>
+    @Html.ActionLink("Create Purchase", "CreatePurchase", null, new { @class = "menuitem" })
+</p>
 <table>
     <thead>
         <tr>
@@ -14,6 +17,7 @@
             <td>GoodTitle</td>
             <td>Amount</td>
             <td>PurchasePrice</td>
+            <td><b>OPTIONS</b></td>
         </tr>
     </thead>
 @foreach (var item in Model)
@@ -26,7 +30,7 @@
             @Html.DisplayFor(modelItem => item.Date)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Good.Title)
+            @Html.ActionLink(item.Good.Title, "EditPurchase", new { item.Id }, new { @class = "inTableLink" })
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Amount)
@@ -35,8 +39,7 @@
             @Html.DisplayFor(modelItem => item.PurchasePricePerItem)
         </td>
         <td>
-            @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }) |
-            @Html.ActionLink("Удалить", "Delete", new { id = item.Id })
+            @Html.ActionLink("Delete", "DeletePurchase", new { id = item.Id }, new { @class = "inTableLink" })
         </td>
     </tr>
 }

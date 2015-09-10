@@ -1,0 +1,21 @@
+﻿@model DataManager.Model.Purchase
+
+@{
+    ViewBag.Title = "DeletePurchase";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Delete Purchase</h2>
+<dl>
+    <dt>Date:</dt>
+    <dd>
+        @Html.DisplayFor(model => model.Date)
+    </dd>
+    <dd>
+        @Html.DisplayFor(model => model.Good.Title)
+    </dd>
+</dl>
+@using (Html.BeginForm())
+{
+    <input type="submit" value="Delete Purchase" />
+}

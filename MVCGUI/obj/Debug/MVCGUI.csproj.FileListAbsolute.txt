@@ -1,3 +1,4 @@
+E:\DEVELOP\shop\MVCGUI\obj\Debug\MVCGUI.csprojResolveAssemblyReference.cache
 E:\DEVELOP\shop\MVCGUI\bin\MVCGUI.dll.config
 E:\DEVELOP\shop\MVCGUI\bin\MVCGUI.dll
 E:\DEVELOP\shop\MVCGUI\bin\MVCGUI.pdb
@@ -33,6 +34,5 @@ E:\DEVELOP\shop\MVCGUI\bin\System.Web.Razor.xml
 E:\DEVELOP\shop\MVCGUI\bin\System.Web.WebPages.xml
 E:\DEVELOP\shop\MVCGUI\bin\System.Web.WebPages.Deployment.xml
 E:\DEVELOP\shop\MVCGUI\bin\System.Web.WebPages.Razor.xml
-E:\DEVELOP\shop\MVCGUI\obj\Debug\MVCGUI.csprojResolveAssemblyReference.cache
 E:\DEVELOP\shop\MVCGUI\obj\Debug\MVCGUI.dll
 E:\DEVELOP\shop\MVCGUI\obj\Debug\MVCGUI.pdb

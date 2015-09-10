@@ -222,8 +222,12 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Admin\PurchasesList.cshtml" />
+    <Content Include="Views\Admin\GoodsList.cshtml" />
+    <Content Include="Views\Admin\CreatePurchase.cshtml" />
+    <Content Include="Views\Admin\EditPurchase.cshtml" />
+    <Content Include="Views\Admin\DeletePurchase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

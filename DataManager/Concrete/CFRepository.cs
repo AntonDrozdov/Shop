@@ -22,5 +22,21 @@ namespace DataManager.Concrete
         public IQueryable<Purchase> Purchases {
             get { return dbcontex.Purchases.Include(p => p.Good); } 
         }
+        public void CreatePurchase(Purchase purchase){
+            dbcontex.Purchases.Add(purchase);
+            dbcontex.SaveChanges();
+        }
+        public Purchase FindPurchase(int? id) {
+            return dbcontex.Purchases.Find(id);
+        }
+        public void SaveEditedPurchase(Purchase purchase) {
+            dbcontex.Entry(purchase).State = EntityState.Modified;
+            dbcontex.SaveChanges();
+        }
+        public void DeletePurchase(Purchase purchase)
+        {
+            dbcontex.Purchases.Remove(purchase);
+            dbcontex.SaveChanges();
+        }
     }
 }
