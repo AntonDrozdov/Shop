@@ -7,7 +7,6 @@
 
 <h2>Delete Purchase</h2>
 <dl>
-    <dt>Date:</dt>
     <dd>
         @Html.DisplayFor(model => model.Date)
     </dd>
@@ -17,5 +16,6 @@
 </dl>
 @using (Html.BeginForm())
 {
-    <input type="submit" value="Delete Purchase" />
+     <input type="submit" value="Delete Purchase" /><br/>
+   @Html.ActionLink(" < BACK TO PURCHASE LIST ", "PurchasesList", "Admin", new { @class = "inTableLink" })
 }

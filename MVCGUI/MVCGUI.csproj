@@ -228,6 +228,9 @@
     <Content Include="Views\Admin\CreatePurchase.cshtml" />
     <Content Include="Views\Admin\EditPurchase.cshtml" />
     <Content Include="Views\Admin\DeletePurchase.cshtml" />
+    <Content Include="Views\Admin\CreateGood.cshtml" />
+    <Content Include="Views\Admin\EditGood.cshtml" />
+    <Content Include="Views\Admin\DeleteGood.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

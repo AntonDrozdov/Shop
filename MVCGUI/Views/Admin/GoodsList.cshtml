@@ -7,15 +7,16 @@
 
 <h2>GoodsList</h2>
 <p>
-    @Html.ActionLink("Create Good", "Good", null, new { @class = "menuitem" })
+    @Html.ActionLink("Create Good", "CreateGood", null, new { @class = "menuitem" })
 </p>
 <table>
     <thead>
         <tr>
             <th>ID</th>
             <th>Title</th>
-            <th>Description</th>
             <th>Amount</th>
+            <th>Description</th>
+            <th>OPTIONS</th>
         </tr>
 
     </thead>
@@ -25,6 +26,7 @@
             <td>@item.Id</td>
             <td>@Html.ActionLink(item.Title, "EditGood", new { item.Id }, new { @class = "inTableLink" })</td>
             <td>@item.Amount</td>
+            <td>@item.Description</td>
             <td>@Html.ActionLink("Delete", "DeleteGood", new { id = item.Id }, new { @class = "inTableLink" })</td>
         </tr>
     }

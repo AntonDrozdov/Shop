@@ -23,24 +23,12 @@
 @foreach (var item in Model)
 {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.ActionLink(item.Good.Title, "EditPurchase", new { item.Id }, new { @class = "inTableLink" })
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PurchasePricePerItem)
-        </td>
-        <td>
-            @Html.ActionLink("Delete", "DeletePurchase", new { id = item.Id }, new { @class = "inTableLink" })
-        </td>
+        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+        <td>@Html.DisplayFor(modelItem => item.Date)</td>
+        <td>@Html.ActionLink(item.Good.Title, "EditPurchase", new { item.Id }, new { @class = "inTableLink" })</td>
+        <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+        <td>@Html.DisplayFor(modelItem => item.PurchasePricePerItem)</td>
+        <td>@Html.ActionLink("Delete", "DeletePurchase", new { id = item.Id }, new { @class = "inTableLink" })</td>
     </tr>
 }
 </table>

@@ -1,0 +1,26 @@
+﻿@model DataManager.Model.Good
+
+@{
+    ViewBag.Title = "CreateGood";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Create Good</h2>
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Good</legend>
+        <p>
+            Title:<br />
+            @Html.EditorFor(model => model.Title)
+        </p>
+        <p>
+            Dscription:<br />
+            @Html.EditorFor(model => model.Description)
+        </p>
+
+        <input type="submit" value="Create Good" />
+        <br />
+        @Html.ActionLink(" < BACK TO GOODS LIST ", "GoodsList", "Admin", new { @class = "inTableLink" })
+    </fieldset>
+}

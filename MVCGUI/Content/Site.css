@@ -33,10 +33,17 @@ header, footer, nav, section {
 }
 .inTableLink {
     font-size:larger;
-    text-decoration:underline;
+    border:1px solid black;
+     
+    padding-left:2px;
+    padding-right:2px;
+    font-style:italic;
 }
 
-a {text-decoration:none;color:black;}
+
+
+a {text-decoration:none;color:black;
+}
 a:after {text-decoration:none;color:black;}
 a:active {text-decoration:none;color:black;}
 a:hover{text-decoration:none;color:black;}
@@ -44,7 +51,7 @@ a:before {text-decoration:none;color:black;}
 a:checked {text-decoration:none;color:black;}
 
 .content table TD { font-family: Segoe UI, Verdana }
-.content TABLE TD, TABLE TH {margin:25px; border-bottom: 1px dotted gray; border-left:1px dotted gray;  text-align:left; }
+.content TABLE TD, TABLE TH {padding-bottom:3px;margin:5px; border-bottom: 1px dotted gray; border-left:1px dotted gray;  text-align:left; }
 .content  TABLE {  width:100%; }
 
 /* Styles for basic forms

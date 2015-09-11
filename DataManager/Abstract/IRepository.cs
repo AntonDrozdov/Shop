@@ -11,7 +11,14 @@ namespace DataManager.Abstract
 {
     public interface IRepository
     {
+        //GOODS
         IQueryable<Good> Goods { get; }
+        void CreateGood(Good good);
+        Good FindGood(int? id);
+        void SaveEditedGood(Good good);
+        void DeleteGood(Good good);
+        
+        //PURCHASES
         IQueryable<Purchase> Purchases { get; }
         void CreatePurchase(Purchase purchase);
         Purchase FindPurchase(int? id);

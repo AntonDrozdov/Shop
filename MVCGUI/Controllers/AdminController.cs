@@ -8,13 +8,13 @@ using DataManager.Model;
 
 namespace MVCGUI.Controllers
 {
-    public class AdminController : Controller
+    public partial class AdminController : Controller
     {
         private IRepository repository;
         public AdminController(IRepository _repository) {
             this.repository = _repository;
         }
-
+        //PURCHASES
         public ActionResult PurchasesList()
         {
             return View(repository.Purchases.ToList());
@@ -100,6 +100,69 @@ namespace MVCGUI.Controllers
         {
             return View(repository.Goods.ToList());
         }
+        [HttpGet]
+        public ActionResult CreateGood()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateGood(Good good)
+        {
+            repository.CreateGood(good);
+            // перенаправляем на главную страницу
+            return RedirectToAction("GoodsList");
+        }
+        [HttpGet]
+        public ActionResult EditGood(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            // Находим в бд футболиста
+            Good good = repository.FindGood(id);
+            if (good != null)
+            {
+                return View(good);
+            }
+            return RedirectToAction("GoodsList");
+        }
+        [HttpPost]
+        public ActionResult EditGood(Good good)
+        {
+            repository.SaveEditedGood(good);
+            return RedirectToAction("GoodsList");
+        }
+        [HttpGet]
+        public ActionResult DeleteGood(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            Good good = repository.FindGood(id);
+            if (good == null)
+            {
+                return HttpNotFound();
+            }
+            return View(good);
+        }
+        [HttpPost, ActionName("DeleteGood")]
+        public ActionResult DeleteGoodConfirmed(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            Good good = repository.FindGood(id);
+            if (good == null)
+            {
+                return HttpNotFound();
+            }
 
+            repository.DeleteGood(good);
+            return RedirectToAction("GoodsList");
+        }
+    
     }
 }

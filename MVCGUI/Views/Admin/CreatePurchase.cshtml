@@ -11,6 +11,10 @@
     <fieldset>
         <legend>Purchase</legend>
         <p>
+            Good:<br />
+            @Html.DropDownListFor(model => model.GoodId, ViewBag.Goods as SelectList)
+        </p>
+        <p>
             Amount:<br />
             @Html.EditorFor(model =>model.Amount)
         </p>
@@ -18,10 +22,8 @@
             Purchase Price Per Item:<br />
             @Html.EditorFor(model => model.PurchasePricePerItem)
         </p>
-        <p>
-            Good:<br />
-            @Html.DropDownListFor(model => model.GoodId, ViewBag.Goods as SelectList)
-        </p>
         <input type="submit" value="Create Purchase" />
+        <br />
+        @Html.ActionLink(" < BACK TO PURCHASE LIST ", "PurchasesList", "Admin", new { @class = "inTableLink" })
     </fieldset>
 }
