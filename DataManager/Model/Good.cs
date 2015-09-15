@@ -17,5 +17,9 @@ namespace DataManager.Model
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public int? Amount { get; set; }
+
+        public ICollection<Category> Categories { get; set; }
+        public Good() { Categories = new List<Category>(); }
+
     }
 }

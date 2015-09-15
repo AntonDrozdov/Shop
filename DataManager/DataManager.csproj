@@ -51,9 +51,13 @@
   <ItemGroup>
     <Compile Include="Abstract\IRepository.cs" />
     <Compile Include="Concrete\CFRepository.cs" />
+    <Compile Include="Concrete\CFRepositoryCATEGORIES.cs" />
+    <Compile Include="Concrete\CFRepositoryCATEGORYTYPES.cs" />
     <Compile Include="Concrete\CFRepositoryGOODS.cs" />
     <Compile Include="Concrete\CFRepositoryPURCHASES.cs" />
     <Compile Include="EFContext\CFContext\CFContext.cs" />
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\CategoryType.cs" />
     <Compile Include="Model\Good.cs" />
     <Compile Include="Model\Purchase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

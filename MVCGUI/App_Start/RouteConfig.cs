@@ -16,7 +16,7 @@ namespace MVCGUI
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Admin", action = "PurchasesList", id = UrlParameter.Optional }
+                defaults: new { controller = "Admin", action = "GoodsList", id = UrlParameter.Optional }
             );
         }
     }

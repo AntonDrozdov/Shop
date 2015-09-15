@@ -91,24 +91,22 @@ namespace MVCGUI.Controllers
             return RedirectToAction("PurchasesList");
         }
 
-
-
-
-
-
+        //GOODS
         public ActionResult GoodsList()
         {
+            IQueryable<Good> list = repository.Goods;
             return View(repository.Goods.ToList());
         }
         [HttpGet]
         public ActionResult CreateGood()
         {
+            ViewBag.Categories = repository.Categories.ToList();
             return View();
         }
         [HttpPost]
-        public ActionResult CreateGood(Good good)
+        public ActionResult CreateGood(Good good, int[] selected)
         {
-            repository.CreateGood(good);
+            repository.CreateGood(good, selected);
             // перенаправляем на главную страницу
             return RedirectToAction("GoodsList");
         }
@@ -119,18 +117,18 @@ namespace MVCGUI.Controllers
             {
                 return HttpNotFound();
             }
-            // Находим в бд футболиста
-            Good good = repository.FindGood(id);
+             Good good = repository.FindGood(id);
             if (good != null)
             {
+                ViewBag.Categories = repository.Categories.ToList();
                 return View(good);
             }
-            return RedirectToAction("GoodsList");
+            return RedirectToAction("PurchasesList");
         }
         [HttpPost]
-        public ActionResult EditGood(Good good)
+        public ActionResult EditGood(Good good, int[] selected)
         {
-            repository.SaveEditedGood(good);
+            repository.SaveEditedGood(good, selected);
             return RedirectToAction("GoodsList");
         }
         [HttpGet]
@@ -163,6 +161,143 @@ namespace MVCGUI.Controllers
             repository.DeleteGood(good);
             return RedirectToAction("GoodsList");
         }
-    
+
+        //CATEGORIES
+        public ActionResult CategoriesList()
+        {
+            return View(repository.Categories.ToList());
+        }
+        [HttpGet]
+        public ActionResult CreateCategory()
+        {
+            ViewBag.CategoryTypes = repository.CategoryTypes.ToList();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateCategory(Category category, int[] selected)
+        {
+            repository.CreateCategory(category, selected);
+            // перенаправляем на главную страницу
+            return RedirectToAction("CategoriesList");
+        }
+        [HttpGet]
+        public ActionResult EditCategory(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            Category category = repository.FindCategory(id);
+            if (category != null)
+            {
+                ViewBag.CategoryTypes = repository.CategoryTypes.ToList();
+                return View(category);
+            }
+            return RedirectToAction("CategoriesList");
+        }
+        [HttpPost]
+        public ActionResult EditCategory(Category category, int[] selected)
+        {
+            repository.SaveEditedCategory(category, selected);
+            return RedirectToAction("CategoriesList");
+        }
+        [HttpGet]
+        public ActionResult DeleteCategory(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            Category category = repository.FindCategory(id);
+            if (category == null)
+            {
+                return HttpNotFound();
+            }
+            return View(category);
+        }
+        [HttpPost, ActionName("DeleteCategory")]
+        public ActionResult DeleteCategoryConfirmed(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+           Category category = repository.FindCategory(id);
+           if (category == null)
+            {
+                return HttpNotFound();
+            }
+
+           repository.DeleteCategory(category);
+            return RedirectToAction("CategoriesList");
+        }
+   
+        //CATEGORIESTYPES
+        public ActionResult CategoryTypesList()
+        {
+            return View(repository.CategoryTypes.ToList());
+        }
+        [HttpGet]
+        public ActionResult CreateCategoryType()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateCategoryType(CategoryType categorytype)
+        {
+            repository.CreateCategoryType(categorytype);
+            // перенаправляем на главную страницу
+            return RedirectToAction("CategoryTypesList");
+        }
+        [HttpGet]
+        public ActionResult EditCategoryType(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            CategoryType categorytype = repository.FindCategoryType(id);
+            if (categorytype != null)
+            {
+                return View(categorytype);
+            }
+            return RedirectToAction("CategoryTypesList");
+        }
+        [HttpPost]
+        public ActionResult EditCategoryType(CategoryType categorytype)
+        {
+            repository.SaveEditedCategoryType(categorytype);
+            return RedirectToAction("CategoryTypesList");
+        }
+        [HttpGet]
+        public ActionResult DeleteCategoryType(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            CategoryType categorytype = repository.FindCategoryType(id);
+            if (categorytype == null)
+            {
+                return HttpNotFound();
+            }
+            return View(categorytype);
+        }
+        [HttpPost, ActionName("DeleteCategoryType")]
+        public ActionResult DeleteCategoryTypeConfirmed(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            CategoryType categorytype = repository.FindCategoryType(id);
+            if (categorytype == null)
+            {
+                return HttpNotFound();
+            }
+
+            repository.DeleteCategoryType(categorytype);
+            return RedirectToAction("CategoryTypesList");
+        }
     }
 }

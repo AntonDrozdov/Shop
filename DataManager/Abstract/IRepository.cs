@@ -13,9 +13,9 @@ namespace DataManager.Abstract
     {
         //GOODS
         IQueryable<Good> Goods { get; }
-        void CreateGood(Good good);
+        void CreateGood(Good good, int[] selectedcategories);
         Good FindGood(int? id);
-        void SaveEditedGood(Good good);
+        void SaveEditedGood(Good good, int[] selectedcategories);
         void DeleteGood(Good good);
         
         //PURCHASES
@@ -25,5 +25,20 @@ namespace DataManager.Abstract
         void SaveEditedPurchase(Purchase purchase);
         void DeletePurchase(Purchase purchase);
         
+        //CATEGORIES
+        IQueryable<Category> Categories { get; }
+        void CreateCategory(Category category, int[] selected);
+        Category FindCategory(int? id);
+        void SaveEditedCategory(Category category, int[] selected);
+        void DeleteCategory(Category category);
+
+        //CATEGORYTypes
+        IQueryable<CategoryType> CategoryTypes { get; }
+        void CreateCategoryType(CategoryType categorytype);
+        CategoryType FindCategoryType(int? id);
+        void SaveEditedCategoryType(CategoryType categorytype);
+        void DeleteCategoryType(CategoryType categorytype);
+
+
     }
 }

@@ -16,6 +16,7 @@
             <th>Title</th>
             <th>Amount</th>
             <th>Description</th>
+            <th>Categories</th>
             <th>OPTIONS</th>
         </tr>
 
@@ -27,6 +28,14 @@
             <td>@Html.ActionLink(item.Title, "EditGood", new { item.Id }, new { @class = "inTableLink" })</td>
             <td>@item.Amount</td>
             <td>@item.Description</td>
+            <td>
+                <ul>
+                    @foreach (var item2 in item.Categories)
+                    {
+                        <li>@item2.Title</li>
+                    }
+                </ul>
+            </td>
             <td>@Html.ActionLink("Delete", "DeleteGood", new { id = item.Id }, new { @class = "inTableLink" })</td>
         </tr>
     }

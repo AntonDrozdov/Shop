@@ -15,18 +15,28 @@ namespace DataManager.Concrete
     {
         public IQueryable<Good> Goods
         {
-            get { return dbcontex.Goods; }
+            get { return dbcontex.Goods.Include(g=>g.Categories); }
         }
-        public void CreateGood(Good good)
+        public void CreateGood(Good good, int[] selected)
         {
-            dbcontex.Goods.Add(good);
+            Good newgood = good;
+
+            newgood.Categories.Clear();
+            if (selected != null)
+            {
+                foreach (Category c in Categories.Where(cat => selected.Contains(cat.Id)))
+                {
+                    newgood.Categories.Add(c);
+                }
+            }
+            dbcontex.Goods.Add(newgood);
             dbcontex.SaveChanges();
         }
         public Good FindGood(int? id)
         {
             if (dbcontex.Goods.Find(id) != null)
             {
-                IQueryable<Good> goods = dbcontex.Goods.Where(p => p.Id == id).Select(p => p);
+                IQueryable<Good> goods = dbcontex.Goods.Where(p => p.Id == id).Select(p => p).Include(p=>p.Categories);
                 return goods.First();
             }
             else
@@ -35,9 +45,24 @@ namespace DataManager.Concrete
             }
 
         }
-        public void SaveEditedGood(Good good)
+        public void SaveEditedGood(Good good, int[] selected)
         {
-            dbcontex.Entry(good).State = EntityState.Modified;
+            Good newgood = FindGood(good.Id);
+            
+            newgood.Title = good.Title;
+            newgood.Description = good.Description;
+            newgood.Amount = good.Amount;
+            
+            newgood.Categories.Clear();
+            if (selected != null)
+            {
+                foreach (Category c in Categories.Where(cat => selected.Contains(cat.Id)))
+                {
+                    newgood.Categories.Add(c);
+                }
+            }
+
+            dbcontex.Entry(newgood).State = EntityState.Modified;
             dbcontex.SaveChanges();
         }
         public void DeleteGood(Good good)

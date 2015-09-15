@@ -1,0 +1,36 @@
+﻿@using DataManager.Model;
+@model DataManager.Model.Category
+
+@{
+    ViewBag.Title = "CreateCategory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>CreateCategory</h2>
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Category</legend>
+        <p>
+            Title:<br />
+            @Html.EditorFor(model => model.Title)
+        </p>
+        <p>
+            Description:<br />
+            @Html.EditorFor(model => model.Description)
+        </p>
+        <p>
+            CategoryTypes:<br />
+            @{
+                List<CategoryType> categorytypes = ViewBag.CategoryTypes;
+                foreach (CategoryType item in categorytypes)
+                {
+                    <input type="checkbox" name="selected" value="@item.Id" />@item.Title<br />
+                }
+            }
+        </p>
+        <input type="submit" value="Save" />
+        <br /><br />
+        @Html.ActionLink(" < BACK TO CATEGORIES LIST ", "CategoriesList", "Admin", new { @class = "inTableLink" })
+    </fieldset>
+}

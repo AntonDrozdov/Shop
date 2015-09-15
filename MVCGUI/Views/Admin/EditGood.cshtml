@@ -1,4 +1,5 @@
-﻿@model DataManager.Model.Good
+﻿@using DataManager.Model;
+@model DataManager.Model.Good
 
 @{
     ViewBag.Title = "Edit Good";
@@ -15,12 +16,26 @@
             @Html.EditorFor(model => model.Title)
         </p>
         <p>
-            Dscription:<br />
+            Description:<br />
             @Html.EditorFor(model => model.Description)
         </p>
-
+        <p>
+            Amount:<br />
+            @Html.EditorFor(model => model.Amount)
+        </p>
+        <p>
+            Categories:<br />
+            @{
+                List<Category> categories = ViewBag.Categories;
+                foreach (Category item in categories)
+                {
+                    <input type="checkbox" name="selected" value="@item.Id"
+                    @(Model.Categories.Contains(item) ? "checked=\"checked\"" : "") />@item.Title<br />
+                }
+            }   
+        </p>
         <input type="submit" value="Confirm changes" />
-        <br />
+        <br /><br />
         @Html.ActionLink(" < BACK TO GOODS LIST ", "GoodsList", "Admin", new { @class = "inTableLink" })
     </fieldset>
 }

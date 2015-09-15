@@ -5,6 +5,5 @@ E:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.dll
 E:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.SqlServer.dll
 E:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.xml
 E:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.SqlServer.xml
-E:\DEVELOP\shop\DataManager\obj\Debug\DataManager.csprojResolveAssemblyReference.cache
 E:\DEVELOP\shop\DataManager\obj\Debug\DataManager.dll
 E:\DEVELOP\shop\DataManager\obj\Debug\DataManager.pdb

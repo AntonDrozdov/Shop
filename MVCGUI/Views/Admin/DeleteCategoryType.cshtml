@@ -1,0 +1,22 @@
+﻿@model DataManager.Model.CategoryType
+
+@{
+    ViewBag.Title = "DeleteCategoryType";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>DeleteCategoryType</h2>
+<dl>
+    <dd>
+        @Html.DisplayFor(model => model.Title)
+    </dd>
+    <dd>
+        @Html.DisplayFor(model => model.Description)
+    </dd>
+</dl>
+@using (Html.BeginForm())
+{
+    <input type="submit" value="Delete" />
+    <br /><br />
+    @Html.ActionLink(" < BACK TO CATEGORYTYPES LIST ", "CategorCategoryTypesList", "Admin", new { @class = "inTableLink" })
+}
