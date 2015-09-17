@@ -27,7 +27,11 @@ namespace DataManager.EFContext.CFContext
                     .Map(t => t.MapLeftKey("CategoryTypeId")
                     .MapRightKey("CategoryId")
                     .ToTable("CategoryCategoryType"));
-            
+            modelBuilder.Entity<Category>().HasMany(c => c.ChildCategories)
+                .WithMany(s => s.ParentCategories)
+                .Map(t => t.MapLeftKey("ParentCategoryId")
+                .MapRightKey("ChildCategoryId")
+                .ToTable("ParentCategories"));
 
         }
         

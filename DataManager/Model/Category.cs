@@ -12,12 +12,15 @@ namespace DataManager.Model
         public string Title { get; set; }
         public string Description { get; set; }
 
-
+        public ICollection<Category> ParentCategories { get; set; }
+        public ICollection<Category> ChildCategories { get; set; }
         public ICollection<CategoryType> CategoryTypes { get; set; }
         public ICollection<Good> Goods { get; set; }
         public Category() { 
             Goods = new List<Good>();
-            CategoryTypes = new List<CategoryType>(); 
+            CategoryTypes = new List<CategoryType>();
+            ParentCategories = new List<Category>();
+            ChildCategories = new List<Category>();
         }
 
     }

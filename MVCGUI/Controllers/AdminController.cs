@@ -170,6 +170,7 @@ namespace MVCGUI.Controllers
         [HttpGet]
         public ActionResult CreateCategory()
         {
+            ViewBag.Categories = repository.Categories.ToList();
             ViewBag.CategoryTypes = repository.CategoryTypes.ToList();
             return View();
         }

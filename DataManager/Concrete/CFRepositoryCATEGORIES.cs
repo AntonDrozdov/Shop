@@ -15,7 +15,7 @@ namespace DataManager.Concrete
     {
         public IQueryable<Category> Categories
         {
-            get { return dbcontex.Categories.Include(c=>c.CategoryTypes); }
+            get { return dbcontex.Categories.Include(c=>c.CategoryTypes).Include(c=>c.ParentCategories); }
         }
         public void CreateCategory(Category category, int[] selected)
         {
