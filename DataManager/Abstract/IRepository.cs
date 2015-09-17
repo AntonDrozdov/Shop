@@ -27,9 +27,9 @@ namespace DataManager.Abstract
         
         //CATEGORIES
         IQueryable<Category> Categories { get; }
-        void CreateCategory(Category category, int[] selected);
+        void CreateCategory(Category category, int[] selected, int[] selected2);
         Category FindCategory(int? id);
-        void SaveEditedCategory(Category category, int[] selected);
+        void SaveEditedCategory(Category category, int[] selected, int[] selected2);
         void DeleteCategory(Category category);
 
         //CATEGORYTypes

@@ -175,9 +175,9 @@ namespace MVCGUI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateCategory(Category category, int[] selected)
+        public ActionResult CreateCategory(Category category, int[] selected, int[] selected2)
         {
-            repository.CreateCategory(category, selected);
+            repository.CreateCategory(category, selected, selected2);
             // перенаправляем на главную страницу
             return RedirectToAction("CategoriesList");
         }
@@ -191,15 +191,16 @@ namespace MVCGUI.Controllers
             Category category = repository.FindCategory(id);
             if (category != null)
             {
+                ViewBag.Categories = repository.Categories.ToList();
                 ViewBag.CategoryTypes = repository.CategoryTypes.ToList();
                 return View(category);
             }
             return RedirectToAction("CategoriesList");
         }
         [HttpPost]
-        public ActionResult EditCategory(Category category, int[] selected)
+        public ActionResult EditCategory(Category category, int[] selected, int[] selected2)
         {
-            repository.SaveEditedCategory(category, selected);
+            repository.SaveEditedCategory(category, selected, selected2);
             return RedirectToAction("CategoriesList");
         }
         [HttpGet]

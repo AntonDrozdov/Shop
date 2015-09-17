@@ -17,7 +17,7 @@ namespace DataManager.Concrete
         {
             get { return dbcontex.Categories.Include(c=>c.CategoryTypes).Include(c=>c.ParentCategories); }
         }
-        public void CreateCategory(Category category, int[] selected)
+        public void CreateCategory(Category category, int[] selected, int[] selected2)
         {
             Category newcategory = category;
             newcategory.CategoryTypes.Clear();
@@ -28,6 +28,14 @@ namespace DataManager.Concrete
                     newcategory.CategoryTypes.Add(item);
                 }
             }
+            newcategory.ParentCategories.Clear();
+            if (selected2 != null)
+            {
+                foreach (Category item in Categories.Where(item => selected2.Contains(item.Id)))
+                {
+                    newcategory.ParentCategories.Add(item);
+                }
+            }
 
             dbcontex.Categories.Add(newcategory);
             dbcontex.SaveChanges();
@@ -36,12 +44,12 @@ namespace DataManager.Concrete
         {
             if (dbcontex.Categories.Find(id) != null)
             {
-                Category category = dbcontex.Categories.Where(c => c.Id == id).Include(c=>c.CategoryTypes).Select(c => c).First();
+                Category category = dbcontex.Categories.Where(c => c.Id == id).Include(c=>c.CategoryTypes).Include(c=>c.ParentCategories).Include(c=>c.ChildCategories).Select(c => c).First();
                 return category;
             }
             else return null;
         }
-        public void SaveEditedCategory(Category category, int[] selected)
+        public void SaveEditedCategory(Category category, int[] selected, int[] selected2)
         {
             Category newcategory = FindCategory(category.Id);
 
@@ -53,6 +61,15 @@ namespace DataManager.Concrete
                 foreach (CategoryType item in CategoryTypes.Where(item => selected.Contains(item.Id)))
                 {
                     newcategory.CategoryTypes.Add(item);
+                }
+            }
+            //newcategory.ChildCategories.Clear();
+            newcategory.ParentCategories.Clear();
+            if (selected2 != null)
+            {
+                foreach (Category item in Categories.Where(item => selected2.Contains(item.Id)))
+                {
+                    newcategory.ParentCategories.Add(item);
                 }
             }
 

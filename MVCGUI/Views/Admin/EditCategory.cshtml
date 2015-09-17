@@ -20,15 +20,29 @@
             @Html.EditorFor(model => model.Description)
         </p>
         <p>
-            CategoryTypes:<br />
-            @{
-                List<CategoryType> categorytypes = ViewBag.CategoryTypes;
-                foreach (CategoryType item in categorytypes)
-                {
-                    <input type="checkbox" name="selected" value="@item.Id"
-                    @(Model.CategoryTypes.Contains(item) ? "checked=\"checked\"" : "") />@item.Title<br />
-                }
-            }
+            <table>
+                <thead><tr><th>Belong To (CategoryTypes:):</th><th>Included In (Categories:):</th></tr></thead>
+                <tr><td>
+                    @{
+                        List<CategoryType> categorytypes = ViewBag.CategoryTypes;
+                        foreach (CategoryType item in categorytypes)
+                        {
+                            <input type="checkbox" name="selected" value="@item.Id"
+                            @(Model.CategoryTypes.Contains(item) ? "checked=\" checked\"" : "") />@item.Title<br />
+                        }
+                    }
+                    </td>
+                    <td>
+                    @{
+                        List<Category> categories = ViewBag.Categories;
+                        foreach (Category item in categories)
+                        {
+                            <input type="checkbox" name="selected2" value="@item.Id"
+                            @(Model.ParentCategories.Contains(item) ? "checked=\" checked\"" : "") />@item.Title<br />
+                        }
+                    }
+                </td></tr>
+            </table>
         </p>
         <input type="submit" value="Confirm Changes" />
         <br /><br />
