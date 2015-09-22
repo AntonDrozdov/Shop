@@ -13,6 +13,11 @@ namespace MVCGUI
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+            routes.MapRoute(null,
+                           "Admin/Goods",
+                           new { controller = "Admin", action = "GoodsList"}
+                           );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

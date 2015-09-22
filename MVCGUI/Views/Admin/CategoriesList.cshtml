@@ -8,6 +8,25 @@
 <h2>CategoriesList</h2>
 <p>
     @Html.ActionLink("Create Category", "CreateCategory", null, new { @class = "menuitem" })
+    </p>
+<p>
+    @using (Html.BeginForm("CategoriesList", "Admin", FormMethod.Post))
+    {
+        <table style=" border:none;">
+            <tr style=" border:none;">
+                <td style=" border:none;">
+                    <span style="font-size:12px; font-weight:400;">ParentCategory:</span>
+                    @Html.DropDownList("parentcat", ViewBag.ParentCategories as SelectList, "-- Select One --")
+                    <span style="font-size:12px; font-weight:400;">CategoryType:</span>
+                    @Html.DropDownList("cattype", ViewBag.CategoryTypes as SelectList, "-- Select One --")
+                    <span style = "padding-left:50px;"><input type="submit" value="     Apply     " /></span>
+                </td>
+                <td style="text-align:right; border:none;   ">
+                    @Html.ActionLink(" FULL CATEGORIES LIST ", "CategoriesList", "Admin", new { @class = "inTableLink" })
+                </td>
+            </tr>
+        </table>
+    }
 </p>
 <table>
     <thead>

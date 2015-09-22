@@ -26,7 +26,8 @@ namespace DataManager.Abstract
         void DeletePurchase(Purchase purchase);
         
         //CATEGORIES
-        IQueryable<Category> Categories { get; }
+        IQueryable<Category> Categories();
+        IQueryable<Category> Categories(int? cattype, int? parentcat);
         void CreateCategory(Category category, int[] selected, int[] selected2);
         Category FindCategory(int? id);
         void SaveEditedCategory(Category category, int[] selected, int[] selected2);

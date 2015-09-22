@@ -24,7 +24,7 @@ namespace DataManager.Concrete
             newgood.Categories.Clear();
             if (selected != null)
             {
-                foreach (Category c in Categories.Where(cat => selected.Contains(cat.Id)))
+                foreach (Category c in Categories().Where(cat => selected.Contains(cat.Id)))
                 {
                     newgood.Categories.Add(c);
                 }
@@ -56,7 +56,7 @@ namespace DataManager.Concrete
             newgood.Categories.Clear();
             if (selected != null)
             {
-                foreach (Category c in Categories.Where(cat => selected.Contains(cat.Id)))
+                foreach (Category c in Categories().Where(cat => selected.Contains(cat.Id)))
                 {
                     newgood.Categories.Add(c);
                 }

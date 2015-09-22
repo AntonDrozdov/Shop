@@ -100,7 +100,7 @@ namespace MVCGUI.Controllers
         [HttpGet]
         public ActionResult CreateGood()
         {
-            ViewBag.Categories = repository.Categories.ToList();
+            ViewBag.Categories = repository.Categories().ToList();
             return View();
         }
         [HttpPost]
@@ -120,7 +120,7 @@ namespace MVCGUI.Controllers
              Good good = repository.FindGood(id);
             if (good != null)
             {
-                ViewBag.Categories = repository.Categories.ToList();
+                ViewBag.Categories = repository.Categories().ToList();
                 return View(good);
             }
             return RedirectToAction("PurchasesList");
@@ -163,14 +163,17 @@ namespace MVCGUI.Controllers
         }
 
         //CATEGORIES
-        public ActionResult CategoriesList()
+        public ActionResult CategoriesList(int? cattype=null, int? parentcat=null)
         {
-            return View(repository.Categories.ToList());
+            //IQueryable<Category> mas = repository.Categories(cattype, parentcat);
+            ViewBag.ParentCategories = new SelectList(repository.Categories().ToList(), "Id", "Title");
+            ViewBag.CategoryTypes = new SelectList(repository.CategoryTypes.ToList(), "Id", "Title");
+            return View(repository.Categories(cattype, parentcat).ToList());
         }
         [HttpGet]
         public ActionResult CreateCategory()
         {
-            ViewBag.Categories = repository.Categories.ToList();
+            ViewBag.Categories = repository.Categories().ToList();
             ViewBag.CategoryTypes = repository.CategoryTypes.ToList();
             return View();
         }
@@ -191,7 +194,7 @@ namespace MVCGUI.Controllers
             Category category = repository.FindCategory(id);
             if (category != null)
             {
-                ViewBag.Categories = repository.Categories.ToList();
+                ViewBag.Categories = repository.Categories().ToList();
                 ViewBag.CategoryTypes = repository.CategoryTypes.ToList();
                 return View(category);
             }
