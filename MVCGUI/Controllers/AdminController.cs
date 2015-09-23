@@ -5,12 +5,15 @@ using System.Web;
 using System.Web.Mvc;
 using DataManager.Abstract;
 using DataManager.Model;
+using MVCGUI.Models;
 
 namespace MVCGUI.Controllers
 {
     public partial class AdminController : Controller
     {
         private IRepository repository;
+        private int PageSize = 5;
+
         public AdminController(IRepository _repository) {
             this.repository = _repository;
         }
@@ -163,12 +166,29 @@ namespace MVCGUI.Controllers
         }
 
         //CATEGORIES
-        public ActionResult CategoriesList(int? cattype=null, int? parentcat=null)
+        public ActionResult CategoriesList(int page =1 ,int? cattype=null, int? parentcat=null)
         {
-            //IQueryable<Category> mas = repository.Categories(cattype, parentcat);
             ViewBag.ParentCategories = new SelectList(repository.Categories().ToList(), "Id", "Title");
             ViewBag.CategoryTypes = new SelectList(repository.CategoryTypes.ToList(), "Id", "Title");
-            return View(repository.Categories(cattype, parentcat).ToList());
+            List<Category> cats = new List<Category>();
+            cats = repository.Categories(page, cattype, parentcat).ToList();
+            List<Category> totalcats = new List<Category>();
+            totalcats = repository.Categories(cattype, parentcat).ToList();
+
+            CategoryListView model = new CategoryListView
+            {
+                cattype = cattype,
+                parentcat = parentcat,
+                Categories = cats,
+                paginginfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = totalcats.Count()
+                }
+            };
+              
+            return View(model);
         }
         [HttpGet]
         public ActionResult CreateCategory()

@@ -16,42 +16,29 @@ namespace DataManager.Concrete
         public IQueryable<Category> Categories (){
             return  dbcontex.Categories.Include(c => c.CategoryTypes).Include(c => c.ParentCategories);
         }
+    
+        public IQueryable<Category> PureCategories(){
+            return  dbcontex.Categories;
+        }
         public IQueryable<Category> Categories(int? cattype, int? parentcat)
         {
-            /*
-            IQueryable<Category> mas = dbcontex.Categories.Include(c => c.CategoryTypes);
-            mas = mas.Where(c => cattype == null || c.CategoryTypes.FirstOrDefault(ctype => ctype.Id == cattype) != null);
 
-            return mas;*/
+            return dbcontex.Categories
+                .Where(c => cattype == null || c.CategoryTypes.FirstOrDefault(ctype => ctype.Id == cattype) != null)
+                .Where(c => parentcat == null || c.ParentCategories.FirstOrDefault(pc => pc.Id == parentcat) != null);
+        }
+        public IQueryable<Category> Categories(int page, int? cattype, int? parentcat)
+        {
+
             return dbcontex.Categories
                 .Include(c => c.CategoryTypes)
                 .Include(c => c.ParentCategories)
                 .Where(c => cattype == null || c.CategoryTypes.FirstOrDefault(ctype => ctype.Id == cattype) != null)
-                .Where(c => parentcat == null || c.ParentCategories.FirstOrDefault(pc => pc.Id == parentcat) != null);
-
-            /*return dbcontex.Categories
-                .Include(c => c.CategoryTypes)
-                .Include(c => c.ParentCategories)
-                .Where(c => cattype == null || c.CategoryTypes.Contains(ct));*/
-               /* .Where(c =>
-                {
-                    if (cattype == null)
-                    {
-                        return true;
-                    }
-                    else {
-                        c.CategoryTypes.Contains(FindCategoryType(cattype));
-                    }
-
-        });*/
-
-
-                //.Where(c=>cattype==null||c.CategoryTypes.Contains(FindCategoryType(cattype)));
-                //.Where(c=>parentcat==null||c.ParentCategories.Contains(FindCategory(parentcat)));
+                .Where(c => parentcat == null || c.ParentCategories.FirstOrDefault(pc => pc.Id == parentcat) != null)
+                .OrderBy(c=>c.Id)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize);
         }
-              
-                
-            
             
         public void CreateCategory(Category category, int[] selected, int[] selected2)
         {

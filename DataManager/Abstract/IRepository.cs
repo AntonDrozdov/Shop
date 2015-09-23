@@ -27,7 +27,9 @@ namespace DataManager.Abstract
         
         //CATEGORIES
         IQueryable<Category> Categories();
+        IQueryable<Category> PureCategories();
         IQueryable<Category> Categories(int? cattype, int? parentcat);
+        IQueryable<Category> Categories(int page, int? cattype, int? parentcat);
         void CreateCategory(Category category, int[] selected, int[] selected2);
         Category FindCategory(int? id);
         void SaveEditedCategory(Category category, int[] selected, int[] selected2);

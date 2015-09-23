@@ -21,7 +21,7 @@ header, footer, nav, section {
     }
 .menuitem {
     text-align:center;
-    border:1px solid black;
+    border:3px solid black;
     padding:2px;
     margin:auto;
     width:auto;
@@ -41,9 +41,15 @@ header, footer, nav, section {
 }
 
 
-
-a {text-decoration:none;color:black;
-}
+/*
+div.inTableLink a {text-decoration:none;color:black;}
+div.inTableLink a:after {text-decoration:none;color:black;}
+div.inTableLink a:active {text-decoration:none;color:black;}
+div.inTableLink a:hover{text-decoration:none;color:black;}
+div.inTableLink a:before {text-decoration:none;color:black;}
+div.inTableLink a:checked {text-decoration:none;color:black;}
+  */  
+a {text-decoration:none;color:black;}
 a:after {text-decoration:none;color:black;}
 a:active {text-decoration:none;color:black;}
 a:hover{text-decoration:none;color:black;}
@@ -53,6 +59,10 @@ a:checked {text-decoration:none;color:black;}
 .content table TD { font-family: Segoe UI, Verdana }
 .content TABLE TD, TABLE TH {padding-bottom:3px;margin:5px; border-bottom: 1px dotted gray; border-left:1px dotted gray;  text-align:left; }
 .content  TABLE {  width:100%; }
+
+ div.pager A{font-size: 1.1em;color: #666;text-decoration: none;padding: 0 .4em 0 .4em;}
+    div.pager A:hover{background-color: Silver;}
+    div.pager A.selected{background-color: #353535;color: White;}
 
 /* Styles for basic forms
 -----------------------------------------------------------*/

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DataManager.Model.Category>
+﻿@model MVCGUI.Models.CategoryListView
 
 @{
     ViewBag.Title = "CategoriesList";
@@ -16,9 +16,9 @@
             <tr style=" border:none;">
                 <td style=" border:none;">
                     <span style="font-size:12px; font-weight:400;">ParentCategory:</span>
-                    @Html.DropDownList("parentcat", ViewBag.ParentCategories as SelectList, "-- Select One --")
+                    @Html.DropDownList("parentcat", ViewBag.ParentCategories as SelectList, "-- ALL --")
                     <span style="font-size:12px; font-weight:400;">CategoryType:</span>
-                    @Html.DropDownList("cattype", ViewBag.CategoryTypes as SelectList, "-- Select One --")
+                    @Html.DropDownList("cattype", ViewBag.CategoryTypes as SelectList, "-- ALL --")
                     <span style = "padding-left:50px;"><input type="submit" value="     Apply     " /></span>
                 </td>
                 <td style="text-align:right; border:none;   ">
@@ -40,7 +40,7 @@
         </tr>
 
     </thead>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Categories)
     {
         <tr>
             <td>@item.Id</td>
@@ -66,4 +66,7 @@
         </tr>
     }
 </table>
+<div class="pager">
+    @Html.PageLinks(Model.paginginfo, x => Url.Action("CategoriesList", new { page = x, cattype = Model.cattype, parentcat = Model.parentcat }))
+</div>
 

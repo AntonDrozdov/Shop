@@ -15,6 +15,7 @@ namespace DataManager.Concrete
 {
     public partial class CFRepository: IRepository
     {
+        private int PageSize = 5;
         private CFContext dbcontex = new CFContext();
         private bool disposing = false;
 

@@ -18,6 +18,10 @@ namespace MVCGUI
                            "Admin/Goods",
                            new { controller = "Admin", action = "GoodsList"}
                            );
+            routes.MapRoute(null,
+               "Admin/CategoryList/Page{page}",
+               new { controller = "Admin", action = "CategoriesList" }
+               );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
