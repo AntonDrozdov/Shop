@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DataManager.Model.Good>
+﻿@model MVCGUI.Models.GoodListView
 
 @{
     ViewBag.Title = "GoodsList";
@@ -8,6 +8,23 @@
 <h2>GoodsList</h2>
 <p>
     @Html.ActionLink("Create Good", "CreateGood", null, new { @class = "menuitem" })
+</p>
+<p>
+    @using (Html.BeginForm("GoodsList", "Admin", FormMethod.Post))
+    {
+        <table style=" border:none;">
+            <tr style=" border:none;">
+                <td style=" border:none;">
+                    <span style="font-size:12px; font-weight:400;">ParentCategory:</span>
+                    @Html.DropDownList("parentcat", ViewBag.ParentCategories as SelectList, "-- ALL --")
+                     <span style="padding-left:50px;"><input type="submit" value="     Apply     " /></span>
+                </td>
+                <td style="text-align:right; border:none;   ">
+                    @Html.ActionLink(" FULL GOODS LIST ", "GoodsList", "Admin", new { @class = "inTableLink" })
+                </td>
+            </tr>
+        </table>
+    }
 </p>
 <table>
     <thead>
@@ -21,7 +38,7 @@
         </tr>
 
     </thead>
-    @foreach (var item in Model)
+    @foreach (var item in Model.Goods)
     {
         <tr>
             <td>@item.Id</td>
@@ -40,3 +57,6 @@
         </tr>
     }
 </table>
+<div class="pager">
+    @Html.PageLinks(Model.paginginfo, x => Url.Action("GoodsList", new { page = x, parentcat = Model.parentcat }))
+</div>

@@ -12,7 +12,10 @@ namespace DataManager.Abstract
     public interface IRepository
     {
         //GOODS
-        IQueryable<Good> Goods { get; }
+        IQueryable<Good> Goods();
+        IQueryable<Good> PureGoods();
+        IQueryable<Good> Goods(int? parentcat);
+        IQueryable<Good> Goods(int page, int? parentcat);
         void CreateGood(Good good, int[] selectedcategories);
         Good FindGood(int? id);
         void SaveEditedGood(Good good, int[] selectedcategories);
@@ -25,6 +28,13 @@ namespace DataManager.Abstract
         void SaveEditedPurchase(Purchase purchase);
         void DeletePurchase(Purchase purchase);
         
+        //SALES
+        IQueryable<Sale> Sales { get; }
+        void CreateSale(Sale item);
+        Sale FindSale(int? id);
+        void SaveEditedSale(Sale item);
+        void DeleteSale(Sale item);
+
         //CATEGORIES
         IQueryable<Category> Categories();
         IQueryable<Category> PureCategories();

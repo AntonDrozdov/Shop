@@ -12,7 +12,8 @@
         <legend>Purchase</legend>
         <p>
             Good:<br />
-            @Html.DropDownListFor(model => model.GoodId, ViewBag.Goods as SelectList)
+            @Html.DropDownList("GoodId", ViewBag.Goods as SelectList)
+            <!--//@Html.DropDownListFor(model => model.GoodId, ViewBag.Goods as SelectList)-->
         </p>
         <p>
             Amount:<br />

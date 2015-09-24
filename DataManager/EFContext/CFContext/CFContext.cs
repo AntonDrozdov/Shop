@@ -13,6 +13,7 @@ namespace DataManager.EFContext.CFContext
     {
         public DbSet<Good> Goods { get; set; }
         public DbSet<Purchase> Purchases { get; set; }
+        public DbSet<Sale> Sales { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryType> CategoryTypes { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -139,6 +139,7 @@
     <Compile Include="HtmlHelpers\PagingHelpers.cs" />
     <Compile Include="Infrastructure\NinjectControllerFactory.cs" />
     <Compile Include="Models\CategoryListView.cs" />
+    <Compile Include="Models\GoodListView.cs" />
     <Compile Include="Models\PagingInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -242,6 +243,10 @@
     <Content Include="Views\Admin\CreateCategoryType.cshtml" />
     <Content Include="Views\Admin\EditCategoryType.cshtml" />
     <Content Include="Views\Admin\DeleteCategoryType.cshtml" />
+    <Content Include="Views\Admin\SalesList.cshtml" />
+    <Content Include="Views\Admin\CreateSale.cshtml" />
+    <Content Include="Views\Admin\EditSale.cshtml" />
+    <Content Include="Views\Admin\DeleteSale.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

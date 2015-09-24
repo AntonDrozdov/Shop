@@ -55,11 +55,13 @@
     <Compile Include="Concrete\CFRepositoryCATEGORYTYPES.cs" />
     <Compile Include="Concrete\CFRepositoryGOODS.cs" />
     <Compile Include="Concrete\CFRepositoryPURCHASES.cs" />
+    <Compile Include="Concrete\CFRepositorySALES.cs" />
     <Compile Include="EFContext\CFContext\CFContext.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\CategoryType.cs" />
     <Compile Include="Model\Good.cs" />
     <Compile Include="Model\Purchase.cs" />
+    <Compile Include="Model\Sale.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

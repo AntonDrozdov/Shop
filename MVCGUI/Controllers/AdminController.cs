@@ -17,88 +17,29 @@ namespace MVCGUI.Controllers
         public AdminController(IRepository _repository) {
             this.repository = _repository;
         }
-        //PURCHASES
-        public ActionResult PurchasesList()
-        {
-            return View(repository.Purchases.ToList());
-        }
-        [HttpGet]
-        public ActionResult CreatePurchase()
-        {
-            // Формируем список команд для передачи в представление
-            SelectList list = new SelectList(repository.Goods, "Id", "Title");
-            ViewBag.Goods = list;
-            return View();
-        }
-        [HttpPost]
-        public ActionResult CreatePurchase(Purchase purchase)
-        {
-            purchase.Date = DateTime.Now;
-            repository.CreatePurchase(purchase);
-            // перенаправляем на главную страницу
-            return RedirectToAction("PurchasesList");
-        }
-        [HttpGet]
-        public ActionResult EditPurchase(int? id)
-        {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-            // Находим в бд футболиста
-            Purchase purchase = repository.FindPurchase(id);
-            if (purchase != null)
-            {
-                // Создаем список команд для передачи в представление
-                SelectList list = new SelectList(repository.Goods, "Id", "Title", purchase.GoodId);
-                ViewBag.Goods = list;
-                return View(purchase);
-            }
-            return RedirectToAction("PurchasesList");
-        }
-        [HttpPost]
-        public ActionResult EditPurchase(Purchase purchase)
-        {
-            purchase.Date = DateTime.Now;
-            repository.SaveEditedPurchase(purchase);
-            return RedirectToAction("PurchasesList");
-        }
-        [HttpGet]
-        public ActionResult DeletePurchase(int? id)
-        {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-            Purchase purchase = repository.FindPurchase(id);
-            if (purchase == null)
-            {
-                return HttpNotFound();
-            }
-            return View(purchase);
-        }
-        [HttpPost, ActionName("DeletePurchase")]
-        public ActionResult DeletePurchaseConfirmed(int? id)
-        {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-            Purchase purchase = repository.FindPurchase(id);
-            if (purchase == null)
-            {
-                return HttpNotFound();
-            }
-
-            repository.DeletePurchase(purchase);
-            return RedirectToAction("PurchasesList");
-        }
-
+     
         //GOODS
-        public ActionResult GoodsList()
+        public ActionResult GoodsList(int page = 1, int? parentcat = null)
         {
-            IQueryable<Good> list = repository.Goods;
-            return View(repository.Goods.ToList());
+            ViewBag.ParentCategories = new SelectList(repository.PureCategories().ToList(), "Id", "Title");//категории для формирования DropListDown
+            List<Good> goods = new List<Good>();
+            goods = repository.Goods(page, parentcat).ToList();//товары страницы
+            List<Good> totalgoods = new List<Good>();
+            totalgoods = repository.Goods(parentcat).ToList();//всего категорий в выбранной родительской
+            //формируем модель для отображения
+            GoodListView model = new GoodListView()
+            {
+                parentcat = parentcat,
+                Goods = goods,
+                paginginfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = totalgoods.Count()
+                }
+            };
+
+            return View(model);
         }
         [HttpGet]
         public ActionResult CreateGood()
@@ -168,13 +109,13 @@ namespace MVCGUI.Controllers
         //CATEGORIES
         public ActionResult CategoriesList(int page =1 ,int? cattype=null, int? parentcat=null)
         {
-            ViewBag.ParentCategories = new SelectList(repository.Categories().ToList(), "Id", "Title");
+            ViewBag.ParentCategories = new SelectList(repository.PureCategories().ToList(), "Id", "Title");//категории для формирования DropListDown
             ViewBag.CategoryTypes = new SelectList(repository.CategoryTypes.ToList(), "Id", "Title");
             List<Category> cats = new List<Category>();
-            cats = repository.Categories(page, cattype, parentcat).ToList();
+            cats = repository.Categories(page, cattype, parentcat).ToList();//категории страницы
             List<Category> totalcats = new List<Category>();
-            totalcats = repository.Categories(cattype, parentcat).ToList();
-
+            totalcats = repository.Categories(cattype, parentcat).ToList();//всего категорий в выбранной родительской
+            //формируем модель для отображения
             CategoryListView model = new CategoryListView
             {
                 cattype = cattype,
@@ -324,5 +265,158 @@ namespace MVCGUI.Controllers
             repository.DeleteCategoryType(categorytype);
             return RedirectToAction("CategoryTypesList");
         }
+
+        //PURCHASES
+        public ActionResult PurchasesList()
+        {
+            return View(repository.Purchases.ToList());
+        }
+        [HttpGet]
+        public ActionResult CreatePurchase()
+        {
+            // Формируем список для передачи в представление
+            ViewBag.Goods = new SelectList(repository.PureGoods().ToList(), "Id", "Title");//категории для формирования DropListDown
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreatePurchase(Purchase purchase)
+        {
+            purchase.Date = DateTime.Now;
+            repository.CreatePurchase(purchase);
+            // перенаправляем на главную страницу
+            return RedirectToAction("PurchasesList");
+        }
+        [HttpGet]
+        public ActionResult EditPurchase(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            // Находим в бд футболиста
+            Purchase purchase = repository.FindPurchase(id);
+            if (purchase != null)
+            {
+                // Создаем список команд для передачи в представление
+                ViewBag.Goods = new SelectList(repository.PureGoods().ToList(), "Id", "Title");//категории для формирования DropListDown
+                return View(purchase);
+            }
+            return RedirectToAction("PurchasesList");
+        }
+        [HttpPost]
+        public ActionResult EditPurchase(Purchase purchase)
+        {
+            purchase.Date = DateTime.Now;
+            repository.SaveEditedPurchase(purchase);
+            return RedirectToAction("PurchasesList");
+        }
+        [HttpGet]
+        public ActionResult DeletePurchase(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            Purchase purchase = repository.FindPurchase(id);
+            if (purchase == null)
+            {
+                return HttpNotFound();
+            }
+            return View(purchase);
+        }
+        [HttpPost, ActionName("DeletePurchase")]
+        public ActionResult DeletePurchaseConfirmed(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            Purchase purchase = repository.FindPurchase(id);
+            if (purchase == null)
+            {
+                return HttpNotFound();
+            }
+
+            repository.DeletePurchase(purchase);
+            return RedirectToAction("PurchasesList");
+        }
+
+
+        //SALES
+        public ActionResult SalesList()
+        {
+            return View(repository.Sales.ToList());   
+        }
+        [HttpGet]
+        public ActionResult CreateSale()
+        {
+            // Формируем список для передачи в представление
+            ViewBag.Goods = new SelectList(repository.PureGoods().ToList(), "Id", "Title");//категории для формирования DropListDown
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateSale(Sale sale)
+        {
+            sale.Date = DateTime.Now;
+            repository.CreateSale(sale);
+            // перенаправляем на главную страницу
+            return RedirectToAction("SalesList");
+        }
+        [HttpGet]
+        public ActionResult EditSale(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            // Находим в бд футболиста
+            Sale item = repository.FindSale(id);
+            if (item != null)
+            {
+                // Создаем список  для передачи в представление
+                ViewBag.Goods = new SelectList(repository.PureGoods().ToList(), "Id", "Title");//категории для формирования DropListDown
+                return View(item);
+            }
+            return RedirectToAction("SalesList");
+        }
+        [HttpPost]
+        public ActionResult EditSale(Sale item)
+        {
+            item.Date = DateTime.Now;
+            repository.SaveEditedSale(item);
+            return RedirectToAction("SalesList");
+        }
+        [HttpGet]
+        public ActionResult DeleteSale(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            Sale item = repository.FindSale(id);
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+            return View(item);
+        }
+        [HttpPost, ActionName("DeleteSale")]
+        public ActionResult DeleteSaleConfirmed(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            Sale item = repository.FindSale(id);
+            if (item == null)
+            {
+                return HttpNotFound();
+            }
+
+            repository.DeleteSale(item);
+            return RedirectToAction("SalesList");
+        }
+
+    
     }
 }

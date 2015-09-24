@@ -40,7 +40,11 @@ header, footer, nav, section {
     font-style:italic;
 }
 
-
+.editor-field { margin-bottom: .8em; }
+.editor-label { font-weight: bold; }
+.editor-label:after { content: ":" }
+.text-box { width: 25em; }
+.multi-line { height: 5em; font-family: Segoe UI, Verdana; }
 /*
 div.inTableLink a {text-decoration:none;color:black;}
 div.inTableLink a:after {text-decoration:none;color:black;}

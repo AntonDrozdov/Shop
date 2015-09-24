@@ -20,9 +20,8 @@ namespace DataManager.Concrete
         public IQueryable<Category> PureCategories(){
             return  dbcontex.Categories;
         }
-        public IQueryable<Category> Categories(int? cattype, int? parentcat)
+        public IQueryable<Category> Categories(int? cattype, int? parentcat)//без page чтобы знать общее количество в категории
         {
-
             return dbcontex.Categories
                 .Where(c => cattype == null || c.CategoryTypes.FirstOrDefault(ctype => ctype.Id == cattype) != null)
                 .Where(c => parentcat == null || c.ParentCategories.FirstOrDefault(pc => pc.Id == parentcat) != null);

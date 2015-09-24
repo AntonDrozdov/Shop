@@ -13,9 +13,26 @@ namespace DataManager.Concrete
 {
     public partial class CFRepository : IRepository
     {
-        public IQueryable<Good> Goods
+        public IQueryable<Good> Goods() 
         {
-            get { return dbcontex.Goods.Include(g=>g.Categories); }
+            return dbcontex.Goods.Include(g => g.Categories);
+        }
+        public  IQueryable<Good> PureGoods()
+        {
+            return dbcontex.Goods;
+        }
+        public IQueryable<Good> Goods(int? parentcat)
+        {
+            return dbcontex.Goods.Include(g => g.Categories)
+                .Where(g => parentcat == null || g.Categories.FirstOrDefault(c => c.Id == parentcat) != null);
+        }
+        public IQueryable<Good> Goods(int page, int? parentcat)
+        {
+            return dbcontex.Goods.Include(g => g.Categories)
+                .Where(g => parentcat == null || g.Categories.FirstOrDefault(c => c.Id == parentcat) != null)
+                .OrderBy(c => c.Id)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize);
         }
         public void CreateGood(Good good, int[] selected)
         {
