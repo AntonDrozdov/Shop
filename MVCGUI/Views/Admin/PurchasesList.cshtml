@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DataManager.Model.Purchase>
+﻿@model MVCGUI.Models.PurchaseListView
 
 @{
     ViewBag.Title = "PurchasesList";
@@ -8,6 +8,23 @@
 <h2>PurchasesList</h2>
 <p>
     @Html.ActionLink("Create Purchase", "CreatePurchase", null, new { @class = "menuitem" })
+</p>
+<p>
+    @using (Html.BeginForm("PurchasesList", "Admin", FormMethod.Post))
+    {
+        <table style=" border:none;">
+            <tr style=" border:none;">
+                <td style=" border:none;">
+                    <span style="font-size:12px; font-weight:400;">Good:</span>
+                    @Html.DropDownList("good", ViewBag.Goods as SelectList, "-- ALL --")
+                    <span style="padding-left:50px;"><input type="submit" value="     Apply     " /></span>
+                </td>
+                <td style="text-align:right; border:none;   ">
+                    @Html.ActionLink(" FULL PURCHASES LIST ", "PurchasesList", "Admin", new { @class = "inTableLink" })
+                </td>
+            </tr>
+        </table>
+    }
 </p>
 <table>
     <thead>
@@ -20,7 +37,7 @@
             <td><b>OPTIONS</b></td>
         </tr>
     </thead>
-@foreach (var item in Model)
+@foreach (var item in Model.Purchases)
 {
     <tr>
         <td>@Html.DisplayFor(modelItem => item.Id)</td>
@@ -32,4 +49,7 @@
     </tr>
 }
 </table>
+<div class="pager">
+    @Html.PageLinks(Model.paginginfo, x => Url.Action("PurchasesList", new { page = x, good = Model.good }))
+</div>
 

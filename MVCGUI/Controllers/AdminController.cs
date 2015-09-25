@@ -18,93 +18,7 @@ namespace MVCGUI.Controllers
             this.repository = _repository;
         }
      
-        //GOODS
-        public ActionResult GoodsList(int page = 1, int? parentcat = null)
-        {
-            ViewBag.ParentCategories = new SelectList(repository.PureCategories().ToList(), "Id", "Title");//категории для формирования DropListDown
-            List<Good> goods = new List<Good>();
-            goods = repository.Goods(page, parentcat).ToList();//товары страницы
-            List<Good> totalgoods = new List<Good>();
-            totalgoods = repository.Goods(parentcat).ToList();//всего категорий в выбранной родительской
-            //формируем модель для отображения
-            GoodListView model = new GoodListView()
-            {
-                parentcat = parentcat,
-                Goods = goods,
-                paginginfo = new PagingInfo
-                {
-                    CurrentPage = page,
-                    ItemsPerPage = PageSize,
-                    TotalItems = totalgoods.Count()
-                }
-            };
-
-            return View(model);
-        }
-        [HttpGet]
-        public ActionResult CreateGood()
-        {
-            ViewBag.Categories = repository.Categories().ToList();
-            return View();
-        }
-        [HttpPost]
-        public ActionResult CreateGood(Good good, int[] selected)
-        {
-            repository.CreateGood(good, selected);
-            // перенаправляем на главную страницу
-            return RedirectToAction("GoodsList");
-        }
-        [HttpGet]
-        public ActionResult EditGood(int? id)
-        {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-             Good good = repository.FindGood(id);
-            if (good != null)
-            {
-                ViewBag.Categories = repository.Categories().ToList();
-                return View(good);
-            }
-            return RedirectToAction("PurchasesList");
-        }
-        [HttpPost]
-        public ActionResult EditGood(Good good, int[] selected)
-        {
-            repository.SaveEditedGood(good, selected);
-            return RedirectToAction("GoodsList");
-        }
-        [HttpGet]
-        public ActionResult DeleteGood(int? id)
-        {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-            Good good = repository.FindGood(id);
-            if (good == null)
-            {
-                return HttpNotFound();
-            }
-            return View(good);
-        }
-        [HttpPost, ActionName("DeleteGood")]
-        public ActionResult DeleteGoodConfirmed(int? id)
-        {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
-            Good good = repository.FindGood(id);
-            if (good == null)
-            {
-                return HttpNotFound();
-            }
-
-            repository.DeleteGood(good);
-            return RedirectToAction("GoodsList");
-        }
+    
 
         //CATEGORIES
         public ActionResult CategoriesList(int page =1 ,int? cattype=null, int? parentcat=null)
@@ -265,11 +179,115 @@ namespace MVCGUI.Controllers
             repository.DeleteCategoryType(categorytype);
             return RedirectToAction("CategoryTypesList");
         }
-
-        //PURCHASES
-        public ActionResult PurchasesList()
+        //GOODS
+        public ActionResult GoodsList(int page = 1, int? parentcat = null)
         {
-            return View(repository.Purchases.ToList());
+            ViewBag.ParentCategories = new SelectList(repository.PureCategories().ToList(), "Id", "Title");//категории для формирования DropListDown
+            List<Good> goods = new List<Good>();
+            goods = repository.Goods(page, parentcat).ToList();//все элементы на странице
+            List<Good> totalgoods = new List<Good>();
+            totalgoods = repository.Goods(parentcat).ToList();//всего элементов в категории
+            //формируем модель для отображения
+            GoodListView model = new GoodListView()
+            {
+                parentcat = parentcat,
+                Goods = goods,
+                paginginfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = totalgoods.Count()
+                }
+            };
+
+            return View(model);
+        }
+        [HttpGet]
+        public ActionResult CreateGood()
+        {
+            ViewBag.Categories = repository.Categories().ToList();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateGood(Good good, int[] selected)
+        {
+            repository.CreateGood(good, selected);
+            // перенаправляем на главную страницу
+            return RedirectToAction("GoodsList");
+        }
+        [HttpGet]
+        public ActionResult EditGood(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            Good good = repository.FindGood(id);
+            if (good != null)
+            {
+                ViewBag.Categories = repository.Categories().ToList();
+                return View(good);
+            }
+            return RedirectToAction("PurchasesList");
+        }
+        [HttpPost]
+        public ActionResult EditGood(Good good, int[] selected)
+        {
+            repository.SaveEditedGood(good, selected);
+            return RedirectToAction("GoodsList");
+        }
+        [HttpGet]
+        public ActionResult DeleteGood(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            Good good = repository.FindGood(id);
+            if (good == null)
+            {
+                return HttpNotFound();
+            }
+            return View(good);
+        }
+        [HttpPost, ActionName("DeleteGood")]
+        public ActionResult DeleteGoodConfirmed(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            Good good = repository.FindGood(id);
+            if (good == null)
+            {
+                return HttpNotFound();
+            }
+
+            repository.DeleteGood(good);
+            return RedirectToAction("GoodsList");
+        }
+        //PURCHASES
+        public ActionResult PurchasesList(int page = 1, int? good = null)
+        {
+            ViewBag.Goods = new SelectList(repository.PureGoods().ToList(), "Id", "Title");//категории для формирования DropListDown
+            List<Purchase> itemsperpage = new List<Purchase>();
+            itemsperpage = repository.Purchases(page, good).ToList();//все элементы на странице
+            List<Purchase> totalitems = new List<Purchase>();
+            totalitems = repository.Purchases(good).ToList();//всего элементов в категории
+            //формируем модель для отображения
+
+            PurchaseListView model = new PurchaseListView()
+            {
+                good = good,
+                Purchases = itemsperpage,
+                paginginfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = totalitems.Count()
+                }
+            };
+            return View(model);
         }
         [HttpGet]
         public ActionResult CreatePurchase()
@@ -343,9 +361,27 @@ namespace MVCGUI.Controllers
 
 
         //SALES
-        public ActionResult SalesList()
+        public ActionResult SalesList(int page = 1, int? good = null)
         {
-            return View(repository.Sales.ToList());   
+            ViewBag.Goods = new SelectList(repository.PureGoods().ToList(), "Id", "Title");//категории для формирования DropListDown
+            List<Sale> itemsperpage = new List<Sale>();
+            itemsperpage = repository.Sales(page, good).ToList();//все элементы на странице
+            List<Sale> totalitems = new List<Sale>();
+            totalitems = repository.Sales(good).ToList();//всего элементов в категории
+            //формируем модель для отображения
+
+            SaleListView model = new SaleListView()
+            {
+                good = good,
+                Sales = itemsperpage,
+                paginginfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = totalitems.Count()
+                }
+            };
+            return View(model);
         }
         [HttpGet]
         public ActionResult CreateSale()

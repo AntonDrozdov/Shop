@@ -7,4 +7,3 @@ E:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.xml
 E:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.SqlServer.xml
 E:\DEVELOP\shop\DataManager\obj\Debug\DataManager.dll
 E:\DEVELOP\shop\DataManager\obj\Debug\DataManager.pdb
-E:\DEVELOP\shop\DataManager\obj\Debug\DataManager.csprojResolveAssemblyReference.cache

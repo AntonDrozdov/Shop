@@ -141,6 +141,8 @@
     <Compile Include="Models\CategoryListView.cs" />
     <Compile Include="Models\GoodListView.cs" />
     <Compile Include="Models\PagingInfo.cs" />
+    <Compile Include="Models\PurchaseListView.cs" />
+    <Compile Include="Models\SaleListView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

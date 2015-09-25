@@ -13,9 +13,21 @@ namespace DataManager.Concrete
 {
     public partial class CFRepository : IRepository
     {
-        public IQueryable<Purchase> Purchases
+        public IQueryable<Purchase> Purchases()
         {
-            get { return dbcontex.Purchases.Include(p => p.Good); }
+             return dbcontex.Purchases.Include(p => p.Good); 
+        }
+        public IQueryable<Purchase> Purchases(int? good) {
+            return dbcontex.Purchases.Include(p => p.Good)
+                .Where(g => good == null || g.GoodId == good);
+        }
+        public IQueryable<Purchase> Purchases(int page, int? good)
+        {
+            return dbcontex.Purchases.Include(p => p.Good)
+                .Where(g => good == null || g.GoodId == good)
+                .OrderByDescending(i => i.Date)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize);
         }
         public void CreatePurchase(Purchase purchase)
         {

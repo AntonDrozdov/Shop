@@ -30,7 +30,7 @@ namespace DataManager.Concrete
         {
             return dbcontex.Goods.Include(g => g.Categories)
                 .Where(g => parentcat == null || g.Categories.FirstOrDefault(c => c.Id == parentcat) != null)
-                .OrderBy(c => c.Id)
+                .OrderBy(c => c.Title)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize);
         }

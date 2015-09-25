@@ -34,7 +34,7 @@ namespace DataManager.Concrete
                 .Include(c => c.ParentCategories)
                 .Where(c => cattype == null || c.CategoryTypes.FirstOrDefault(ctype => ctype.Id == cattype) != null)
                 .Where(c => parentcat == null || c.ParentCategories.FirstOrDefault(pc => pc.Id == parentcat) != null)
-                .OrderBy(c=>c.Id)
+                .OrderBy(c=>c.Title)
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize);
         }

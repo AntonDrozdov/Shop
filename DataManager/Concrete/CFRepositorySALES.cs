@@ -14,8 +14,20 @@ namespace DataManager.Concrete
 {
     public partial class CFRepository : IRepository
     {
-        public IQueryable<Sale> Sales {
-            get{return dbcontex.Sales.Include(i => i.Good); }
+        public IQueryable<Sale> Sales() {
+            return dbcontex.Sales.Include(i => i.Good); 
+        }
+        public IQueryable<Sale> Sales(int? good) {
+            return dbcontex.Sales.Include(i => i.Good)
+                .Where(i => good == null || i.GoodId == good);
+        }
+        public IQueryable<Sale> Sales(int page, int? good)
+        {
+            return dbcontex.Sales.Include(i => i.Good)
+                .Where(i => good == null || i.GoodId == good)
+                .OrderByDescending(i => i.Date)
+                .Skip((page - 1) * PageSize)
+                .Take(PageSize); ; 
         }
         public void CreateSale(Sale item) {
             dbcontex.Sales.Add(item);

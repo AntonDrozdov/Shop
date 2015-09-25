@@ -22,14 +22,18 @@ namespace DataManager.Abstract
         void DeleteGood(Good good);
         
         //PURCHASES
-        IQueryable<Purchase> Purchases { get; }
+        IQueryable<Purchase> Purchases();
+        IQueryable<Purchase> Purchases(int? good);
+        IQueryable<Purchase> Purchases(int page, int? good);
         void CreatePurchase(Purchase purchase);
         Purchase FindPurchase(int? id);
         void SaveEditedPurchase(Purchase purchase);
         void DeletePurchase(Purchase purchase);
         
         //SALES
-        IQueryable<Sale> Sales { get; }
+        IQueryable<Sale> Sales();
+        IQueryable<Sale> Sales(int? good);
+        IQueryable<Sale> Sales(int page, int? good);
         void CreateSale(Sale item);
         Sale FindSale(int? id);
         void SaveEditedSale(Sale item);
