@@ -18,11 +18,10 @@ namespace MVCGUI.Controllers
             this.repository = _repository;
         }
      
-    
-
         //CATEGORIES
-        public ActionResult CategoriesList(int page =1 ,int? cattype=null, int? parentcat=null)
+        public ActionResult CategoriesList(int page = 1, int? cattype = null, int? parentcat = null)
         {
+
             ViewBag.ParentCategories = new SelectList(repository.PureCategories().ToList(), "Id", "Title");//категории для формирования DropListDown
             ViewBag.CategoryTypes = new SelectList(repository.CategoryTypes.ToList(), "Id", "Title");
             List<Category> cats = new List<Category>();
@@ -53,10 +52,13 @@ namespace MVCGUI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateCategory(Category category, int[] selected, int[] selected2)
+        //public ActionResult CreateCategory(HttpPostedFileBase Image, Category category, int[] selected, int[] selected2)
+        public ActionResult CreateCategory(string Title, string Description, int[] selected, int[] selected2,HttpPostedFileBase Image)
         {
-            repository.CreateCategory(category, selected, selected2);
-            // перенаправляем на главную страницу
+            Category newcategory = new Category();
+            newcategory.Title = Title;
+            newcategory.Description = Description;
+            repository.CreateCategory(newcategory, selected, selected2, Image);
             return RedirectToAction("CategoriesList");
         }
         [HttpGet]
@@ -76,9 +78,10 @@ namespace MVCGUI.Controllers
             return RedirectToAction("CategoriesList");
         }
         [HttpPost]
-        public ActionResult EditCategory(Category category, int[] selected, int[] selected2)
+        public ActionResult EditCategory(int Id, string Title, string Description, int[] selected, int[] selected2, HttpPostedFileBase Image)
         {
-            repository.SaveEditedCategory(category, selected, selected2);
+            Category newcategory = new Category() { Id=Id,Title=Title,Description = Description};
+            repository.SaveEditedCategory(newcategory, selected, selected2, Image);
             return RedirectToAction("CategoriesList");
         }
         [HttpGet]
@@ -111,7 +114,20 @@ namespace MVCGUI.Controllers
            repository.DeleteCategory(category);
             return RedirectToAction("CategoriesList");
         }
-   
+        public FileContentResult GetCategoryImage(int Id)
+        {
+            Category item = repository.FindCategory(Id);
+            if (item != null)
+            {
+               return File(item.Image, item.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
         //CATEGORIESTYPES
         public ActionResult CategoryTypesList()
         {
@@ -179,6 +195,7 @@ namespace MVCGUI.Controllers
             repository.DeleteCategoryType(categorytype);
             return RedirectToAction("CategoryTypesList");
         }
+        
         //GOODS
         public ActionResult GoodsList(int page = 1, int? parentcat = null)
         {
@@ -209,9 +226,10 @@ namespace MVCGUI.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateGood(Good good, int[] selected)
+        public ActionResult CreateGood(string Title, string Description, int Amount, int[] selected, HttpPostedFileBase image)
         {
-            repository.CreateGood(good, selected);
+            Good newgood = new Good() { Title = Title, Description = Description, Amount = Amount };
+            repository.CreateGood(newgood, selected, image);
             // перенаправляем на главную страницу
             return RedirectToAction("GoodsList");
         }
@@ -231,9 +249,11 @@ namespace MVCGUI.Controllers
             return RedirectToAction("PurchasesList");
         }
         [HttpPost]
-        public ActionResult EditGood(Good good, int[] selected)
+        public ActionResult EditGood(int Id, string Title, string Description, int Amount, int[] selected, HttpPostedFileBase image)
         {
-            repository.SaveEditedGood(good, selected);
+            Good newgood = new Good() {Id = Id, Title = Title, Description = Description, Amount = Amount };
+
+            repository.SaveEditedGood(newgood, selected, image);
             return RedirectToAction("GoodsList");
         }
         [HttpGet]
@@ -266,6 +286,19 @@ namespace MVCGUI.Controllers
             repository.DeleteGood(good);
             return RedirectToAction("GoodsList");
         }
+        public FileContentResult GetGoodImage(int Id)
+        {
+            Good item = repository.FindGood(Id);
+            if (item != null)
+            {
+                return File(item.Image, item.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        
         //PURCHASES
         public ActionResult PurchasesList(int page = 1, int? good = null)
         {
@@ -358,7 +391,6 @@ namespace MVCGUI.Controllers
             repository.DeletePurchase(purchase);
             return RedirectToAction("PurchasesList");
         }
-
 
         //SALES
         public ActionResult SalesList(int page = 1, int? good = null)

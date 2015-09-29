@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
 
 using DataManager.EFContext.CFContext;
 using DataManager.Model;
 using DataManager.Abstract;
+
 namespace DataManager.Concrete
 {
     public partial class CFRepository : IRepository
@@ -38,53 +40,49 @@ namespace DataManager.Concrete
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize);
         }
-            
-        public void CreateCategory(Category category, int[] selected, int[] selected2)
+
+        public void CreateCategory(Category category, int[] selected, int[] selected2, HttpPostedFileBase image)
         {
             Category newcategory = category;
+            //загрузка изображения
+            if (image != null)
+            {
+                newcategory.ImageMimeType = image.ContentType;
+                newcategory.Image = new byte[image.ContentLength];
+                image.InputStream.Read(newcategory.Image, 0, image.ContentLength);
+            }
+
+            //загрузка типов категорий
             newcategory.CategoryTypes.Clear();
-            if (selected != null)
-            {
-                foreach (CategoryType item in CategoryTypes.Where(item => selected.Contains(item.Id)))
-                {
-                    newcategory.CategoryTypes.Add(item);
-                }
-            }
+            if (selected != null){foreach (CategoryType item in CategoryTypes.Where(item => selected.Contains(item.Id))){newcategory.CategoryTypes.Add(item);}}
+
+            //загрузка родительских категорий
             newcategory.ParentCategories.Clear();
-            if (selected2 != null)
-            {
-                foreach (Category item in Categories().Where(item => selected2.Contains(item.Id)))
-                {
-                    newcategory.ParentCategories.Add(item);
-                }
-            }
+            if (selected2 != null){foreach (Category item in Categories().Where(item => selected2.Contains(item.Id))){newcategory.ParentCategories.Add(item);}}
 
             dbcontex.Categories.Add(newcategory);
             dbcontex.SaveChanges();
         }
-        public void SaveEditedCategory(Category category, int[] selected, int[] selected2)
+        public void SaveEditedCategory(Category category, int[] selected, int[] selected2, HttpPostedFileBase image)
         {
             Category newcategory = FindCategory(category.Id);
 
             newcategory.Title = category.Title;
             newcategory.Description = category.Description;
 
+            //загрузка изображения
+            if (image != null)
+            {
+                newcategory.ImageMimeType = image.ContentType;
+                newcategory.Image = new byte[image.ContentLength];
+                image.InputStream.Read(newcategory.Image, 0, image.ContentLength);
+            }
+
             newcategory.CategoryTypes.Clear();
-            if (selected != null)
-            {
-                foreach (CategoryType item in CategoryTypes.Where(item => selected.Contains(item.Id)))
-                {
-                    newcategory.CategoryTypes.Add(item);
-                }
-            }
+            if (selected != null){foreach (CategoryType item in CategoryTypes.Where(item => selected.Contains(item.Id))){newcategory.CategoryTypes.Add(item);}}
+            
             newcategory.ParentCategories.Clear();
-            if (selected2 != null)
-            {
-                foreach (Category item in Categories().Where(item => selected2.Contains(item.Id)))
-                {
-                    newcategory.ParentCategories.Add(item);
-                }
-            }
+            if (selected2 != null){foreach (Category item in Categories().Where(item => selected2.Contains(item.Id))){newcategory.ParentCategories.Add(item);}}
 
             dbcontex.Entry(newcategory).State = EntityState.Modified; 
             dbcontex.SaveChanges();

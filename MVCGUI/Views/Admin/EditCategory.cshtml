@@ -7,7 +7,7 @@
 }
 
 <h2>EditCategory</h2>
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditCategory", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <fieldset>
         <legend>Category</legend>
@@ -43,6 +43,23 @@
                     }
                 </td></tr>
             </table>
+        </p>
+        <p>
+            <div class="editor-label">Image</div>
+            <div class="editor-field">
+                @if (Model.Image == null)
+                {
+                    @:None
+                }
+                else
+                {
+                    <img width="150" height="150" src="@Url.Action("GetCategoryImage", "Admin", new { Model.Id})" />
+                }
+                <div>
+                    Upload new image:
+                    <input type="file" name="Image" />
+                </div>
+            </div>
         </p>
         <input type="submit" value="Confirm Changes" />
         <br /><br />

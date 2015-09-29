@@ -4,7 +4,7 @@
     ViewBag.Title = "CategoryTypesList";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+@{ Html.RenderAction("AdminMenu", "AdminMenu"); }
 <h2>CategoryTypesList</h2>
 <p>
     @Html.ActionLink("Create CategoryType", "CreateCategoryType", null, new { @class = "menuitem" })

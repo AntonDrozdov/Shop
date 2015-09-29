@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 using DataManager.Model;
 
@@ -16,9 +17,9 @@ namespace DataManager.Abstract
         IQueryable<Good> PureGoods();
         IQueryable<Good> Goods(int? parentcat);
         IQueryable<Good> Goods(int page, int? parentcat);
-        void CreateGood(Good good, int[] selectedcategories);
+        void CreateGood(Good good, int[] selectedcategories, HttpPostedFileBase image);
         Good FindGood(int? id);
-        void SaveEditedGood(Good good, int[] selectedcategories);
+        void SaveEditedGood(Good good, int[] selectedcategories, HttpPostedFileBase image);
         void DeleteGood(Good good);
         
         //PURCHASES
@@ -44,9 +45,9 @@ namespace DataManager.Abstract
         IQueryable<Category> PureCategories();
         IQueryable<Category> Categories(int? cattype, int? parentcat);
         IQueryable<Category> Categories(int page, int? cattype, int? parentcat);
-        void CreateCategory(Category category, int[] selected, int[] selected2);
+        void CreateCategory(Category category, int[] selected, int[] selected2, HttpPostedFileBase image);
         Category FindCategory(int? id);
-        void SaveEditedCategory(Category category, int[] selected, int[] selected2);
+        void SaveEditedCategory(Category category, int[] selected, int[] selected2, HttpPostedFileBase image);
         void DeleteCategory(Category category);
 
         //CATEGORYTypes

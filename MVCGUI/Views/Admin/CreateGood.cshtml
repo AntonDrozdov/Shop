@@ -7,7 +7,7 @@
 }
 
 <h2>Create Good</h2>
-@using (Html.BeginForm())
+@using (Html.BeginForm("CreateGood", "Admin", FormMethod.Post, new { enctype="multipart/form-data"}))
 {
     <fieldset>
         <legend>Good</legend>
@@ -26,12 +26,19 @@
         <p>
             Categories:<br />
             @{
-                List<Category> categories = ViewBag.Categories;
-                foreach (Category c in categories)
-                {
+    List<Category> categories = ViewBag.Categories;
+    foreach (Category c in categories)
+    {
                     <input type="checkbox" name="selected" value="@c.Id" />@c.Title<br />
-                }
+    }
             }
+        </p>
+        <p>
+            <div class="editor-label">Image</div>
+            <div class="editor-field">
+                Upload image:
+                <input type="file" name="Image" />
+            </div>
         </p>
         <input type="submit" value="Save" />
         <br /><br />

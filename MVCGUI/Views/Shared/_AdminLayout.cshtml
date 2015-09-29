@@ -8,17 +8,6 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="menu">
-        <table>
-            <tr>
-                <td><div class="menuitem">@Html.ActionLink("Purchases", "PurchasesList", "Admin")</div></td>
-                <td><div class="menuitem">@Html.ActionLink("Goods", "GoodsList", "Admin")</div></td>
-                <td><div class="menuitem">@Html.ActionLink("Sales", "SalesList", "Admin")</div></td>
-                <td><div class="menuitem">@Html.ActionLink("Categories", "CategoriesList", "Admin")</div></td>
-                <td><div class="menuitem">@Html.ActionLink("CategoryTypes", "CategoryTypesList", "Admin")</div></td>
-            </tr>
-        </table>
-    </div>
     <div class="content">
         @RenderBody()
     </div>

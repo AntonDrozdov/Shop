@@ -7,8 +7,7 @@
 }
 
 <h2>CreateCategory</h2>
-@using (Html.BeginForm())
-{
+@using (Html.BeginForm("CreateCategory", "Admin", null,FormMethod.Post, new { enctype = "multipart/form-data" })){
     <fieldset>
         <legend>Category</legend>
         <p>
@@ -41,6 +40,13 @@
                     }
                 </td></tr>
             </table>
+        </p>
+        <p>
+            <div class="editor-label">Image</div>
+            <div class="editor-field">
+                    Upload image:
+                    <input type="file" name="Image" />
+            </div>
         </p>
         <input type="submit" value="Save" />
         <br /><br />

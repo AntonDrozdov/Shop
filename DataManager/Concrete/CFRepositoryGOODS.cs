@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web;
 using System.Data.Entity;
 
 using DataManager.EFContext.CFContext;
@@ -34,10 +35,16 @@ namespace DataManager.Concrete
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize);
         }
-        public void CreateGood(Good good, int[] selected)
+        public void CreateGood(Good good, int[] selected, HttpPostedFileBase image)
         {
             Good newgood = good;
-
+            //загрузка изображения
+            if (image != null)
+            {
+                newgood.ImageMimeType = image.ContentType;
+                newgood.Image = new byte[image.ContentLength];
+                image.InputStream.Read(newgood.Image, 0, image.ContentLength);
+            }
             newgood.Categories.Clear();
             if (selected != null)
             {
@@ -62,14 +69,22 @@ namespace DataManager.Concrete
             }
 
         }
-        public void SaveEditedGood(Good good, int[] selected)
+        public void SaveEditedGood(Good good, int[] selected, HttpPostedFileBase image)
         {
             Good newgood = FindGood(good.Id);
             
             newgood.Title = good.Title;
             newgood.Description = good.Description;
             newgood.Amount = good.Amount;
-            
+
+            //загрузка изображения
+            if (image != null)
+            {
+                newgood.ImageMimeType = image.ContentType;
+                newgood.Image = new byte[image.ContentLength];
+                image.InputStream.Read(newgood.Image, 0, image.ContentLength);
+            }
+
             newgood.Categories.Clear();
             if (selected != null)
             {

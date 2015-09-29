@@ -16,12 +16,17 @@ namespace DataManager.Model
         public string Title { get; set; }
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+        public byte[] Image { get; set; }
+        [HiddenInput(DisplayValue = false)]
+        public string ImageMimeType { get; set; }
+
 
         public ICollection<Category> ParentCategories { get; set; }
         public ICollection<Category> ChildCategories { get; set; }
         public ICollection<CategoryType> CategoryTypes { get; set; }
         public ICollection<Good> Goods { get; set; }
-        public Category() { 
+        public Category() {
+            Image = new byte[0];
             Goods = new List<Good>();
             CategoryTypes = new List<CategoryType>();
             ParentCategories = new List<Category>();

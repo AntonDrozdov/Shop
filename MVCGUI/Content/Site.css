@@ -28,9 +28,17 @@ header, footer, nav, section {
     font-weight:bold;
     color:black;
 }
+
 .menuitem:hover {
     background-color:aquamarine ;
 }
+
+.menuitem.selected{ background-color: #666; color: White; }
+
+
+.menuitem A.selected { background-color: #666; }
+
+
 .inTableLink {
     font-size:larger;
     border:1px solid black;

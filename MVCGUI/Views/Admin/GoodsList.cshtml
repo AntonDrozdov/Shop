@@ -5,6 +5,9 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
+@{ Html.RenderAction("AdminMenu", "AdminMenu"); }
+
+
 <h2>GoodsList</h2>
 <p>
     @Html.ActionLink("Create Good", "CreateGood", null, new { @class = "menuitem" })

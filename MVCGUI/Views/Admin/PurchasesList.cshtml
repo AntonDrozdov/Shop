@@ -4,7 +4,7 @@
     ViewBag.Title = "PurchasesList";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+@{ Html.RenderAction("AdminMenu", "AdminMenu"); }
 <h2>PurchasesList</h2>
 <p>
     @Html.ActionLink("Create Purchase", "CreatePurchase", null, new { @class = "menuitem" })

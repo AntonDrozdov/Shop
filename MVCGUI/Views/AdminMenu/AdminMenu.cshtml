@@ -1,0 +1,22 @@
+﻿@model IEnumerable<string>
+
+<div class="menu">
+    <table style="border:1px solid black">
+        <tr>
+            @foreach (string item in ViewBag.Items)
+            {
+                <td>
+                    <div class="menuitem">
+                        @Html.RouteLink(item, 
+                                        new
+                                            {
+                                                controller = "Admin",
+                                                action = item + "List"
+                                            },
+                                    new { @class = item == ViewBag.SelectedSection ? "selected" : null })
+                    </div>
+                </td>
+            }
+        </tr>
+    </table>
+</div>
