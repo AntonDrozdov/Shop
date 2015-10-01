@@ -11,7 +11,7 @@ namespace MVCGUI.Controllers
 
         public PartialViewResult AdminMenu(string SelectedSection= "Goods")
         {
-            List<string> items = new List<string> { "Goods", "Purchases", "Sales", "Categories", "CategoryTypes" };
+            List<string> items = new List<string> { "Goods", "Purchases", "Sales", "Categories", "CategoryTypes","Discounts" };
             ViewBag.Items = items;
             ViewBag.SelectedSection = SelectedSection;
             return PartialView();

@@ -18,6 +18,9 @@ namespace MVCGUI
 
             routes.MapRoute(null, "Admin/CategoryList", new { controller = "Admin", action = "CategoriesList", SelectedSection = "Categories" });
             routes.MapRoute(null,"Admin/CategoryList/Page{page}",new { controller = "Admin", action = "CategoriesList", SelectedSection = "Categories" });
+
+            routes.MapRoute(null, "Admin/DiscountsList", new { controller = "Admin", action = "DiscountsList", SelectedSection = "Discounts" });
+            routes.MapRoute(null, "Admin/DiscountsList/Page{page}", new { controller = "Admin", action = "DiscountsList", SelectedSection = "Discounts" });
             
             routes.MapRoute(null,"Admin/CategoryTypesList",new { controller = "Admin", action = "CategoryTypesList", SelectedSection = "CategoryTypes" });
            

@@ -26,18 +26,25 @@
         <p>
             Categories:<br />
             @{
-    List<Category> categories = ViewBag.Categories;
-    foreach (Category c in categories)
-    {
-                    <input type="checkbox" name="selected" value="@c.Id" />@c.Title<br />
-    }
+                List<Category> categories = ViewBag.Categories;
+                foreach (Category c in categories)
+                {
+                                <input type="checkbox" name="selected" value="@c.Id" />@c.Title<br />
+                }
             }
         </p>
         <p>
             <div class="editor-label">Image</div>
             <div class="editor-field">
                 Upload image:
-                <input type="file" name="Image" />
+                <table id="images">
+                    <tr>
+                        <td>
+                            <input type="file" name="Image" />
+                        </td>
+                    </tr>
+                </table>
+                <div id="addimagebutton" class="inTableLink">Add Image</div>
             </div>
         </p>
         <input type="submit" value="Save" />

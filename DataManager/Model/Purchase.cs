@@ -14,6 +14,7 @@ namespace DataManager.Model
     {
         
         public int Id { get; set; }
+        [DataType(System.ComponentModel.DataAnnotations.DataType.DateTime)]
         public DateTime Date { get; set; }
         public int? Amount { get; set; }
         public int PurchasePricePerItem { get; set; }

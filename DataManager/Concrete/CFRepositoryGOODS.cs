@@ -67,7 +67,6 @@ namespace DataManager.Concrete
             {
                 return null;
             }
-
         }
         public void SaveEditedGood(Good good, int[] selected, HttpPostedFileBase image)
         {

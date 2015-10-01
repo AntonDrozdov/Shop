@@ -21,9 +21,12 @@ namespace DataManager.Model
         [HiddenInput(DisplayValue = false)]
         public string ImageMimeType { get; set; }
 
-
+        public ICollection<Discount> Discounts { get; set; }
         public ICollection<Category> Categories { get; set; }
-        public Good() { Categories = new List<Category>(); }
+        public Good() { 
+            Categories = new List<Category>();
+            Discounts = new List<Discount>();
+        }
 
     }
 }

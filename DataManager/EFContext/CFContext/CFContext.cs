@@ -12,6 +12,7 @@ namespace DataManager.EFContext.CFContext
     public class CFContext : DbContext
     {
         public DbSet<Good> Goods { get; set; }
+        public DbSet<Discount> Discounts{ get; set; }
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<Category> Categories { get; set; }
@@ -24,15 +25,20 @@ namespace DataManager.EFContext.CFContext
                 .MapRightKey("GoodId")
                 .ToTable("CategoryGood"));
             modelBuilder.Entity<CategoryType>().HasMany(c => c.Categories)
-                    .WithMany(s => s.CategoryTypes)
-                    .Map(t => t.MapLeftKey("CategoryTypeId")
-                    .MapRightKey("CategoryId")
-                    .ToTable("CategoryCategoryType"));
+                .WithMany(s => s.CategoryTypes)
+                .Map(t => t.MapLeftKey("CategoryTypeId")
+                .MapRightKey("CategoryId")
+                .ToTable("CategoryCategoryType"));
             modelBuilder.Entity<Category>().HasMany(c => c.ChildCategories)
                 .WithMany(s => s.ParentCategories)
                 .Map(t => t.MapLeftKey("ParentCategoryId")
                 .MapRightKey("ChildCategoryId")
                 .ToTable("ParentCategories"));
+            modelBuilder.Entity<Discount>().HasMany(c => c.Goods)
+                .WithMany(i=>i.Discounts)
+                .Map(t => t.MapLeftKey("DiscountId")
+                .MapRightKey("GoodId")
+                .ToTable("GoodDiscounts"));
 
         }
         

@@ -47,6 +47,12 @@ header, footer, nav, section {
     padding-right:2px;
     font-style:italic;
 }
+    #addimagebutton {
+        width:100px;
+        border:2px solid black;
+        text-align:center;
+        float:right;
+    }
 
 .editor-field { margin-bottom: .8em; }
 .editor-label { font-weight: bold; }

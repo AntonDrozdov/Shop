@@ -22,6 +22,14 @@ namespace DataManager.Abstract
         void SaveEditedGood(Good good, int[] selectedcategories, HttpPostedFileBase image);
         void DeleteGood(Good good);
         
+        //DISCOUNTS
+        IQueryable<Discount> Discounts();
+        IQueryable<Discount> Discounts(int page);
+        void CreateDiscount(Discount item, int[] selected);
+        Discount FindDiscount(int? discountid);
+        void SaveEditedDiscount(Discount item, int[] selected);
+        void DeleteDiscount(Discount item);
+
         //PURCHASES
         IQueryable<Purchase> Purchases();
         IQueryable<Purchase> Purchases(int? good);

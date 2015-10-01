@@ -1,0 +1,41 @@
+﻿@using DataManager.Model
+@model DataManager.Model.Discount
+
+@{
+    ViewBag.Title = "CreateDiscount";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>CreateDiscount</h2>
+@using (Html.BeginForm("CreateDiscount", "Admin"))
+{
+    <fieldset>
+        <legend>Discount</legend>
+        <p>
+            BeginDate:<br />
+            @Html.EditorFor(model => model.BeginDate)
+        </p>
+        <p>
+            EndDate:<br />
+            @Html.EditorFor(model => model.EndDate)
+        </p>
+        <p>
+            DiscountRate:<br />
+            @Html.EditorFor(model => model.DiscountRate)
+        </p>
+        <p>
+            Goods:<br />
+            @{
+                List<Good> items = ViewBag.Goods;
+                foreach (Good i in items)
+                {
+                    <input type="checkbox" name="selected" value="@i.Id" />@i.Title<br />
+                }
+            }
+        </p>
+
+        <input type="submit" value="Save" />
+        <br /><br />
+        @Html.ActionLink(" < BACK TO DISCOUNTS LIST ", "DiscountsList", "Admin", new { @class = "inTableLink" })
+    </fieldset>
+}

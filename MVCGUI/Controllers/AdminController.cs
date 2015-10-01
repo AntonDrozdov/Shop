@@ -229,7 +229,7 @@ namespace MVCGUI.Controllers
         public ActionResult CreateGood(string Title, string Description, int Amount, int[] selected, HttpPostedFileBase image)
         {
             Good newgood = new Good() { Title = Title, Description = Description, Amount = Amount };
-            repository.CreateGood(newgood, selected, image);
+             repository.CreateGood(newgood, selected, image);
             // перенаправляем на главную страницу
             return RedirectToAction("GoodsList");
         }
@@ -299,6 +299,82 @@ namespace MVCGUI.Controllers
             }
         }
         
+        //DISCOUNTS
+        public ActionResult DiscountsList(int page = 1)
+        {
+            ViewBag.ParentCategories = new SelectList(repository.PureCategories().ToList(), "Id", "Title");//категории для формирования DropListDown
+            List<Discount> items = new List<Discount>();
+            items = repository.Discounts(page).ToList();//все элементы на странице
+            List<Discount> totalitems = new List<Discount>();
+            totalitems = repository.Discounts().ToList();//всего элементов в категории
+            //формируем модель для отображения
+            DiscountListView model = new DiscountListView()
+            {
+                Items = items,
+                paginginfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = totalitems.Count()
+                }
+            };
+
+            return View(model);
+        }
+        [HttpGet]
+        public ActionResult CreateDiscount()
+        {
+            ViewBag.Goods = repository.PureGoods().ToList();
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateDiscount(Discount item, int[] selected)
+        {
+            repository.CreateDiscount(item, selected);
+            return RedirectToAction("DiscountsList");
+        }
+        [HttpGet]
+        public ActionResult EditDiscount(int? id)
+        {
+            if (id == null)
+            {
+                return HttpNotFound();
+            }
+            Discount item = repository.FindDiscount(id);
+            if (item != null)
+            {
+                ViewBag.Goods = repository.PureGoods().ToList();
+                return View(item);
+            }
+            return RedirectToAction("DiscountsList");
+        }
+        [HttpPost]
+        public ActionResult EditDiscount(Discount item, int[] selected)
+        {
+            repository.SaveEditedDiscount(item, selected);
+            return RedirectToAction("DiscountsList");
+        }
+        [HttpGet]
+        public ActionResult DeleteDiscount(int? id)
+        {
+            if (id == null) return HttpNotFound();
+            
+            Discount item = repository.FindDiscount(id);
+            if (item == null) return HttpNotFound();
+            
+            return View(item);
+        }
+        [HttpPost, ActionName("DeleteDiscount")]
+        public ActionResult DeleteDiscountConfirmed(int? id)
+        {
+            if (id == null) return HttpNotFound();
+
+            Discount item = repository.FindDiscount(id);
+            if (item == null) return HttpNotFound();
+
+            repository.DeleteDiscount(item);
+            return RedirectToAction("DiscountsList");
+        }
         //PURCHASES
         public ActionResult PurchasesList(int page = 1, int? good = null)
         {
