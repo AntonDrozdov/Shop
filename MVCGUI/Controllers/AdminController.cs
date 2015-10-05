@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using DataManager.Abstract;
 using DataManager.Model;
 using MVCGUI.Models;
+using System.Web.Helpers;
+
 
 namespace MVCGUI.Controllers
 {
@@ -223,13 +225,15 @@ namespace MVCGUI.Controllers
         public ActionResult CreateGood()
         {
             ViewBag.Categories = repository.Categories().ToList();
+            ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(500);
             return View();
         }
         [HttpPost]
-        public ActionResult CreateGood(string Title, string Description, int Amount, int[] selected, HttpPostedFileBase image)
+        public ActionResult CreateGood(string Title, string Description, int Amount, int[] checkbselected, int[] radioselected, IEnumerable<HttpPostedFileBase> newfile)
         {
             Good newgood = new Good() { Title = Title, Description = Description, Amount = Amount };
-             repository.CreateGood(newgood, selected, image);
+            
+            // repository.CreateGood(newgood, selected, image);
             // перенаправляем на главную страницу
             return RedirectToAction("GoodsList");
         }

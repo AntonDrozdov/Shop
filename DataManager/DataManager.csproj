@@ -63,6 +63,7 @@
     <Compile Include="Model\CategoryType.cs" />
     <Compile Include="Model\Discount.cs" />
     <Compile Include="Model\Good.cs" />
+    <Compile Include="Model\Image.cs" />
     <Compile Include="Model\Purchase.cs" />
     <Compile Include="Model\Sale.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
