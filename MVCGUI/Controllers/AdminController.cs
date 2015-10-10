@@ -226,7 +226,7 @@ namespace MVCGUI.Controllers
         {
             ViewBag.Categories = repository.Categories().ToList();
             ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(500);
-            return View();
+            return PartialView("PartialCreateGood");
         }
         [HttpPost]
         public ActionResult CreateGood(string Title, string Description, int Amount, int[] checkbselected, int[] radioselected, IEnumerable<HttpPostedFileBase> newfile)

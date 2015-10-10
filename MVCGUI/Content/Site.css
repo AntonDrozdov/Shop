@@ -5,47 +5,45 @@
     background-color: #fff;
 }
 
-header, footer, nav, section {
-    display: block;
-}
+header, footer, nav, section {display: block;}
 
-.menu {
-
-    padding:10px;
+.adminmenuitem {
+    float:left;
     font-size:16px;
-    width:100%;
-    margin:auto;
-}
-    .menu table {
-        margin:auto;
-    }
-.menuitem {
     text-align:center;
-    border:3px solid black;
-    padding:2px;
-    margin:auto;
-    width:auto;
+    border-radius:8px;
+    background: lightskyblue;
     font-weight:bold;
     color:black;
+    border-radius:8px;
+    padding:0px 5px 3px 5px;
+    width:150px;
 }
+.adminmenuitem:hover a{color:white;}
+.adminmenuitem A.selected { color:white; }
 
-.menuitem:hover {
-    background-color:aquamarine ;
+.menuitem {
+    float:left;
+    font-size:16px;
+    text-align:center;
+    border-radius:8px;
+    background: #ddd;
+    font-weight:bold;
+    color:black;
+    border-radius:8px;
+    padding:0px 5px 3px 5px;
+    width:150px;
 }
-
-.menuitem.selected{ background-color: #666; color: White; }
-
-
-.menuitem A.selected { background-color: #666; }
-
+.menuitem:hover a{color:white;}
+.menuitem A.selected { color:white; }
 
 .inTableLink {
     font-size:larger;
-    border:1px solid black;
-     
-    padding-left:2px;
-    padding-right:2px;
+    border-radius:8px;
+    background: #ddd;
+    padding:0px 3px 3px 3px;
     font-style:italic;
+    margin:0px 0px 0px 10px;
 }
     #addimagebutton {
         width:100px;
@@ -54,10 +52,13 @@ header, footer, nav, section {
         float:right;
     }
 
+.inTableLink:hover {color:white;}
+
+
 .editor-field { margin-bottom: .8em; }
 .editor-label { font-weight: bold; }
 .editor-label:after { content: ":" }
-.text-box { width: 25em; }
+.text-box { width:100%; }
 .multi-line { height: 5em; font-family: Segoe UI, Verdana; }
 /*
 div.inTableLink a {text-decoration:none;color:black;}
@@ -75,12 +76,26 @@ a:before {text-decoration:none;color:black;}
 a:checked {text-decoration:none;color:black;}
 
 .content table TD { font-family: Segoe UI, Verdana }
-.content TABLE TD, TABLE TH {padding-bottom:3px;margin:5px; border-bottom: 1px dotted gray; border-left:1px dotted gray;  text-align:left; }
+.content table th, td {
+    border-left: 1px solid #ddd; 
+    border-bottom:1px solid #ddd; 
+    }
 .content  TABLE {  width:100%; }
 
  div.pager A{font-size: 1.1em;color: #666;text-decoration: none;padding: 0 .4em 0 .4em;}
     div.pager A:hover{background-color: Silver;}
     div.pager A.selected{background-color: #353535;color: White;}
+
+
+#dialogContent {
+    width:500px;
+    background-color:lightskyblue;
+}
+.dialog {
+    width:auto;
+    background-color:lightcoral;
+}
+
 
 /* Styles for basic forms
 -----------------------------------------------------------*/

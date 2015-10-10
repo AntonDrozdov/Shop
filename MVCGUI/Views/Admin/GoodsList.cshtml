@@ -8,10 +8,21 @@
 @{ Html.RenderAction("AdminMenu", "AdminMenu"); }
 
 
+<br />
 <h2>GoodsList</h2>
-<p>
-    @Html.ActionLink("Create Good", "CreateGood", null, new { @class = "menuitem" })
-</p>
+
+<div class="menuitem">
+    @Html.RouteLink("Create Good",
+                new
+                    {
+                        controller = "Admin",
+                        action = "CreateGood"
+                    },
+                        new {@id = "creategood", data_dialog_title = "Create Good" })
+</div>
+
+
+
 <p>
     @using (Html.BeginForm("GoodsList", "Admin", FormMethod.Post))
     {
@@ -63,3 +74,43 @@
 <div class="pager">
     @Html.PageLinks(Model.paginginfo, x => Url.Action("GoodsList", new { page = x, parentcat = Model.parentcat }))
 </div>
+
+<script>
+    $(document).ready(function () {
+
+        $.ajaxSetup({ cache: false });
+
+        $("#creategood").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true,
+                    position: [200, 200],
+                    width: 700,
+                             buttons: {
+                                "Сохранить": function () {
+                                $.ajax({
+                                    url: "@Url.Action("CreateGood")",
+                                    type: "POST",
+                                    data: $('form').serialize(),
+                                    datatype: "json",
+                                    success: function (result) {
+                                        $("#dialogContent").html(result);
+                                    }
+                                });
+                            }
+                        }
+                    });
+            });
+        $(".close").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("close");
+        });
+    });
+</script>

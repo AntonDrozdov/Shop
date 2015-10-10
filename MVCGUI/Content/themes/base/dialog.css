@@ -11,9 +11,9 @@
 .ui-dialog {
 	overflow: hidden;
 	position: absolute;
-	top: 0;
-	left: 0;
-	padding: .2em;
+    left:20%;
+    top: 70px;
+	padding: 0.2em;
 	outline: 0;
 }
 .ui-dialog .ui-dialog-titlebar {
