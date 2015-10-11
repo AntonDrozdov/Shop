@@ -56,6 +56,7 @@
     <Compile Include="Concrete\CFRepositoryCATEGORYTYPES.cs" />
     <Compile Include="Concrete\CFRepositoryDISCOUNTS.cs" />
     <Compile Include="Concrete\CFRepositoryGOODS.cs" />
+    <Compile Include="Concrete\CFRepositoryIMAGES.cs" />
     <Compile Include="Concrete\CFRepositoryPURCHASES.cs" />
     <Compile Include="Concrete\CFRepositorySALES.cs" />
     <Compile Include="EFContext\CFContext\CFContext.cs" />

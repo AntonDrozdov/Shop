@@ -17,11 +17,15 @@ namespace DataManager.Abstract
         IQueryable<Good> PureGoods();
         IQueryable<Good> Goods(int? parentcat);
         IQueryable<Good> Goods(int page, int? parentcat);
-        void CreateGood(Good good, int[] selectedcategories, HttpPostedFileBase image);
+        void CreateGood(Good good, int[] checkbselected, int[] radioselected, IEnumerable<HttpPostedFileBase> newfile);
         Good FindGood(int? id);
         void SaveEditedGood(Good good, int[] selectedcategories, HttpPostedFileBase image);
         void DeleteGood(Good good);
         
+        //IMAGES
+        void SaveImage(Image item);
+
+
         //DISCOUNTS
         IQueryable<Discount> Discounts();
         IQueryable<Discount> Discounts(int page);

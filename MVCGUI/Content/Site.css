@@ -1,8 +1,10 @@
 ﻿body {
+    width:960px;
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
     color: #232323;
     background-color: #fff;
+    margin:auto;
 }
 
 header, footer, nav, section {display: block;}
@@ -52,6 +54,13 @@ header, footer, nav, section {display: block;}
         float:right;
     }
 
+fieldset {
+    border-radius:8px;
+}
+#addimage {width:200px;}
+#savebutton {width:100%;}
+#backlink {text-align:right;}
+
 .inTableLink:hover {color:white;}
 
 
@@ -96,6 +105,10 @@ a:checked {text-decoration:none;color:black;}
     background-color:lightcoral;
 }
 
+#images td {
+    width:100%;
+    border:none;
+}
 
 /* Styles for basic forms
 -----------------------------------------------------------*/
@@ -125,24 +138,8 @@ textarea {
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-.field-validation-error {
-    color: #f00;
-}
-
-.field-validation-valid {
-    display: none;
-}
-
-.input-validation-error {
-    border: 1px solid #f00;
-    background-color: #fee;
-}
-
-.validation-summary-errors {
-    font-weight: bold;
-    color: #f00;
-}
-
-.validation-summary-valid {
-    display: none;
-}
+.field-validation-error {color: #f00;}
+.field-validation-valid {display: none;}
+.input-validation-error {border: 1px solid #f00;background-color: #fee;}
+.validation-summary-errors {font-weight: bold;color: #f00;}
+.validation-summary-valid {display: none;}

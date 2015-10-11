@@ -4,45 +4,41 @@
 
 @using (Html.BeginForm("CreateGood", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-    <fieldset>
-        <legend>Good</legend>
-        <p>
-            Title:<br />
-            @Html.EditorFor(model => model.Title)
-        </p>
-        <p>
-            Description:<br />
-            @Html.EditorFor(model => model.Description)
-        </p>
-        <p>
-            Amount:<br />
-            @Html.EditorFor(model => model.Amount)
-        </p>
-        <p>
-            Categories:<br />
-            @{
-    List<Category> categories = ViewBag.Categories;
-    foreach (Category c in categories)
-    {
-        <input type="checkbox" name="checkbselected" value="@c.Id" />@c.Title<br />
-    }
+    <p>
+        <div class="editor-label">Title</div>
+        @Html.EditorFor(model => model.Title)
+    </p>
+    <p>
+        <div class="editor-label">Description</div>
+        @Html.EditorFor(model => model.Description)
+    </p>
+    <p>
+        <div class="editor-label">Amount</div>
+        @Html.EditorFor(model => model.Amount)
+    </p>
+    <p>
+        <div class="editor-label">Categories</div>
+        @{
+            List<Category> categories = ViewBag.Categories;
+            foreach (Category c in categories)
+            {
+                <input type="checkbox" name="checkbselected" value="@c.Id" />@c.Title<br />
             }
-        </p>
-        <p>
-            <div class="editor-label">Image</div>
-            <div class="editor-field">
-                Upload image:
-                <table id="images">
-                    <tr>
-                        <td style="text-align:center;">
-                            <input type="button" id="addimage" value="ADD IMAGE">
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </p>
-    </fieldset>
+        }
+    </p>
+    <p>
+        <div class="editor-label">Images</div>
+        <table id="images">
+            <tr>
+                <td>
+                    <input type="button" id="addimage" value="ADD IMAGE">
+                </td>
+            </tr>
+        </table>
+    </p>
+
 }
+
 
 
 <input id="ImageStartNumber" type="hidden" value=@ViewBag.ImageStartNumber />
@@ -61,11 +57,14 @@
 
     $(document).ready(function () {
         $('#images').on('click', '#addimage', function () {
-            $(this).closest('tr').before('<tr><td>\
-                <input type="radio" name="radioselected" checked = "checked" value="' + i + '"" />\
-                <input type="file" name="newfile" />\
-                <input type="button" id="deleteimage" value="-">\
-                </td></tr>');
+            $(this).closest('tr').before('\
+                <tr>\
+                <td >\
+                    <input type="radio" name="radioselected" checked = "checked" value="' + i + '"" />\
+                    <input type="file" name="newfiles" />\
+                </td>\
+                <td><input type="button" id="deleteimage" value="-"></td>\
+                </tr>');
             i++;
         });
         $('table').on('click', '#deleteimage', function () {

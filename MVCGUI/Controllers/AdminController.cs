@@ -14,7 +14,7 @@ namespace MVCGUI.Controllers
     public partial class AdminController : Controller
     {
         private IRepository repository;
-        private int PageSize = 5;
+        private int PageSize = 10;
 
         public AdminController(IRepository _repository) {
             this.repository = _repository;
@@ -225,15 +225,17 @@ namespace MVCGUI.Controllers
         public ActionResult CreateGood()
         {
             ViewBag.Categories = repository.Categories().ToList();
+            //здесь надо получить последнюю запись в таблице изображений
+            // вот способ хороший - db.Таблица.OrderByDescending(x => x.ПервичныйКлюч).FirstOrDefault()
             ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(500);
-            return PartialView("PartialCreateGood");
+            return View("CreateGood");
         }
         [HttpPost]
-        public ActionResult CreateGood(string Title, string Description, int Amount, int[] checkbselected, int[] radioselected, IEnumerable<HttpPostedFileBase> newfile)
+        public ActionResult CreateGood(string Title, string Description, int Amount, int[] checkbselected, int[] radioselected, HttpPostedFileBase[] newfiles)
         {
             Good newgood = new Good() { Title = Title, Description = Description, Amount = Amount };
             
-            // repository.CreateGood(newgood, selected, image);
+            repository.CreateGood(newgood, checkbselected, radioselected, newfiles);
             // перенаправляем на главную страницу
             return RedirectToAction("GoodsList");
         }
@@ -295,7 +297,8 @@ namespace MVCGUI.Controllers
             Good item = repository.FindGood(Id);
             if (item != null)
             {
-                return File(item.Image, item.ImageMimeType);
+                //return File(item.Image, item.ImageMimeType);
+                return null;
             }
             else
             {

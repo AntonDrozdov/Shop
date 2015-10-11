@@ -6,49 +6,48 @@
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Create Good</h2>
 @using (Html.BeginForm("CreateGood", "Admin", FormMethod.Post, new { enctype="multipart/form-data"}))
 {
     <fieldset>
-        <legend>Good</legend>
+        <p id="backlink">
+            @Html.ActionLink(" < BACK TO GOODS LIST ", "GoodsList", "Admin", new { @class = "inTableLink" })
+        </p>
+        <legend>Create Good</legend>
         <p>
-            Title:<br />
+            <div class="editor-label">Title</div>
             @Html.EditorFor(model => model.Title)
         </p>
         <p>
-            Description:<br />
+            <div class="editor-label">Description</div>
             @Html.EditorFor(model => model.Description)
         </p>
         <p>
-            Amount:<br />
+            <div class="editor-label">Amount</div>
             @Html.EditorFor(model => model.Amount)
         </p>
         <p>
-            Categories:<br />
+            <div class="editor-label">Categories</div>
             @{
                 List<Category> categories = ViewBag.Categories;
                 foreach (Category c in categories)
                 {
-                                <input type="checkbox" name="checkbselected" value="@c.Id" />@c.Title<br />
+                    <input type="checkbox" name="checkbselected" value="@c.Id" />@c.Title<br />
                 }
             }
         </p>
         <p>
-            <div class="editor-label">Image</div>
-            <div class="editor-field">
-                Upload image:
-                <table id="images">
-                    <tr>
-                        <td style="text-align:center;">
-                            <input type="button" id="addimage" value="ADD IMAGE">
-                        </td>
-                    </tr>
-                </table>
-            </div>
+            <div class="editor-label">Images</div>
+            <table id="images">
+                <tr>
+                    <td>
+                        <input type="button" id="addimage" value="ADD IMAGE">
+                    </td>
+                </tr>
+            </table>
         </p>
-        <input type="submit" value="Save" />
-        <br /><br />
-        @Html.ActionLink(" < BACK TO GOODS LIST ", "GoodsList", "Admin", new { @class = "inTableLink" })
+        <input type="submit" value="Save" id="savebutton" />
+
+
     </fieldset>
 }
 
@@ -69,11 +68,14 @@
 
     $(document).ready(function () {
         $('#images').on('click', '#addimage', function () {
-            $(this).closest('tr').before('<tr><td>\
-                <input type="radio" name="radioselected" checked = "checked" value="' + i + '"" />\
-                <input type="file" name="newfile" />\
-                <input type="button" id="deleteimage" value="-">\
-                </td></tr>');
+            $(this).closest('tr').before('\
+                <tr>\
+                <td >\
+                    <input type="radio" name="radioselected" checked = "checked" value="' + i + '"" />\
+                    <input type="file" name="newfiles" />\
+                </td>\
+                <td><input type="button" id="deleteimage" value="-"></td>\
+                </tr>');
             i++;
         });
         $('table').on('click', '#deleteimage', function () {

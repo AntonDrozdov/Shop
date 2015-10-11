@@ -13,10 +13,16 @@ namespace DataManager.Model
     public class Image
     {
         public int Id { get; set; }
-        public string Title { get; set; }
+        public string Description { get; set; }
         public bool IsMain { get; set; }
         public byte[] ImageContent { get; set; }
         [HiddenInput(DisplayValue = false)]
         public string ImageMimeType { get; set; }
+
+        public ICollection<Good> Goods { get; set; }
+
+        public Image() {
+            Goods = new List<Good>();
+        }
     }
 }

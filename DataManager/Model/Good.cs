@@ -17,13 +17,12 @@ namespace DataManager.Model
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public int? Amount { get; set; }
-        public byte[] Image { get; set; }
-        [HiddenInput(DisplayValue = false)]
-        public string ImageMimeType { get; set; }
 
+        public ICollection<Image> Images { get; set; }
         public ICollection<Discount> Discounts { get; set; }
         public ICollection<Category> Categories { get; set; }
-        public Good() { 
+        public Good() {
+            Images = new List<Image>();
             Categories = new List<Category>();
             Discounts = new List<Discount>();
         }

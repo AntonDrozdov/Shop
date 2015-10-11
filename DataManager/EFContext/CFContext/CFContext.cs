@@ -17,6 +17,8 @@ namespace DataManager.EFContext.CFContext
         public DbSet<Sale> Sales { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryType> CategoryTypes { get; set; }
+        public DbSet<Image> Images { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>().HasMany(c => c.Goods)
@@ -39,6 +41,11 @@ namespace DataManager.EFContext.CFContext
                 .Map(t => t.MapLeftKey("DiscountId")
                 .MapRightKey("GoodId")
                 .ToTable("GoodDiscounts"));
+            modelBuilder.Entity<Good>().HasMany(c => c.Images)
+                .WithMany(i => i.Goods)
+                .Map(t => t.MapLeftKey("GoodId")
+                .MapRightKey("ImageIdId")
+                .ToTable("GoodImages"));
 
         }
         

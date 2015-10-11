@@ -75,7 +75,7 @@
     @Html.PageLinks(Model.paginginfo, x => Url.Action("GoodsList", new { page = x, parentcat = Model.parentcat }))
 </div>
 
-<script>
+<script>/*
     $(document).ready(function () {
 
         $.ajaxSetup({ cache: false });
@@ -84,33 +84,34 @@
             e.preventDefault();
 
             $("<div id='dialogContent'></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .load(this.href)
-                .dialog({
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true,
-                    position: [200, 200],
-                    width: 700,
-                             buttons: {
-                                "Сохранить": function () {
-                                $.ajax({
-                                    url: "@Url.Action("CreateGood")",
-                                    type: "POST",
-                                    data: $('form').serialize(),
-                                    datatype: "json",
-                                    success: function (result) {
-                                        $("#dialogContent").html(result);
-                                    }
-                                });
+            .addClass("dialog")
+            .appendTo("body")
+            .load(this.href)
+            .dialog({
+                title: $(this).attr("data-dialog-title"),
+                close: function () { $(this).remove() },
+                modal: true,
+                position: [200, 200],
+                width: 700,
+                buttons:{
+                    "Сохранить": function () {
+                        $.ajax({
+                            url: "@Url.Action("CreateGood", "Admin")",
+                            type: "POST",
+                            data: $('form').serialize(),
+                            datatype: "json",
+                            success: function (result) {
+                                "@Url.Action("GoodsList", "Admin")"
                             }
-                        }
-                    });
+                        })
+                    }
+                }
             });
+        });
+
         $(".close").on("click", function (e) {
             e.preventDefault();
-            $(this).closest(".dialog").dialog("close");
+            $(this).closest(".dialog").dialog("destroy");
         });
-    });
+    });*/
 </script>

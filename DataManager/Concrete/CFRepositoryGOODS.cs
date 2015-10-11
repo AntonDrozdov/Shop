@@ -35,20 +35,34 @@ namespace DataManager.Concrete
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize);
         }
-        public void CreateGood(Good good, int[] selected, HttpPostedFileBase image)
+        public void CreateGood(Good good, int[] checkbselected, int[] radioselected, IEnumerable<HttpPostedFileBase> newfiles)
         {
-            Good newgood = good;
-            //загрузка изображения
-            if (image != null)
+            //сначала добавляем полученные изображения в БД
+            //for (int i = 0; i < newfile.Count(); i++) {
+            if (newfiles != null)
             {
-                newgood.ImageMimeType = image.ContentType;
-                newgood.Image = new byte[image.ContentLength];
-                image.InputStream.Read(newgood.Image, 0, image.ContentLength);
+                foreach (HttpPostedFileBase file in newfiles)
+                {
+                    Image item = new Image();
+                    item.Id = 0;
+                    item.Description = "";
+                    item.IsMain = false;
+                    item.ImageMimeType = file.ContentType;
+                    item.ImageContent = new byte[file.ContentLength];
+                    file.InputStream.Read(item.ImageContent, 0, file.ContentLength);
+
+                    SaveImage(item);
+                }
             }
+            
+            Good newgood = good;
+            //определяем изображения товара
+
+            //определяем категории товара
             newgood.Categories.Clear();
-            if (selected != null)
+            if (checkbselected != null)
             {
-                foreach (Category c in Categories().Where(cat => selected.Contains(cat.Id)))
+                foreach (Category c in Categories().Where(cat => checkbselected.Contains(cat.Id)))
                 {
                     newgood.Categories.Add(c);
                 }
@@ -70,12 +84,13 @@ namespace DataManager.Concrete
         }
         public void SaveEditedGood(Good good, int[] selected, HttpPostedFileBase image)
         {
+            /*
             Good newgood = FindGood(good.Id);
             
             newgood.Title = good.Title;
             newgood.Description = good.Description;
             newgood.Amount = good.Amount;
-
+            
             //загрузка изображения
             if (image != null)
             {
@@ -94,7 +109,7 @@ namespace DataManager.Concrete
             }
 
             dbcontex.Entry(newgood).State = EntityState.Modified;
-            dbcontex.SaveChanges();
+            dbcontex.SaveChanges();*/
         }
         public void DeleteGood(Good good)
         {
