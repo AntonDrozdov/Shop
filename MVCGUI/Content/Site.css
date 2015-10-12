@@ -39,6 +39,21 @@ header, footer, nav, section {display: block;}
 .menuitem:hover a{color:white;}
 .menuitem A.selected { color:white; }
 
+.menuiteminTable{
+    float:left;
+    font-size:12px;
+    text-align:center;
+    border-radius:8px;
+    background: #ddd;
+    font-weight:bold;
+    color:black;
+    border-radius:8px;
+    padding:0px 5px 3px 5px;
+    width:80px;
+}
+.menuiteminTable:hover a{color:white;}
+.menuiteminTable A.selected { color:white; }
+
 .inTableLink {
     font-size:larger;
     border-radius:8px;
@@ -60,6 +75,7 @@ fieldset {
 #addimage {width:200px;}
 #savebutton {width:100%;}
 #backlink {text-align:right;}
+#deletebutton{width:100%;}
 
 .inTableLink:hover {color:white;}
 

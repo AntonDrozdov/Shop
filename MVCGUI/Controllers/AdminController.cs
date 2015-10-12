@@ -227,8 +227,9 @@ namespace MVCGUI.Controllers
             ViewBag.Categories = repository.Categories().ToList();
             //здесь надо получить последнюю запись в таблице изображений
             // вот способ хороший - db.Таблица.OrderByDescending(x => x.ПервичныйКлюч).FirstOrDefault()
-            ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(500);
-            return View("CreateGood");
+            ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(0);
+            return PartialView("PartialCreateGood");
+            //return View("CreateGood");
         }
         [HttpPost]
         public ActionResult CreateGood(string Title, string Description, int Amount, int[] checkbselected, int[] radioselected, HttpPostedFileBase[] newfiles)
@@ -236,7 +237,7 @@ namespace MVCGUI.Controllers
             Good newgood = new Good() { Title = Title, Description = Description, Amount = Amount };
             
             repository.CreateGood(newgood, checkbselected, radioselected, newfiles);
-            // перенаправляем на главную страницу
+            // перенаправляем на главную страницу*/
             return RedirectToAction("GoodsList");
         }
         [HttpGet]
@@ -265,31 +266,25 @@ namespace MVCGUI.Controllers
         [HttpGet]
         public ActionResult DeleteGood(int? id)
         {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return HttpNotFound();
+            
             Good good = repository.FindGood(id);
-            if (good == null)
-            {
-                return HttpNotFound();
-            }
-            return View(good);
+
+            if (good == null) return HttpNotFound();
+            
+            return PartialView("PartialDeleteGood", good);
         }
         [HttpPost, ActionName("DeleteGood")]
         public ActionResult DeleteGoodConfirmed(int? id)
         {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return HttpNotFound();
+            
             Good good = repository.FindGood(id);
-            if (good == null)
-            {
-                return HttpNotFound();
-            }
 
+            if (good == null) return HttpNotFound();
+            
             repository.DeleteGood(good);
+            
             return RedirectToAction("GoodsList");
         }
         public FileContentResult GetGoodImage(int Id)

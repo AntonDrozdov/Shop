@@ -44,7 +44,7 @@ namespace DataManager.EFContext.CFContext
             modelBuilder.Entity<Good>().HasMany(c => c.Images)
                 .WithMany(i => i.Goods)
                 .Map(t => t.MapLeftKey("GoodId")
-                .MapRightKey("ImageIdId")
+                .MapRightKey("ImageId")
                 .ToTable("GoodImages"));
 
         }

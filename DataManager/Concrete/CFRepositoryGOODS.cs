@@ -37,25 +37,33 @@ namespace DataManager.Concrete
         }
         public void CreateGood(Good good, int[] checkbselected, int[] radioselected, IEnumerable<HttpPostedFileBase> newfiles)
         {
+            Good newgood = good;
+            
             //сначала добавляем полученные изображения в БД
-            //for (int i = 0; i < newfile.Count(); i++) {
+            newgood.Images.Clear();    
             if (newfiles != null)
             {
+                int i=0;//для отслеживания главного изображения
                 foreach (HttpPostedFileBase file in newfiles)
                 {
-                    Image item = new Image();
-                    item.Id = 0;
-                    item.Description = "";
-                    item.IsMain = false;
-                    item.ImageMimeType = file.ContentType;
-                    item.ImageContent = new byte[file.ContentLength];
-                    file.InputStream.Read(item.ImageContent, 0, file.ContentLength);
+                    if (file != null)
+                    {
+                        Image item = new Image();
+                        item.Id = 0;
+                        item.Description = "";
+                        item.IsMain = (i == radioselected[0]) ? true : false;
+                        item.ImageMimeType = file.ContentType;
+                        item.ImageContent = new byte[file.ContentLength];
+                        file.InputStream.Read(item.ImageContent, 0, file.ContentLength);
 
-                    SaveImage(item);
+                        SaveImage(item);
+                        newgood.Images.Add(item);
+                    }
+                    i++;
                 }
             }
             
-            Good newgood = good;
+            
             //определяем изображения товара
 
             //определяем категории товара

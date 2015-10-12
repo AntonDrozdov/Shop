@@ -7,22 +7,17 @@
 
 @{ Html.RenderAction("AdminMenu", "AdminMenu"); }
 
-
 <br />
 <h2>GoodsList</h2>
 
+<!--КНОПКА СОЗДАНИЯ ТОВАРА-->
 <div class="menuitem">
-    @Html.RouteLink("Create Good",
-                new
-                    {
-                        controller = "Admin",
-                        action = "CreateGood"
-                    },
-                        new {@id = "creategood", data_dialog_title = "Create Good" })
+    @Html.RouteLink("Create Good", 
+                    new{controller = "Admin",action = "CreateGood"},
+                    new {@id = "creategood", data_dialog_title = "Create Good" })
 </div>
 
-
-
+<!--ФОРМА ВЫБОРА КАТЕГОРИИ-->
 <p>
     @using (Html.BeginForm("GoodsList", "Admin", FormMethod.Post))
     {
@@ -40,6 +35,8 @@
         </table>
     }
 </p>
+
+<!--ГЛАВНАЯ ТАБЛИЦА-->
 <table>
     <thead>
         <tr>
@@ -67,19 +64,28 @@
                     }
                 </ul>
             </td>
-            <td>@Html.ActionLink("Delete", "DeleteGood", new { id = item.Id }, new { @class = "inTableLink" })</td>
+            <!--<td>@Html.ActionLink("Delete", "DeleteGood", new { id = item.Id }, new { @class = "inTableLink" })</td>-->
+            <td>
+                <div class="menuiteminTable">
+                    @Html.RouteLink("Delete",
+                    new { controller = "Admin", action = "DeleteGood", id = item.Id },
+                    new { @class = "deletegood", data_dialog_title = "Delete Good" })
+                </div>
+            </td>
         </tr>
     }
 </table>
+
+<!--СТРАНИЦЫ-->
 <div class="pager">
     @Html.PageLinks(Model.paginginfo, x => Url.Action("GoodsList", new { page = x, parentcat = Model.parentcat }))
 </div>
 
-<script>/*
+<script>    //!!!! перед тем как убрать комментарий Url.Action -добавить собаку!!!!
     $(document).ready(function () {
 
         $.ajaxSetup({ cache: false });
-
+        //открываем диалог создания товара
         $("#creategood").on("click", function (e) {
             e.preventDefault();
 
@@ -94,24 +100,46 @@
                 position: [200, 200],
                 width: 700,
                 buttons:{
-                    "Сохранить": function () {
-                        $.ajax({
-                            url: "@Url.Action("CreateGood", "Admin")",
-                            type: "POST",
-                            data: $('form').serialize(),
-                            datatype: "json",
-                            success: function (result) {
-                                "@Url.Action("GoodsList", "Admin")"
-                            }
-                        })
-                    }
+
                 }
             });
         });
 
+        //кнопка сохранения товара и закрытия соответствующего диалога
+        $("#savebutton").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("destroy");
+        });
+
+        //открываем диалог удаления товара
+        $(".deletegood").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div id='dialogContent'></div>")
+            .addClass("dialog")
+            .appendTo("body")
+            .load(this.href)
+            .dialog({
+                title: $(this).attr("data-dialog-title"),
+                close: function () { $(this).remove() },
+                modal: true,
+                position: [200, 200],
+                width: 300,
+                buttons: {}
+            });
+        });
+        //кнопка удаления товара и закрытия соответствующего диалога
+        $("#deletebutton").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("destroy");
+        });
+
+        //закрывает любой диалог
         $(".close").on("click", function (e) {
             e.preventDefault();
             $(this).closest(".dialog").dialog("destroy");
         });
-    });*/
+
+
+    });
 </script>

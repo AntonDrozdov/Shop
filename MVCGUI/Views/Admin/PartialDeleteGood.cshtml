@@ -1,0 +1,15 @@
+﻿@model DataManager.Model.Good
+
+@using (Html.BeginForm())
+{
+    <p>
+        <div class="editor-label">Title</div>
+        @Html.DisplayFor(model => model.Title)
+    </p>
+    <p>
+        <div class="editor-label">Description</div>
+        @Html.DisplayFor(model => model.Description)
+    </p>
+    <input type="submit" value="Delete" id="deletebutton" />
+}
+
