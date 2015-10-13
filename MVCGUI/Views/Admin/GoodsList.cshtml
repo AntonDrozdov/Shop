@@ -12,7 +12,7 @@
 
 <!--КНОПКА СОЗДАНИЯ ТОВАРА-->
 <div class="menuitem">
-    @Html.RouteLink("Create Good", 
+    @Html.RouteLink("Добавить позицию", 
                     new{controller = "Admin",action = "CreateGood"},
                     new {@id = "creategood", data_dialog_title = "Добавить позицию" })
 </div>
@@ -72,7 +72,7 @@
             </td>
             <td>
                 <div class="menuiteminTable">
-                    @Html.RouteLink("Delete",
+                    @Html.RouteLink("Удалить",
                     new { controller = "Admin", action = "DeleteGood", id = item.Id },
                     new { @class = "deletegood", data_dialog_title = "Удаление позиции" })
                 </div>

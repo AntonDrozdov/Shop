@@ -29,6 +29,26 @@
         <p>
             <div class="editor-label">Изображения</div>
             <table id="images">
+             @if (Model.Images == null)
+                {
+                    @:None
+                }
+                else
+                {
+                    @foreach (Image item in Model.Images)
+                    {
+                        <tr>
+                            <td>
+                                <input type="radio" name="radioselected" checked="" value=""/>
+                                <input id="ImageStartNumber" type="hidden" name="imageids" value=@item.Id />
+                                <img width="150" height="150" src="@Url.Action("GetImage", "Admin", new {item.Id})" />
+                            </td>
+                            <td>
+                                <input type="button" id="deleteimage" value="-">
+                            </td>
+                        </tr>
+                    }
+                }
                 <tr>
                     <td>
                         <input type="button" id="addimage" value="ADD IMAGE">

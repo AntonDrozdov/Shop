@@ -82,10 +82,21 @@ namespace DataManager.Concrete
                 IQueryable<Good> goods = dbcontex.Goods.Where(p => p.Id == id).Select(p => p).Include(p=>p.Categories);
                 return goods.First();
             }
-            else
+            else return null;
+            
+        }
+
+        public Good FindFullGood(int? id)
+        {
+            if (dbcontex.Goods.Find(id) != null)
             {
-                return null;
+                IQueryable<Good> goods = dbcontex.Goods.Where(p => p.Id == id).Select(p => p)
+                                                        .Include(p => p.Categories)
+                                                        .Include(p=>p.Images);
+                return goods.First();
             }
+            else return null;
+
         }
         public void SaveEditedGood(Good good, int[] checkbselected, int[] radioselected, HttpPostedFileBase[] newfiles)
         {

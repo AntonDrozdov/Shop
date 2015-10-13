@@ -19,11 +19,13 @@ namespace DataManager.Abstract
         IQueryable<Good> Goods(int page, int? parentcat);
         void CreateGood(Good good, int[] checkbselected, int[] radioselected, HttpPostedFileBase[] newfiles);
         Good FindGood(int? id);
+        Good FindFullGood(int? id);
         void SaveEditedGood(Good good, int[] checkbselected, int[] radioselected, HttpPostedFileBase[] newfiles);
         void DeleteGood(Good good);
         
         //IMAGES
         void SaveImage(Image item);
+        Image FindImage(int? Id);
 
 
         //DISCOUNTS

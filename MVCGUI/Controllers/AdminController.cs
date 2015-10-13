@@ -245,7 +245,7 @@ namespace MVCGUI.Controllers
         {
             if (id == null) return HttpNotFound();
             
-            Good good = repository.FindGood(id);
+            Good good = repository.FindFullGood(id);
             
             if (good != null)
             {
@@ -287,19 +287,7 @@ namespace MVCGUI.Controllers
             
             return RedirectToAction("GoodsList");
         }
-        public FileContentResult GetGoodImage(int Id)
-        {
-            Good item = repository.FindGood(Id);
-            if (item != null)
-            {
-                //return File(item.Image, item.ImageMimeType);
-                return null;
-            }
-            else
-            {
-                return null;
-            }
-        }
+
         
         //DISCOUNTS
         public ActionResult DiscountsList(int page = 1)
@@ -377,6 +365,7 @@ namespace MVCGUI.Controllers
             repository.DeleteDiscount(item);
             return RedirectToAction("DiscountsList");
         }
+        
         //PURCHASES
         public ActionResult PurchasesList(int page = 1, int? good = null)
         {
@@ -563,6 +552,19 @@ namespace MVCGUI.Controllers
             return RedirectToAction("SalesList");
         }
 
-    
+        //IMAGES
+        public FileContentResult GetImage(int Id)
+        {
+            Image item = repository.FindImage(Id);
+            if (item != null)
+            {
+                return File(item.ImageContent, item.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }

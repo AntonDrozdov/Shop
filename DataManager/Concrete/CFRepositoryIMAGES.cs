@@ -19,5 +19,9 @@ namespace DataManager.Concrete
             dbcontex.Images.Add(item);
             dbcontex.SaveChanges();
         }
+        public Image FindImage(int? Id)
+        {
+            return dbcontex.Images.Find(Id);
+        }
     }
 }
