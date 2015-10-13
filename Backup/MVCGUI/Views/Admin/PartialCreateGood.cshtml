@@ -1,0 +1,81 @@
+﻿@using DataManager.Model;
+@model DataManager.Model.Good
+
+
+@using (Html.BeginForm("CreateGood", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <p>
+        <div class="editor-label">Title</div>
+        @Html.EditorFor(model => model.Title)
+    </p>
+    <p>
+        <div class="editor-label">Description</div>
+        @Html.EditorFor(model => model.Description)
+    </p>
+    <p>
+        <div class="editor-label">Amount</div>
+        @Html.EditorFor(model => model.Amount)
+    </p>
+    <p>
+        <div class="editor-label">Categories</div>
+        @{
+            List<Category> categories = ViewBag.Categories;
+            foreach (Category c in categories)
+            {
+                <input type="checkbox" name="checkbselected" value="@c.Id" />@c.Title<br />
+            }
+        }
+    </p>
+    <p>
+        <div class="editor-label">Images</div>
+        <table id="images">
+            <tr>
+                <td>
+                    <input type="button" id="addimage" value="ADD IMAGE">
+                </td>
+            </tr>
+        </table>
+    </p>
+    <input type="submit" value="Save" id="savebutton" />
+
+}
+
+
+
+<input id="ImageStartNumber" type="hidden" value=@ViewBag.ImageStartNumber />
+
+
+<script type="text/javascript">
+    $(function () {
+        $("[data-autocomplete-source]").each(function () {
+            var target = $(this);
+            target.autocomplete({ source: target.attr("data-autocomplete-source") });
+        });
+    });
+
+    var i = document.getElementById("ImageStartNumber").value;
+    /*var i = 10;*/
+
+    $(document).ready(function () {
+        //кнопка добавления файла
+        $('#images').on('click', '#addimage', function () {
+            $(this).closest('tr').before('\
+                <tr>\
+                <td >\
+                    <input type="radio" name="radioselected" checked = "checked" value="' + i + '"" />\
+                    <input type="file" name="newfiles" />\
+                </td>\
+                <td><input type="button" id="deleteimage" value="-"></td>\
+                </tr>');
+            i++;
+        });
+
+        //кнопка удаления файла
+        $('table').on('click', '#deleteimage', function () {
+            $(this).closest('tr').remove();
+        });
+
+
+
+    });
+</script>

@@ -8,3 +8,13 @@ E:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.SqlServer.xml
 E:\DEVELOP\shop\DataManager\obj\Debug\DataManager.dll
 E:\DEVELOP\shop\DataManager\obj\Debug\DataManager.pdb
 E:\DEVELOP\shop\DataManager\obj\Debug\DataManager.csprojResolveAssemblyReference.cache
+D:\DEVELOP\shop\DataManager\bin\Debug\DataManager.dll.config
+D:\DEVELOP\shop\DataManager\bin\Debug\DataManager.dll
+D:\DEVELOP\shop\DataManager\bin\Debug\DataManager.pdb
+D:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.dll
+D:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.SqlServer.dll
+D:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.xml
+D:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.SqlServer.xml
+D:\DEVELOP\shop\DataManager\obj\Debug\DataManager.csprojResolveAssemblyReference.cache
+D:\DEVELOP\shop\DataManager\obj\Debug\DataManager.dll
+D:\DEVELOP\shop\DataManager\obj\Debug\DataManager.pdb

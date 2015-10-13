@@ -1,0 +1,55 @@
+﻿@model MVCGUI.Models.PurchaseListView
+
+@{
+    ViewBag.Title = "PurchasesList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{ Html.RenderAction("AdminMenu", "AdminMenu"); }
+<h2>PurchasesList</h2>
+<p>
+    @Html.ActionLink("Create Purchase", "CreatePurchase", null, new { @class = "menuitem" })
+</p>
+<p>
+    @using (Html.BeginForm("PurchasesList", "Admin", FormMethod.Post))
+    {
+        <table style=" border:none;">
+            <tr style=" border:none;">
+                <td style=" border:none;">
+                    <span style="font-size:12px; font-weight:400;">Good:</span>
+                    @Html.DropDownList("good", ViewBag.Goods as SelectList, "-- ALL --")
+                    <span style="padding-left:50px;"><input type="submit" value="     Apply     " /></span>
+                </td>
+                <td style="text-align:right; border:none;   ">
+                    @Html.ActionLink(" FULL PURCHASES LIST ", "PurchasesList", "Admin", new { @class = "inTableLink" })
+                </td>
+            </tr>
+        </table>
+    }
+</p>
+<table>
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Date</td>
+            <td>GoodTitle</td>
+            <td>Amount</td>
+            <td>PurchasePrice</td>
+            <td><b>OPTIONS</b></td>
+        </tr>
+    </thead>
+@foreach (var item in Model.Purchases)
+{
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+        <td>@Html.DisplayFor(modelItem => item.Date)</td>
+        <td>@Html.ActionLink(item.Good.Title, "EditPurchase", new { item.Id }, new { @class = "inTableLink" })</td>
+        <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+        <td>@Html.DisplayFor(modelItem => item.PurchasePricePerItem)</td>
+        <td>@Html.ActionLink("Delete", "DeletePurchase", new { id = item.Id }, new { @class = "inTableLink" })</td>
+    </tr>
+}
+</table>
+<div class="pager">
+    @Html.PageLinks(Model.paginginfo, x => Url.Action("PurchasesList", new { page = x, good = Model.good }))
+</div>
+

@@ -1,0 +1,54 @@
+﻿@model MVCGUI.Models.SaleListView
+
+@{
+    ViewBag.Title = "SalesList";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@{ Html.RenderAction("AdminMenu", "AdminMenu"); }
+<h2>SalesList</h2>
+<p>
+    @Html.ActionLink("Create Sale", "CreateSale", null, new { @class = "menuitem" })
+</p>
+<p>
+    @using (Html.BeginForm("SalesList", "Admin", FormMethod.Post))
+    {
+        <table style=" border:none;">
+            <tr style=" border:none;">
+                <td style=" border:none;">
+                    <span style="font-size:12px; font-weight:400;">Good:</span>
+                    @Html.DropDownList("good", ViewBag.Goods as SelectList, "-- ALL --")
+                    <span style="padding-left:50px;"><input type="submit" value="     Apply     " /></span>
+                </td>
+                <td style="text-align:right; border:none;   ">
+                    @Html.ActionLink(" FULL SALES LIST ", "SalesList", "Admin", new { @class = "inTableLink" })
+                </td>
+            </tr>
+        </table>
+    }
+</p>
+<table>
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Date</td>
+            <td>GoodTitle</td>
+            <td>Amount</td>
+            <td>PurchasePrice</td>
+            <td><b>OPTIONS</b></td>
+        </tr>
+    </thead>
+    @foreach (var item in Model.Sales)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.Id)</td>
+            <td>@Html.DisplayFor(modelItem => item.Date)</td>
+            <td>@Html.ActionLink(item.Good.Title, "EditSale", new { item.Id }, new { @class = "inTableLink" })</td>
+            <td>@Html.DisplayFor(modelItem => item.Amount)</td>
+            <td>@Html.DisplayFor(modelItem => item.SalePricePerItem)</td>
+            <td>@Html.ActionLink("Delete", "DeleteSale", new { id = item.Id }, new { @class = "inTableLink" })</td>
+        </tr>
+    }
+</table>
+<div class="pager">
+    @Html.PageLinks(Model.paginginfo, x => Url.Action("SalesList", new { page = x, good = Model.good }))
+</div>

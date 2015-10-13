@@ -1,0 +1,26 @@
+﻿@model DataManager.Model.CategoryType
+
+@{
+    ViewBag.Title = "EditCategoryType";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>EditCategoryType</h2>
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>CategoryType</legend>
+        <p>
+            Title:<br />
+            @Html.EditorFor(model => model.Title)
+        </p>
+        <p>
+            Description:<br />
+            @Html.EditorFor(model => model.Description)
+        </p>
+
+        <input type="submit" value="Confirm Changes" />
+        <br /><br />
+        @Html.ActionLink(" < BACK TO CATEGORYTYPES LIST ", "CategoryTypesList", "Admin", new { @class = "inTableLink" })
+    </fieldset>
+}

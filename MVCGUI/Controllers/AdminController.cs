@@ -243,24 +243,24 @@ namespace MVCGUI.Controllers
         [HttpGet]
         public ActionResult EditGood(int? id)
         {
-            if (id == null)
-            {
-                return HttpNotFound();
-            }
+            if (id == null) return HttpNotFound();
+            
             Good good = repository.FindGood(id);
+            
             if (good != null)
             {
                 ViewBag.Categories = repository.Categories().ToList();
-                return View(good);
+                return PartialView("PartialEditGood",good);
             }
-            return RedirectToAction("PurchasesList");
+            return RedirectToAction("GoodsList");
         }
         [HttpPost]
-        public ActionResult EditGood(int Id, string Title, string Description, int Amount, int[] selected, HttpPostedFileBase image)
+        public ActionResult EditGood(int Id, string Title, string Description, int Amount, int[] checkbselected, int[] radioselected, HttpPostedFileBase[] newfiles)
         {
             Good newgood = new Good() {Id = Id, Title = Title, Description = Description, Amount = Amount };
 
-            repository.SaveEditedGood(newgood, selected, image);
+            repository.SaveEditedGood(newgood, checkbselected, radioselected, newfiles);
+
             return RedirectToAction("GoodsList");
         }
         [HttpGet]

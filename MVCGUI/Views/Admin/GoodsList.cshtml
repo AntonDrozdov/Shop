@@ -14,7 +14,7 @@
 <div class="menuitem">
     @Html.RouteLink("Create Good", 
                     new{controller = "Admin",action = "CreateGood"},
-                    new {@id = "creategood", data_dialog_title = "Create Good" })
+                    new {@id = "creategood", data_dialog_title = "Добавить позицию" })
 </div>
 
 <!--ФОРМА ВЫБОРА КАТЕГОРИИ-->
@@ -24,12 +24,12 @@
         <table style=" border:none;">
             <tr style=" border:none;">
                 <td style=" border:none;">
-                    <span style="font-size:12px; font-weight:400;">ParentCategory:</span>
-                    @Html.DropDownList("parentcat", ViewBag.ParentCategories as SelectList, "-- ALL --")
-                     <span style="padding-left:50px;"><input type="submit" value="     Apply     " /></span>
+                    <span style="font-size:12px; font-weight:400;">Категория:</span>
+                        @Html.DropDownList("parentcat", ViewBag.ParentCategories as SelectList, "-- ВСЕ --")
+                    <span style="padding-left:50px;"><input type="submit" value = "     Выбрать     " /></span>
                 </td>
                 <td style="text-align:right; border:none;   ">
-                    @Html.ActionLink(" FULL GOODS LIST ", "GoodsList", "Admin", new { @class = "inTableLink" })
+                    @Html.ActionLink(" ПОЛНЫЙ ПЕРЕЧЕНЬ ", "GoodsList", "Admin", new { @class = "inTableLink" })
                 </td>
             </tr>
         </table>
@@ -41,11 +41,11 @@
     <thead>
         <tr>
             <th>ID</th>
-            <th>Title</th>
-            <th>Amount</th>
-            <th>Description</th>
-            <th>Categories</th>
-            <th>OPTIONS</th>
+            <th>Наименование</th>
+            <th>Количество</th>
+            <th>Описание</th>
+            <th>Категории</th>
+            <th>ОПЦИИ</th>
         </tr>
 
     </thead>
@@ -53,7 +53,13 @@
     {
         <tr>
             <td>@item.Id</td>
-            <td>@Html.ActionLink(item.Title, "EditGood", new { item.Id }, new { @class = "inTableLink" })</td>
+            <td>
+                <div class="menuiteminTable">
+                    @Html.RouteLink(@item.Title,
+                    new { controller = "Admin", action = "EditGood", id = item.Id },
+                    new { @class = "editgood", data_dialog_title = "Редактирование позиции" })
+                </div>
+            </td>
             <td>@item.Amount</td>
             <td>@item.Description</td>
             <td>
@@ -64,12 +70,11 @@
                     }
                 </ul>
             </td>
-            <!--<td>@Html.ActionLink("Delete", "DeleteGood", new { id = item.Id }, new { @class = "inTableLink" })</td>-->
             <td>
                 <div class="menuiteminTable">
                     @Html.RouteLink("Delete",
                     new { controller = "Admin", action = "DeleteGood", id = item.Id },
-                    new { @class = "deletegood", data_dialog_title = "Delete Good" })
+                    new { @class = "deletegood", data_dialog_title = "Удаление позиции" })
                 </div>
             </td>
         </tr>
@@ -85,54 +90,42 @@
     $(document).ready(function () {
 
         $.ajaxSetup({ cache: false });
+        //СОЗДАНИЕ ПОЗИЦИИ
         //открываем диалог создания товара
         $("#creategood").on("click", function (e) {
             e.preventDefault();
-
-            $("<div id='dialogContent'></div>")
-            .addClass("dialog")
-            .appendTo("body")
-            .load(this.href)
-            .dialog({
-                title: $(this).attr("data-dialog-title"),
-                close: function () { $(this).remove() },
-                modal: true,
-                position: [200, 200],
-                width: 700,
-                buttons:{
-
-                }
-            });
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({   title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 700, buttons: {}});
         });
-
         //кнопка сохранения товара и закрытия соответствующего диалога
-        $("#savebutton").on("click", function (e) {
-            e.preventDefault();
-            $(this).closest(".dialog").dialog("destroy");
-        });
+        $("#savebutton").on("click", function (e) {e.preventDefault();$(this).closest(".dialog").dialog("destroy");});
 
+        //УДАЛЕНИЕ ПОЗИЦИИ
         //открываем диалог удаления товара
         $(".deletegood").on("click", function (e) {
             e.preventDefault();
-
-            $("<div id='dialogContent'></div>")
-            .addClass("dialog")
-            .appendTo("body")
-            .load(this.href)
-            .dialog({
-                title: $(this).attr("data-dialog-title"),
-                close: function () { $(this).remove() },
-                modal: true,
-                position: [200, 200],
-                width: 300,
-                buttons: {}
-            });
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({   title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 300, buttons: {}});
         });
         //кнопка удаления товара и закрытия соответствующего диалога
-        $("#deletebutton").on("click", function (e) {
+        $("#deletebutton").on("click", function (e) { e.preventDefault(); $(this).closest(".dialog").dialog("destroy"); });
+
+        //РЕДАКТИРОВАНИЕ ПОЗИЦИИ
+        //открываем диалог редактирования товара
+        $(".editgood").on("click", function (e) {
             e.preventDefault();
-            $(this).closest(".dialog").dialog("destroy");
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({
+                title: $(this).attr("data-dialog-title"),
+                close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 700, buttons: {}
+            });
         });
+        //для кнопки сохранения изменений применяется тотже обработчик что и для кнопки сохранения новой позиции, только 
+        //post запрос она отправить в метод контроллера который создал эту форму, т.е. в метод EditGood
+
+
 
         //закрывает любой диалог
         $(".close").on("click", function (e) {

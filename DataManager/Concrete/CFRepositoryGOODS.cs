@@ -18,7 +18,7 @@ namespace DataManager.Concrete
         {
             return dbcontex.Goods.Include(g => g.Categories);
         }
-        public  IQueryable<Good> PureGoods()
+        public IQueryable<Good> PureGoods()
         {
             return dbcontex.Goods;
         }
@@ -35,7 +35,7 @@ namespace DataManager.Concrete
                 .Skip((page - 1) * PageSize)
                 .Take(PageSize);
         }
-        public void CreateGood(Good good, int[] checkbselected, int[] radioselected, IEnumerable<HttpPostedFileBase> newfiles)
+        public void CreateGood(Good good, int[] checkbselected, int[] radioselected, HttpPostedFileBase[] newfiles)
         {
             Good newgood = good;
             
@@ -63,9 +63,6 @@ namespace DataManager.Concrete
                 }
             }
             
-            
-            //определяем изображения товара
-
             //определяем категории товара
             newgood.Categories.Clear();
             if (checkbselected != null)
@@ -90,12 +87,12 @@ namespace DataManager.Concrete
                 return null;
             }
         }
-        public void SaveEditedGood(Good good, int[] selected, HttpPostedFileBase image)
+        public void SaveEditedGood(Good good, int[] checkbselected, int[] radioselected, HttpPostedFileBase[] newfiles)
         {
-            /*
+            
             Good newgood = FindGood(good.Id);
             
-            newgood.Title = good.Title;
+            /*newgood.Title = good.Title;
             newgood.Description = good.Description;
             newgood.Amount = good.Amount;
             

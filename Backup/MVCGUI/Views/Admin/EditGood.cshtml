@@ -1,0 +1,58 @@
+﻿@using DataManager.Model;
+@model DataManager.Model.Good
+
+@{
+    ViewBag.Title = "Edit Good";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Edit Good</h2>
+@using (Html.BeginForm("EditGood", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <fieldset>
+        <legend>Good</legend>
+        <p>
+            Title:<br />
+            @Html.EditorFor(model => model.Title)
+        </p>
+        <p>
+            Description:<br />
+            @Html.EditorFor(model => model.Description)
+        </p>
+        <p>
+            Amount:<br />
+            @Html.EditorFor(model => model.Amount)
+        </p>
+        <p>
+            Categories:<br />
+            @{
+                List<Category> categories = ViewBag.Categories;
+                foreach (Category item in categories)
+                {
+                    <input type="checkbox" name="selected" value="@item.Id"
+                    @(Model.Categories.Contains(item) ? "checked=\"checked\"" : "") />@item.Title<br />
+                }
+            }   
+        </p>
+        <p>
+            <div class="editor-label">Image</div>
+            <div class="editor-field">
+                @if (Model.Image == null)
+                {
+                    @:None
+                }
+                else
+                {
+                    <img width="150" height="150" src="@Url.Action("GetGoodImage", "Admin", new { Model.Id})" />
+                }
+                <div>
+                    Upload new image:
+                    <input type="file" name="Image" />
+                </div>
+            </div>
+        </p>
+        <input type="submit" value="Confirm changes" />
+        <br /><br />
+        @Html.ActionLink(" < BACK TO GOODS LIST ", "GoodsList", "Admin", new { @class = "inTableLink" })
+    </fieldset>
+}
