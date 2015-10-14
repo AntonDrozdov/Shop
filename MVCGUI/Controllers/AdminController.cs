@@ -250,16 +250,25 @@ namespace MVCGUI.Controllers
             if (good != null)
             {
                 ViewBag.Categories = repository.Categories().ToList();
+                //надо передать стартовый номер для новый файлов - это
+                //здесь надо получить последнюю запись в таблице изображений
+                // вот способ хороший - db.Таблица.OrderByDescending(x => x.ПервичныйКлюч).FirstOrDefault()
+                //ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(0);
                 return PartialView("PartialEditGood",good);
             }
             return RedirectToAction("GoodsList");
         }
         [HttpPost]
-        public ActionResult EditGood(int Id, string Title, string Description, int Amount, int[] checkbselected, int[] radioselected, HttpPostedFileBase[] newfiles)
+        public ActionResult EditGood(int Id, string Title, string Description, int Amount,
+                                    int[] checkbselected, int[] radioselected, int[] imageids, HttpPostedFileBase[] newfiles)
         {
             Good newgood = new Good() {Id = Id, Title = Title, Description = Description, Amount = Amount };
-
-            repository.SaveEditedGood(newgood, checkbselected, radioselected, newfiles);
+            int startnumberofnewfiles = 0; 
+            //надо передать стартовый номер для новый файлов - это
+            //здесь надо получить последнюю запись в таблице изображений
+            // вот способ хороший - db.Таблица.OrderByDescending(x => x.ПервичныйКлюч).FirstOrDefault()
+            //ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(0);
+            repository.SaveEditedGood(newgood, checkbselected, radioselected, imageids, newfiles, startnumberofnewfiles);
 
             return RedirectToAction("GoodsList");
         }

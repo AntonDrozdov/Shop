@@ -20,7 +20,9 @@ namespace DataManager.Abstract
         void CreateGood(Good good, int[] checkbselected, int[] radioselected, HttpPostedFileBase[] newfiles);
         Good FindGood(int? id);
         Good FindFullGood(int? id);
-        void SaveEditedGood(Good good, int[] checkbselected, int[] radioselected, HttpPostedFileBase[] newfiles);
+        void SaveEditedGood(Good good, 
+                            int[] checkbselected, int[] radioselected, int[] imageids, HttpPostedFileBase[] newfiles, 
+                            int startnumberofnewfiles);
         void DeleteGood(Good good);
         
         //IMAGES

@@ -98,34 +98,62 @@ namespace DataManager.Concrete
             else return null;
 
         }
-        public void SaveEditedGood(Good good, int[] checkbselected, int[] radioselected, HttpPostedFileBase[] newfiles)
+        public void SaveEditedGood(Good good, int[] checkbselected, int[] radioselected, int[] imageids, HttpPostedFileBase[] newfiles, int startnumberofnewfiles )
         {
-            
             Good newgood = FindGood(good.Id);
             
-            /*newgood.Title = good.Title;
+            //обновляем поля этого товара в БД
+            newgood.Title = good.Title;
             newgood.Description = good.Description;
             newgood.Amount = good.Amount;
-            
-            //загрузка изображения
-            if (image != null)
-            {
-                newgood.ImageMimeType = image.ContentType;
-                newgood.Image = new byte[image.ContentLength];
-                image.InputStream.Read(newgood.Image, 0, image.ContentLength);
+
+            //сначала добавляем полученные изображения в БД
+            newgood.Images.Clear();
+            foreach (int i in imageids) {
+                Image im = FindImage(i);
+                if (im != null)
+                {
+                    if (radioselected.Contains(im.Id)) { im.IsMain = true; } else { im.IsMain = false; }
+                    dbcontex.Entry(im).State = EntityState.Modified;
+                    dbcontex.SaveChanges();
+                    newgood.Images.Add(im);
+                }
             }
 
-            newgood.Categories.Clear();
-            if (selected != null)
+            if (newfiles != null)
             {
-                foreach (Category c in Categories().Where(cat => selected.Contains(cat.Id)))
+                int i = startnumberofnewfiles;//для отслеживания главного изображения
+                foreach (HttpPostedFileBase file in newfiles)
+                {
+                    if (file != null)
+                    {
+                        Image item = new Image();
+                        item.Id = 0;
+                        item.Description = "";
+                        item.IsMain = (i == radioselected[0]) ? true : false;
+                        item.ImageMimeType = file.ContentType;
+                        item.ImageContent = new byte[file.ContentLength];
+                        file.InputStream.Read(item.ImageContent, 0, file.ContentLength);
+
+                        SaveImage(item);
+                        newgood.Images.Add(item);
+                    }
+                    i++;
+                }
+            }
+
+            //определяем категории товара
+            newgood.Categories.Clear();
+            if (checkbselected != null)
+            {
+                foreach (Category c in Categories().Where(cat => checkbselected.Contains(cat.Id)))
                 {
                     newgood.Categories.Add(c);
                 }
             }
 
             dbcontex.Entry(newgood).State = EntityState.Modified;
-            dbcontex.SaveChanges();*/
+            dbcontex.SaveChanges();
         }
         public void DeleteGood(Good good)
         {
