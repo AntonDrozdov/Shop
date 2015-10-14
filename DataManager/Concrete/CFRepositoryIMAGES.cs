@@ -23,5 +23,8 @@ namespace DataManager.Concrete
         {
             return dbcontex.Images.Find(Id);
         }
+        public Image GetLast() { 
+
+        }
     }
 }
