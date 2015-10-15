@@ -100,7 +100,7 @@ namespace DataManager.Concrete
         }
         public void SaveEditedGood(Good good, int[] checkbselected, int[] radioselected, int[] imageids, HttpPostedFileBase[] newfiles, int startnumberofnewfiles )
         {
-            Good newgood = FindGood(good.Id);
+            Good newgood = FindFullGood(good.Id);
             
             //обновляем поля этого товара в БД
             newgood.Title = good.Title;
@@ -109,16 +109,25 @@ namespace DataManager.Concrete
 
             //сначала добавляем полученные изображения в БД
             newgood.Images.Clear();
-            foreach (int i in imageids) {
-                Image im = FindImage(i);
-                if (im != null)
+            newgood.Categories.Clear();
+            dbcontex.Entry(newgood).State = EntityState.Modified;
+            dbcontex.SaveChanges();
+
+            if (imageids != null)
+            {
+                foreach (int i in imageids)
                 {
-                    if (radioselected.Contains(im.Id)) { im.IsMain = true; } else { im.IsMain = false; }
-                    dbcontex.Entry(im).State = EntityState.Modified;
-                    dbcontex.SaveChanges();
-                    newgood.Images.Add(im);
+                    Image im = FindImage(i);
+                    if (im != null)
+                    {
+                        if (radioselected.Contains(im.Id)) { im.IsMain = true; } else { im.IsMain = false; }
+                        dbcontex.Entry(im).State = EntityState.Modified;
+                        dbcontex.SaveChanges();
+                        newgood.Images.Add(im);
+                    }
                 }
             }
+
 
             if (newfiles != null)
             {
@@ -143,7 +152,6 @@ namespace DataManager.Concrete
             }
 
             //определяем категории товара
-            newgood.Categories.Clear();
             if (checkbselected != null)
             {
                 foreach (Category c in Categories().Where(cat => checkbselected.Contains(cat.Id)))

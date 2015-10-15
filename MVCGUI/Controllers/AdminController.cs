@@ -249,11 +249,12 @@ namespace MVCGUI.Controllers
             
             if (good != null)
             {
+                //категории
                 ViewBag.Categories = repository.Categories().ToList();
-                //надо передать стартовый номер для новый файлов - это
                 //здесь надо получить последнюю запись в таблице изображений
-                // вот способ хороший - db.Таблица.OrderByDescending(x => x.ПервичныйКлюч).FirstOrDefault()
-                //ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(0);
+                Image lastimage = repository.GetLastImage();
+                int startnumberofnewfiles = lastimage.Id + 1;
+                ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(startnumberofnewfiles);
                 return PartialView("PartialEditGood",good);
             }
             return RedirectToAction("GoodsList");
@@ -263,11 +264,12 @@ namespace MVCGUI.Controllers
                                     int[] checkbselected, int[] radioselected, int[] imageids, HttpPostedFileBase[] newfiles)
         {
             Good newgood = new Good() {Id = Id, Title = Title, Description = Description, Amount = Amount };
-            int startnumberofnewfiles = 0; 
-            //надо передать стартовый номер для новый файлов - это
+
             //здесь надо получить последнюю запись в таблице изображений
-            // вот способ хороший - db.Таблица.OrderByDescending(x => x.ПервичныйКлюч).FirstOrDefault()
-            //ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(0);
+            Image lastimage = repository.GetLastImage();
+            int startnumberofnewfiles = lastimage.Id + 1;
+            ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(startnumberofnewfiles);
+ 
             repository.SaveEditedGood(newgood, checkbselected, radioselected, imageids, newfiles, startnumberofnewfiles);
 
             return RedirectToAction("GoodsList");

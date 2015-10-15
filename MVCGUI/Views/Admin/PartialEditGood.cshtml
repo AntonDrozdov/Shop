@@ -21,7 +21,7 @@
                 List<Category> categories = ViewBag.Categories;
                 foreach (Category item in categories){
                     <input type="checkbox" name="checkbselected" value="@item.Id"
-                    @(Model.Categories.Contains(item) ? "checked=\"checked\"" : "") />@item.Title<<br />
+                    @(Model.Categories.Contains(item) ? "checked=\"checked\"" : "") />@item.Title<br />
                 }
             }
         </p>
@@ -34,10 +34,10 @@
                         <tr>
                             <td>
                                 <input type="radio" name="radioselected"
-                                       @(im.IsMain == true ? "checked=\" checked\"" : "" ) 
+                                       @(@im.IsMain == true ? "checked=\" checked\"" : "") 
                                        value=@im.Id />
                                 <input id="ImageStartNumber" type="hidden" name="imageids" value=@im.Id />
-                                <img height="50" src="@Url.Action("GetImage", "Admin", new { im. Id })" />
+                                <img height="50" src="@Url.Action("GetImage", "Admin", new { im.Id })" />
                             </td>
                             <td>
                                 <input type="button" id="deleteimage" value="-">

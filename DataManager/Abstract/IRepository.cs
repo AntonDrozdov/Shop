@@ -28,7 +28,7 @@ namespace DataManager.Abstract
         //IMAGES
         void SaveImage(Image item);
         Image FindImage(int? Id);
-        Image GetLast()
+        Image GetLastImage();
 
 
         //DISCOUNTS

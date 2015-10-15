@@ -46,7 +46,6 @@ namespace DataManager.EFContext.CFContext
                 .Map(t => t.MapLeftKey("GoodId")
                 .MapRightKey("ImageId")
                 .ToTable("GoodImages"));
-
         }
         
     }
