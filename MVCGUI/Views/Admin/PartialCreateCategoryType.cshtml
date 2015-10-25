@@ -1,0 +1,17 @@
+﻿@using DataManager.Model;
+@model DataManager.Model.CategoryType
+
+@using (Html.BeginForm())
+{
+    <p>
+        <div class="editor-label">Наименование</div>
+        @Html.EditorFor(model => model.Title)
+    </p>
+    <p>
+        <div class="editor-label">Описание</div>
+        @Html.EditorFor(model => model.Description)
+    </p>
+    <div class="savebuttonarea">
+        <input type="submit" value="Сохранить" id="savebutton" />
+    </div>
+}

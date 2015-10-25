@@ -138,7 +138,7 @@ namespace MVCGUI.Controllers
         [HttpGet]
         public ActionResult CreateCategoryType()
         {
-            return View();
+            return  PartialView("PartialCreateCategoryType");
         }
         [HttpPost]
         public ActionResult CreateCategoryType(CategoryType categorytype)
@@ -252,8 +252,8 @@ namespace MVCGUI.Controllers
                 //категории
                 ViewBag.Categories = repository.Categories().ToList();
                 //здесь надо получить последнюю запись в таблице изображений
-                Image lastimage = repository.GetLastImage();
-                int startnumberofnewfiles = lastimage.Id + 1;
+                int startnumberofnewfiles = repository.GetLastImage().Id + 1;
+                
                 ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(startnumberofnewfiles);
                 return PartialView("PartialEditGood",good);
             }
@@ -266,10 +266,8 @@ namespace MVCGUI.Controllers
             Good newgood = new Good() {Id = Id, Title = Title, Description = Description, Amount = Amount };
 
             //здесь надо получить последнюю запись в таблице изображений
-            Image lastimage = repository.GetLastImage();
-            int startnumberofnewfiles = lastimage.Id + 1;
-            ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(startnumberofnewfiles);
- 
+            int startnumberofnewfiles = repository.GetLastImage().Id + 1;
+             
             repository.SaveEditedGood(newgood, checkbselected, radioselected, imageids, newfiles, startnumberofnewfiles);
 
             return RedirectToAction("GoodsList");

@@ -3,58 +3,66 @@
 
 @using (Html.BeginForm("EditGood", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
-        <p>
-            <div class="editor-label">Наименование</div>
-            @Html.EditorFor(model => model.Title)
-        </p>
-        <p>
-            <div class="editor-label">Описание</div>
-            @Html.EditorFor(model => model.Description)
-        </p>
-        <p>
-            <div class="editor-label">Количество</div>
-            @Html.EditorFor(model => model.Amount)
-        </p>
-        <p>
-            <div class="editor-label">Категории</div>
-            @{
-                List<Category> categories = ViewBag.Categories;
-                foreach (Category item in categories){
-                    <input type="checkbox" name="checkbselected" value="@item.Id"
-                    @(Model.Categories.Contains(item) ? "checked=\"checked\"" : "") />@item.Title<br />
-                }
+    <p>
+        <div class="editor-label">Наименование</div>
+        @Html.EditorFor(model => model.Title)
+    </p>
+    <p>
+        <div class="editor-label">Описание</div>
+        @Html.EditorFor(model => model.Description)
+    </p>
+    <p>
+        <div class="editor-label">Количество</div>
+        @Html.EditorFor(model => model.Amount)
+    </p>
+    <p>
+        <div class="editor-label">Категории</div>
+        @{
+            List<Category> categories = ViewBag.Categories;
+            foreach (Category item in categories){
+                <input type="checkbox" name="checkbselected" value="@item.Id"
+                @(Model.Categories.Contains(item) ? "checked=\"checked\"" : "") />@item.Title<br />
             }
-        </p>
-        <p>
-            <div class="editor-label">Изображения</div>
-            @{
-                <table id="images">
-                    @foreach (Image im in Model.Images)
-                    {
-                        <tr>
-                            <td>
-                                <input type="radio" name="radioselected"
-                                       @(@im.IsMain == true ? "checked=\" checked\"" : "") 
-                                       value=@im.Id />
-                                <input id="ImageStartNumber" type="hidden" name="imageids" value=@im.Id />
-                                <img height="50" src="@Url.Action("GetImage", "Admin", new { im.Id })" />
-                            </td>
-                            <td>
-                                <input type="button" id="deleteimage" value="-">
-                            </td>
-                        </tr>
-                    }
-                        
-
+        }
+    </p>
+    <p>
+        <div class="editor-label">Изображения</div>
+        @{
+            <table id="images">
+                <thead>
+                    <tr>
+                        <th>Изображение (с отметкой главное/неглавное)</th>
+                        <th>ОПЦИИ</th>
+                    </tr>
+                </thead>
+                @foreach (Image im in Model.Images)
+                {
                     <tr>
                         <td>
-                            <input type="button" id="addimage" value="ADD IMAGE">
+                            <input type="radio" name="radioselected"
+                                    @(@im.IsMain == true ? "checked=\" checked\"" : "") 
+                                    value=@im.Id />
+                            <input id="ImageStartNumber" type="hidden" name="imageids" value=@im.Id />
+                            <img height="50" src="@Url.Action("GetImage", "Admin", new { im.Id })" />
+                        </td>
+                        <td>
+                            <input type="button" id="deleteimage" value="Удалить">
                         </td>
                     </tr>
-                </table>
-            }
-        </p>
-    <input type="submit" value="Сохранить" id="savebutton" />
+                }
+                        
+
+                <tr>
+                    <td>
+                        <input type="button" id="addimage" value="Добавить изображение">
+                    </td>
+                </tr>
+            </table>
+        }
+    </p>
+    <div class="savebuttonarea">
+        <input type="submit" value="Сохранить" id="savebutton" />
+    </div>
 }
 
 
@@ -71,17 +79,16 @@
 
     var i = document.getElementById("ImageStartNumber").value;
     /*var i = 10;*/
-
+    /*<input type="radio" name="radioselected" value="' + i + '"" />\*/
     $(document).ready(function () {
         //кнопка добавления файла
         $('#images').on('click', '#addimage', function () {
             $(this).closest('tr').before('\
                 <tr>\
                 <td >\
-                    <input type="radio" name="radioselected" checked = "checked" value="' + i + '"" />\
                     <input type="file" name="newfiles" />\
                 </td>\
-                <td><input type="button" id="deleteimage" value="-"></td>\
+                <td><input type="button" id="deleteimage" value="Удалить"></td>\
                 </tr>');
             i++;
         });

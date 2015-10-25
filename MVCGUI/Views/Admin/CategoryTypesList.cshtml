@@ -4,11 +4,19 @@
     ViewBag.Title = "CategoryTypesList";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+
 @{ Html.RenderAction("AdminMenu", "AdminMenu"); }
-<h2>CategoryTypesList</h2>
-<p>
-    @Html.ActionLink("Create CategoryType", "CreateCategoryType", null, new { @class = "menuitem" })
-</p>
+
+<h2>Список типов категорий</h2>
+
+<!--КНОПКА СОЗДАНИЯ ТОВАРА-->
+<div class="menuitem">
+    @Html.RouteLink("Добавить тип категории",
+                    new { controller = "Admin", action = "CreateCategoryType" },
+                    new { @id = "createcategorytype", data_dialog_title = "Добавить тип категории" })
+</div>
+
+<!--ГЛАВНАЯ ТАБЛИЦА-->
 <table>
     <thead>
         <tr>
@@ -24,10 +32,74 @@
     {
         <tr>
             <td>@item.Id</td>
-            <td>@Html.ActionLink(item.Title, "EditCategoryType", new { item.Id }, new { @class = "inTableLink" })</td>
+            <td>
+                <div class="menuiteminTable">
+                    @Html.RouteLink(@item.Title,
+                    new { controller = "Admin", action = "EditCategoryType", id = item.Id },
+                    new { @class = "editcategorytype", data_dialog_title = "Редактирование типа категории" })
+                </div>
+            </td>
             <td>@item.Description</td>
             <td></td>
-            <td>@Html.ActionLink("Delete", "DeleteCategoryType", new { id = item.Id }, new { @class = "inTableLink" })</td>
+            <td>
+                <div class="menuiteminTable">
+                    @Html.RouteLink("Удалить",
+                    new { controller = "Admin", action = "DeleteCategoryType", id = item.Id },
+                    new { @class = "deletecategorytype", data_dialog_title = "Удаление типа категории" })
+                </div>
+            </td>
         </tr>
     }
 </table>
+
+<script>
+    //!!!! перед тем как убрать комментарий Url.Action -добавить собаку!!!!
+    $(document).ready(function () {
+
+        $.ajaxSetup({ cache: false });
+        //СОЗДАНИЕ 
+        //открываем диалог создания ...
+        $("#createcategorytype").on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({   title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 700, buttons: {}});
+        });
+        //кнопка сохранения ... и закрытия соответствующего диалога
+        $("#savebutton").on("click", function (e) {e.preventDefault();$(this).closest(".dialog").dialog("destroy");});
+
+        //УДАЛЕНИЕ
+        //открываем диалог удаления ...
+        $(".deletecategorytype").on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({   title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 300, buttons: {}});
+        });
+
+        //кнопка удаления ... и закрытия соответствующего диалога
+        $("#deletebutton").on("click", function (e) { e.preventDefault(); $(this).closest(".dialog").dialog("destroy"); });
+
+        //РЕДАКТИРОВАНИЕ
+        //открываем диалог редактирования ...
+        $(".editcategorytype").on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({
+                title: $(this).attr("data-dialog-title"),
+                close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 700, buttons: {}
+            });
+        });
+        //для кнопки сохранения изменений применяется тотже обработчик что и для кнопки сохранения новой позиции, только
+        //post запрос она отправить в соответствующий метод контроллера который создал эту форму, т.е. для Edit в метод Edit...
+        //а для Create в метод Create...
+
+        //закрывает любой диалог
+        $(".close").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("destroy");
+        });
+
+
+    });
+</script>

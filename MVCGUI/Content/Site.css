@@ -73,7 +73,14 @@ fieldset {
     border-radius:8px;
 }
 #addimage {width:200px;}
-#savebutton {width:100%;}
+.savebuttonarea {
+    padding: 5px;
+    text-align:right;
+}
+#savebutton {
+    height:50px;
+    width:200px;
+}
 #backlink {text-align:right;}
 #deletebutton{width:100%;}
 
