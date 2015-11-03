@@ -1,0 +1,53 @@
+﻿@using DataManager.Model;
+@model DataManager.Model.Category
+
+@using (Html.BeginForm("CreateCategory", "Admin", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <p>
+        Title:<br />
+        @Html.EditorFor(model => model.Title)
+    </p>
+    <p>
+        Description:<br />
+        @Html.EditorFor(model => model.Description)
+    </p>
+    <p>
+        <table>
+            <thead><tr><th>Belong To (CategoryTypes:):</th><th>Included In (Categories:):</th></tr></thead>
+            <tr>
+                <td>
+                    @{
+                        List<CategoryType> categorytypes = ViewBag.CategoryTypes;
+                        foreach (CategoryType item in categorytypes)
+                        {
+                            <input type="checkbox" name="selected" value="@item.Id" />@item.Title<br />
+                        }   
+                    }
+                </td>
+                <td>
+                    @{
+                        List<Category> categories = ViewBag.Categories;
+                        foreach (Category item in categories)
+                        {
+                            <input type="checkbox" name="selected2" value="@item.Id" />@item.Title<br />
+                        }
+                    }
+                </td>
+            </tr>
+        </table>
+    </p>
+    <p>
+        <div class="editor-label">Image</div>
+        <div class="editor-field">
+            Upload image:
+            <input type="file" name="Image" />
+        </div>
+    </p>
+    <input type="submit" value="Save" />
+    <div class="savebuttonarea">
+        <input type="submit" value="Сохранить" id="savebutton" />
+    </div>
+}
+
+<!--СКРИПТЫ-->
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

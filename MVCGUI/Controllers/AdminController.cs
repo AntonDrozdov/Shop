@@ -51,7 +51,7 @@ namespace MVCGUI.Controllers
         {
             ViewBag.Categories = repository.Categories().ToList();
             ViewBag.CategoryTypes = repository.CategoryTypes.ToList();
-            return View();
+            return PartialView("PartialCreateCategory");
         }
         [HttpPost]
         //public ActionResult CreateCategory(HttpPostedFileBase Image, Category category, int[] selected, int[] selected2)

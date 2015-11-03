@@ -12,8 +12,11 @@ namespace DataManager.Model
 {
     public class Category
     {
+        [HiddenInput(DisplayValue=false)]
         public int Id { get; set; }
+        [Required]
         public string Title { get; set; }
+        [Required]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
         public byte[] Image { get; set; }

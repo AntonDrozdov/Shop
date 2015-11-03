@@ -49,7 +49,13 @@
     {
         <tr>
             <td>@item.Id</td>
-            <td>@Html.ActionLink(item.Title, "EditCategory", new { item.Id }, new { @class = "inTableLink" })</td>
+            <td>
+                <div class="menuiteminTable">
+                    @Html.RouteLink(item.Title,
+                                    new { controller = "Admin", action = "EditCategory" },
+                                    new { @id = "editcategory", data_dialog_title = "Редактирование категории" })
+                </div>
+            </td>
             <td>@item.Description</td>
             <td>
                 <ul>
@@ -67,7 +73,13 @@
                     }
                 </ul>
             </td>
-            <td>@Html.ActionLink("Delete", "DeleteCategory", new { id = item.Id }, new { @class = "inTableLink" })</td>
+            <td>
+                <div class="menuiteminTable">
+                    @Html.RouteLink("Удалить",
+                                    new { controller = "Admin", action = "DeleteCategory" },
+                                    new { @id = "deletecategory", data_dialog_title = "Удаление категории" })
+                </div>
+            </td>
         </tr>
     }
 </table>
@@ -75,3 +87,52 @@
     @Html.PageLinks(Model.paginginfo, x => Url.Action("CategoriesList", new { page = x, cattype = Model.cattype, parentcat = Model.parentcat }))
 </div>
 
+<!--СКРИПТЫ-->
+<script>
+    //!!!! перед тем как убрать комментарий Url.Action -добавить собаку!!!!
+    $(document).ready(function () {
+
+        $.ajaxSetup({ cache: false });
+        //СОЗДАНИЕ ПОЗИЦИИ
+        //открываем диалог создания товара
+        $("#createcategory").on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({   title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 700, buttons: {}});
+        });
+        //кнопка сохранения товара и закрытия соответствующего диалога
+        $("#savebutton").on("click", function (e) {e.preventDefault();$(this).closest(".dialog").dialog("destroy");});
+
+        //УДАЛЕНИЕ ПОЗИЦИИ
+        //открываем диалог удаления товара
+        $(".deletecategory").on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({   title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 300, buttons: {}});
+        });
+        //кнопка удаления товара и закрытия соответствующего диалога
+        $("#deletebutton").on("click", function (e) { e.preventDefault(); $(this).closest(".dialog").dialog("destroy"); });
+
+        //РЕДАКТИРОВАНИЕ ПОЗИЦИИ
+        //открываем диалог редактирования товара
+        $(".editcategory").on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({
+                title: $(this).attr("data-dialog-title"),
+                close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 700, buttons: {}
+            });
+        });
+        //для кнопки сохранения изменений применяется тотже обработчик что и для кнопки сохранения новой позиции, только
+        //post запрос она отправить в метод контроллера который создал эту форму, т.е. в метод EditGood
+        //закрывает любой диалог
+        $(".close").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("destroy");
+        });
+
+
+    });
+</script>
