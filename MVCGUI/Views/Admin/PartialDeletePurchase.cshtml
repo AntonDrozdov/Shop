@@ -1,0 +1,19 @@
+﻿@model DataManager.Model.Purchase
+
+
+@using(Html.BeginForm())
+{
+    <p>
+        <div class="editor-label">Дата</div>
+        @Html.DisplayFor(model => model.Date)
+    </p>
+    <p>
+        <div class="editor-label">Позиция</div>
+        @Html.DisplayFor(model => model.Good.Title)
+    </p>
+    <div class="savebuttonarea">
+        <input type="submit" value="Удалить" id="deletebutton" />
+    </div>
+}
+
+

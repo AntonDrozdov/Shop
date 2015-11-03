@@ -158,6 +158,9 @@ textarea {
     margin: 0.5em 0 0 0;
 }
 
+.multi-line {
+    max-width:667px;
+}
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/

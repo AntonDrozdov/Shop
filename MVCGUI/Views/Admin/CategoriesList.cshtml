@@ -4,12 +4,16 @@
     ViewBag.Title = "CategoriesList";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<br />
 @{ Html.RenderAction("AdminMenu", "AdminMenu"); }
-
-<h2>CategoriesList</h2>
-<p>
-    @Html.ActionLink("Create Category", "CreateCategory", null, new { @class = "menuitem" })
-</p>
+<br />
+<br />
+<!--КНОПКА СОЗДАНИЯ ТОВАРА-->
+<div class="menuitem">
+    @Html.RouteLink("Добавить категорию",
+                    new { controller = "Admin", action = "CreateCategory" },
+                    new { @id = "createcategory", data_dialog_title = "Добавить категорию" })
+</div>
 <p>
     @using (Html.BeginForm("CategoriesList", "Admin", FormMethod.Post))
     {

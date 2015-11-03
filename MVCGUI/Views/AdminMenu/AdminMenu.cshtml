@@ -2,9 +2,17 @@
 
 <div class="menu">
         @foreach (string item in ViewBag.Items)
-        {
+        {   
+            var menuitem = "";    
+            if(item=="Goods"){menuitem = "Список позиций";}
+            if (item == "Purchases") { menuitem = "Закупки"; }
+            if (item == "Sales") { menuitem = "Продажи"; }
+            if (item == "Categories") { menuitem = "Категории"; }
+            if (item == "CategoryTypes") { menuitem = "Типы категорий"; }
+            if (item == "Discounts") { menuitem = "Скидки"; }
+            
             <div class="adminmenuitem">
-            @Html.RouteLink(item, 
+            @Html.RouteLink(menuitem, 
                 new
                     {
                         controller = "Admin",

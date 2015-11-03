@@ -1,0 +1,23 @@
+﻿@model DataManager.Model.Purchase
+
+@using (Html.BeginForm("EditPurchase", "Admin"))
+{
+    <p>
+        <div class="editor-label">Наименование позиции</div>
+        @Html.DropDownListFor(model => model.GoodId, ViewBag.Goods as SelectList)
+    </p>
+    <p>
+        <div class="editor-label">Количество</div>
+        @Html.EditorFor(model => model.Amount)
+    </p>
+    <p>
+        <div class="editor-label">Цена (за ед.)</div>
+        @Html.EditorFor(model => model.PurchasePricePerItem)
+    </p>
+    <div class="savebuttonarea">
+        <input type="submit" value="Сохранить" id="savebutton" />
+    </div>
+}
+
+<!--СКРИПТЫ-->
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

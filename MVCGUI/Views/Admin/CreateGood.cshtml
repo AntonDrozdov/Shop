@@ -10,23 +10,23 @@
 {
     <fieldset>
         <p id="backlink">
-            @Html.ActionLink(" < BACK TO GOODS LIST ", "GoodsList", "Admin", new { @class = "inTableLink" })
+            @Html.ActionLink(" < НАЗАД К СПИСКУ ПОЗИЦИЙ ", "GoodsList", "Admin", new { @class = "inTableLink" })
         </p>
-        <legend>Create Good</legend>
+        <legend>Создание позиции</legend>
         <p>
-            <div class="editor-label">Title</div>
+            <div class="editor-label">Наименование</div>
             @Html.EditorFor(model => model.Title)
         </p>
         <p>
-            <div class="editor-label">Description</div>
+            <div class="editor-label">Описание</div>
             @Html.EditorFor(model => model.Description)
         </p>
         <p>
-            <div class="editor-label">Amount</div>
+            <div class="editor-label">Количество</div>
             @Html.EditorFor(model => model.Amount)
         </p>
         <p>
-            <div class="editor-label">Categories</div>
+            <div class="editor-label">Категории</div>
             @{
                 List<Category> categories = ViewBag.Categories;
                 foreach (Category c in categories)
@@ -36,7 +36,7 @@
             }
         </p>
         <p>
-            <div class="editor-label">Images</div>
+            <div class="editor-label">Изображения</div>
             <table id="images">
                 <tr>
                     <td>
@@ -45,16 +45,15 @@
                 </tr>
             </table>
         </p>
-        <input type="submit" value="Save" id="savebutton" />
+        <input type="submit" value="Сохранить" id="savebutton" />
 
 
     </fieldset>
 }
 
-
 <input id="ImageStartNumber" type="hidden" value=@ViewBag.ImageStartNumber />
 
-
+<!--СКРИПТЫ-->
 <script type="text/javascript">
     $(function () {
         $("[data-autocomplete-source]").each(function () {

@@ -247,6 +247,12 @@
     <Content Include="Views\Admin\PartialDeleteGood.cshtml" />
     <Content Include="Views\Admin\PartialEditGood.cshtml" />
     <Content Include="Views\Admin\PartialCreateCategoryType.cshtml" />
+    <Content Include="Views\Admin\PartialCreatePurchase.cshtml" />
+    <Content Include="Views\Admin\PartialEditPurchase.cshtml" />
+    <Content Include="Views\Admin\PartialDeletePurchase.cshtml" />
+    <Content Include="Views\Admin\PartialCreateSale.cshtml" />
+    <Content Include="Views\Admin\PartialEditSale.cshtml" />
+    <Content Include="Views\Admin\PartialDeleteSale.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

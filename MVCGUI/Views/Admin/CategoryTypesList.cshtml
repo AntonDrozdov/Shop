@@ -4,18 +4,16 @@
     ViewBag.Title = "CategoryTypesList";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+<br />
 @{ Html.RenderAction("AdminMenu", "AdminMenu"); }
-
-<h2>Список типов категорий</h2>
-
+<br />
+<br />
 <!--КНОПКА СОЗДАНИЯ ТОВАРА-->
 <div class="menuitem">
     @Html.RouteLink("Добавить тип категории",
                     new { controller = "Admin", action = "CreateCategoryType" },
                     new { @id = "createcategorytype", data_dialog_title = "Добавить тип категории" })
 </div>
-
 <!--ГЛАВНАЯ ТАБЛИЦА-->
 <table>
     <thead>

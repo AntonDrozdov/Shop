@@ -4,11 +4,18 @@
     ViewBag.Title = "PurchasesList";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
+<br />
 @{ Html.RenderAction("AdminMenu", "AdminMenu"); }
-<h2>PurchasesList</h2>
-<p>
-    @Html.ActionLink("Create Purchase", "CreatePurchase", null, new { @class = "menuitem" })
-</p>
+<br />
+<br />
+<!--КНОПКА СОЗДАНИЯ ТОВАРА-->
+<div class="menuitem">
+    @Html.RouteLink("Новая закупка",
+                    new { controller = "Admin", action = "CreatePurchase" },
+                    new { @id = "createpurchase", data_dialog_title = "Новая закупка" })
+</div>
+
+<!--ФОРМА ВЫБОРА ТОВАРА-->
 <p>
     @using (Html.BeginForm("PurchasesList", "Admin", FormMethod.Post))
     {
@@ -26,6 +33,8 @@
         </table>
     }
 </p>
+
+<!--ГЛАВНАЯ ТАБЛИЦА-->
 <table>
     <thead>
         <tr>
@@ -42,10 +51,22 @@
     <tr>
         <td>@Html.DisplayFor(modelItem => item.Id)</td>
         <td>@Html.DisplayFor(modelItem => item.Date)</td>
-        <td>@Html.ActionLink(item.Good.Title, "EditPurchase", new { item.Id }, new { @class = "inTableLink" })</td>
+        <td>
+            <div class="menuiteminTable" style="width:300px;">
+                @Html.RouteLink(@item.Good.Title,
+                 new { controller = "Admin", action = "EditPurchase", id = item.Id },
+                 new { @class = "editpurchase", data_dialog_title = "Редактирование закупки" })
+            </div>
+        </td>
         <td>@Html.DisplayFor(modelItem => item.Amount)</td>
         <td>@Html.DisplayFor(modelItem => item.PurchasePricePerItem)</td>
-        <td>@Html.ActionLink("Delete", "DeletePurchase", new { id = item.Id }, new { @class = "inTableLink" })</td>
+        <td>
+            <div class="menuiteminTable">
+                @Html.RouteLink("Удалить",
+                    new { controller = "Admin", action = "DeletePurchase", id = item.Id },
+                    new { @class = "deletepurchase", data_dialog_title = "Удаление закупки" })
+            </div>
+        </td>
     </tr>
 }
 </table>
@@ -53,3 +74,54 @@
     @Html.PageLinks(Model.paginginfo, x => Url.Action("PurchasesList", new { page = x, good = Model.good }))
 </div>
 
+<script>
+    //!!!! перед тем как убрать комментарий Url.Action -добавить собаку!!!!
+    $(document).ready(function () {
+
+        $.ajaxSetup({ cache: false });
+        //СОЗДАНИЕ ПОЗИЦИИ
+        //открываем диалог создания товара
+        $("#createpurchase").on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({   title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 700, buttons: {}});
+        });
+        //кнопка сохранения товара и закрытия соответствующего диалога
+        $("#savebutton").on("click", function (e) {e.preventDefault();$(this).closest(".dialog").dialog("destroy");});
+
+        //УДАЛЕНИЕ ПОЗИЦИИ
+        //открываем диалог удаления товара
+        $(".deletepurchase").on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({   title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 300, buttons: {}});
+        });
+        //кнопка удаления товара и закрытия соответствующего диалога
+        $("#deletebutton").on("click", function (e) { e.preventDefault(); $(this).closest(".dialog").dialog("destroy"); });
+
+        //РЕДАКТИРОВАНИЕ ПОЗИЦИИ
+        //открываем диалог редактирования товара
+        $(".editpurchase").on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({
+                title: $(this).attr("data-dialog-title"),
+                close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 700, buttons: {}
+            });
+        });
+        //для кнопки сохранения изменений применяется тотже обработчик что и для кнопки сохранения новой позиции, только
+        //post запрос она отправить в метод контроллера который создал эту форму, т.е. в метод EditGood
+
+
+
+        //закрывает любой диалог
+        $(".close").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("destroy");
+        });
+
+
+    });
+</script>

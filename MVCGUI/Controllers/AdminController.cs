@@ -228,8 +228,10 @@ namespace MVCGUI.Controllers
             //здесь надо получить последнюю запись в таблице изображений
             // вот способ хороший - db.Таблица.OrderByDescending(x => x.ПервичныйКлюч).FirstOrDefault()
             ViewBag.ImageStartNumber = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(0);
-            return PartialView("PartialCreateGood");
-            //return View("CreateGood");
+
+            Good newitem = new Good();
+            return PartialView("PartialCreateGood", newitem);
+            //return View("CreateGood", newitem);
         }
         [HttpPost]
         public ActionResult CreateGood(string Title, string Description, int Amount, int[] checkbselected, int[] radioselected, HttpPostedFileBase[] newfiles)
@@ -403,7 +405,9 @@ namespace MVCGUI.Controllers
         {
             // Формируем список для передачи в представление
             ViewBag.Goods = new SelectList(repository.PureGoods().ToList(), "Id", "Title");//категории для формирования DropListDown
-            return View();
+            Purchase newitem = new Purchase();
+            //return View(newitem);
+            return PartialView("PartialCreatePurchase", newitem);
         }
         [HttpPost]
         public ActionResult CreatePurchase(Purchase purchase)
@@ -426,7 +430,7 @@ namespace MVCGUI.Controllers
             {
                 // Создаем список команд для передачи в представление
                 ViewBag.Goods = new SelectList(repository.PureGoods().ToList(), "Id", "Title");//категории для формирования DropListDown
-                return View(purchase);
+                return PartialView("PartialEditPurchase", purchase);
             }
             return RedirectToAction("PurchasesList");
         }
@@ -449,7 +453,7 @@ namespace MVCGUI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(purchase);
+            return PartialView("PartialDeletePurchase", purchase);
         }
         [HttpPost, ActionName("DeletePurchase")]
         public ActionResult DeletePurchaseConfirmed(int? id)
@@ -496,7 +500,8 @@ namespace MVCGUI.Controllers
         {
             // Формируем список для передачи в представление
             ViewBag.Goods = new SelectList(repository.PureGoods().ToList(), "Id", "Title");//категории для формирования DropListDown
-            return View();
+
+            return PartialView("PartialCreateSale");
         }
         [HttpPost]
         public ActionResult CreateSale(Sale sale)
@@ -519,7 +524,7 @@ namespace MVCGUI.Controllers
             {
                 // Создаем список  для передачи в представление
                 ViewBag.Goods = new SelectList(repository.PureGoods().ToList(), "Id", "Title");//категории для формирования DropListDown
-                return View(item);
+                return PartialView("PartialEditSale", item);
             }
             return RedirectToAction("SalesList");
         }
@@ -542,7 +547,7 @@ namespace MVCGUI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(item);
+            return PartialView("PartialDeleteSale", item);
         }
         [HttpPost, ActionName("DeleteSale")]
         public ActionResult DeleteSaleConfirmed(int? id)

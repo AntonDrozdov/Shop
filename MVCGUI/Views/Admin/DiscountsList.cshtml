@@ -5,15 +5,16 @@
     ViewBag.Title = "DiscountsList";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+<br />
 @{ Html.RenderAction("AdminMenu", "AdminMenu"); }
-
-
-<h2>DiscountsList</h2>
-<p>
-    @Html.ActionLink("Create Discount", "CreateDiscount", null, new { @class = "menuitem" })
-</p>
-
+<br />
+<br />
+<!--КНОПКА СОЗДАНИЯ ТОВАРА-->
+<div class="menuitem">
+    @Html.RouteLink("Добавить скидку",
+                    new { controller = "Admin", action = "CreateDiscount" },
+                    new { @id = "creatediscount", data_dialog_title = "Добавить скидку" })
+</div>
 <table>
     <thead>
         <tr>
