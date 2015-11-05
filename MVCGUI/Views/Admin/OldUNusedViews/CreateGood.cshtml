@@ -1,0 +1,85 @@
+﻿@using DataManager.Model;
+@model DataManager.Model.Good
+
+@{
+    ViewBag.Title = "CreateGood";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("CreateGood", "Admin", FormMethod.Post, new { enctype="multipart/form-data"}))
+{
+    <fieldset>
+        <p id="backlink">
+            @Html.ActionLink(" < НАЗАД К СПИСКУ ПОЗИЦИЙ ", "GoodsList", "Admin", new { @class = "inTableLink" })
+        </p>
+        <legend>Создание позиции</legend>
+        <p>
+            <div class="editor-label">Наименование</div>
+            @Html.EditorFor(model => model.Title)
+        </p>
+        <p>
+            <div class="editor-label">Описание</div>
+            @Html.EditorFor(model => model.Description)
+        </p>
+        <p>
+            <div class="editor-label">Количество</div>
+            @Html.EditorFor(model => model.Amount)
+        </p>
+        <p>
+            <div class="editor-label">Категории</div>
+            @{
+                List<Category> categories = ViewBag.Categories;
+                foreach (Category c in categories)
+                {
+                    <input type="checkbox" name="checkbselected" value="@c.Id" />@c.Title<br />
+                }
+            }
+        </p>
+        <p>
+            <div class="editor-label">Изображения</div>
+            <table id="images">
+                <tr>
+                    <td>
+                        <input type="button" id="addimage" value="ADD IMAGE">
+                    </td>
+                </tr>
+            </table>
+        </p>
+        <input type="submit" value="Сохранить" id="savebutton" />
+
+
+    </fieldset>
+}
+
+<input id="ImageStartNumber" type="hidden" value=@ViewBag.ImageStartNumber />
+
+<!--СКРИПТЫ-->
+<script type="text/javascript">
+    $(function () {
+        $("[data-autocomplete-source]").each(function () {
+            var target = $(this);
+            target.autocomplete({ source: target.attr("data-autocomplete-source") });
+        });
+    });
+
+    var i = document.getElementById("ImageStartNumber").value;
+    /*var i = 10;*/
+
+    $(document).ready(function () {
+        $('#images').on('click', '#addimage', function () {
+            $(this).closest('tr').before('\
+                <tr>\
+                <td >\
+                    <input type="radio" name="radioselected" checked = "checked" value="' + i + '"" />\
+                    <input type="file" name="newfiles" />\
+                </td>\
+                <td><input type="button" id="deleteimage" value="-"></td>\
+                </tr>');
+            i++;
+        });
+        $('table').on('click', '#deleteimage', function () {
+            $(this).closest('tr').remove();
+        });
+
+    });
+</script>

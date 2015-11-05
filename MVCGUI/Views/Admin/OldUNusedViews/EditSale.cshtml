@@ -1,0 +1,29 @@
+﻿@model DataManager.Model.Sale
+
+@{
+    ViewBag.Title = "EditSale";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>EditSale</h2>
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Sale</legend>
+        <p>
+            Good:<br />
+            @Html.DropDownListFor(model => model.GoodId, ViewBag.Goods as SelectList)
+        </p>
+        <p>
+            Amount:<br />
+            @Html.EditorFor(model => model.Amount)
+        </p>
+        <p>
+            Purchase Price Per Item:<br />
+            @Html.EditorFor(model => model.SalePricePerItem)
+        </p>
+        <input type="submit" value="Confirm changes" />
+        <br /> <br />
+        @Html.ActionLink(" < BACK TO SALES LIST ", "SalesList", "Admin", new { @class = "inTableLink" })
+    </fieldset>
+}

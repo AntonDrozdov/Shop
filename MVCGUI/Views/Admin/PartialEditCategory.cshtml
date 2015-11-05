@@ -1,7 +1,7 @@
 ﻿@using DataManager.Model;
 @model DataManager.Model.Category
 
-@using (Html.BeginForm("CreateCategory", "Admin", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EditCategory", "Admin", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <p>
         <div class="editor-label">Наименование</div>
@@ -21,7 +21,7 @@
                         foreach (CategoryType item in categorytypes)
                         {
                             <input type="checkbox" name="selected" value="@item.Id" />@item.Title<br />
-                        }   
+                        }
                     }
                 </td>
                 <td>

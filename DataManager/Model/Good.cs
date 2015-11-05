@@ -13,11 +13,16 @@ namespace DataManager.Model
     {
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
+        
         [Required]
+        [StringLength(300)]
         public string Title { get; set; }
-        [DataType(DataType.MultilineText)]
+  
         [Required]
+        [StringLength(3000)]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
+        
         [Required]
         [Range(0,1000)]
         public int? Amount { get; set; }

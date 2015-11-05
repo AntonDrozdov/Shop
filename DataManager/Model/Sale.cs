@@ -14,6 +14,7 @@ namespace DataManager.Model
     {
         [HiddenInput(DisplayValue=false)]
         public int Id { get; set; }
+  
         [Required]
         [DataType(System.ComponentModel.DataAnnotations.DataType.DateTime)]
         public DateTime Date { get; set; }
@@ -27,5 +28,10 @@ namespace DataManager.Model
 
         public int? GoodId { get; set; }
         public Good Good { get; set; }
+
+        public Sale() {
+            Amount = 0;
+            SalePricePerItem = 0;
+        }
     }
 }

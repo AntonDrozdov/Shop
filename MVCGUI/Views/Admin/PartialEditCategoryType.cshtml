@@ -1,0 +1,24 @@
+﻿@model DataManager.Model.CategoryType
+
+@{
+    ViewBag.Title = "EditCategoryType";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    <p>
+        <div class="editor-label">Наименование</div>
+        @Html.EditorFor(model => model.Title)
+    </p>
+    <p>
+        <div class="editor-label">Описание</div>
+        @Html.EditorFor(model => model.Description)
+    </p>
+    <div class="savebuttonarea">
+        <input type="submit" value="Сохранить" id="savebutton" />
+    </div>
+}
+
+<!--СКРИПТЫ-->
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

@@ -1,0 +1,34 @@
+﻿@using DataManager.Model
+@model DataManager.Model.Discount
+
+@using (Html.BeginForm("EditDiscount", "Admin"))
+{
+    <p>
+        <div class="editor-label">Дата начала действия</div>
+        @Html.EditorFor(model => model.BeginDate)
+    </p>
+    <p>
+        <div class="editor-label">Дата окончания действия</div>
+        @Html.EditorFor(model => model.EndDate)
+    </p>
+    <p>
+        <div class="editor-label">Величина</div>
+        @Html.EditorFor(model => model.DiscountRate)
+    </p>
+    <p>
+        <div class="editor-label">Позиции</div>
+        @{
+    List<Good> items = ViewBag.Goods;
+    foreach (Good i in items)
+    {
+        <input type="checkbox" name="selected" value="@i.Id" />@i.Title<br />
+    }
+        }
+    </p>
+    <div class="savebuttonarea">
+        <input type="submit" value="Сохранить" id="savebutton" />
+    </div>
+}
+<!--СКРИПТЫ-->
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+

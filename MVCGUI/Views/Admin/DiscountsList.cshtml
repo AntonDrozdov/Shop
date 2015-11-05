@@ -13,7 +13,7 @@
 <div class="menuitem">
     @Html.RouteLink("Добавить скидку",
                     new { controller = "Admin", action = "CreateDiscount" },
-                    new { @id = "creatediscount", data_dialog_title = "Добавить скидку" })
+                            new { @id = "createitem", data_dialog_title = "Добавить скидку" })
 </div>
 <table>
     <thead>
@@ -24,13 +24,13 @@
             <th>EndDate</th>
             <th>DiscountRate</th>
         </tr>
-
     </thead>
     @foreach (var item in Model.Items)
     {
         <tr>
             <td>@item.Id</td>
-            <td><table><tr>
+            <td>
+                <table><tr>
                            <td>
                                <ul>
                                    @foreach (Good item2 in item.Goods)
@@ -40,17 +40,79 @@
                                </ul>
                            </td>
                            <td>
-                               @Html.ActionLink("Edit", "EditDiscount", new { item.Id }, new { @class = "inTableLink" })
+                               <div class="menuiteminTable">
+                                   @Html.RouteLink("Редактировать",
+                                    new { controller = "Admin", action = "EditDiscount", id = item.Id },
+              new { @class = "edititem", data_dialog_title = "Редактирование скидки" })
+                               </div>
                            </td>
                 </tr></table>
             </td>
             <td>@item.BeginDate</td>
             <td>@item.EndDate</td>
             <td>@item.DiscountRate</td>
-            <td>@Html.ActionLink("Delete", "DeleteDiscount", new { id = item.Id }, new { @class = "inTableLink" })</td>
+            <td>
+                <div class="menuiteminTable">
+                    @Html.RouteLink("Удалить",
+                    new { controller = "Admin", action = "DeleteDiscount", id = item.Id },
+             new { @class = "deleteitem", data_dialog_title = "Удаление скидки" })
+                </div>
+            </td>
         </tr>
     }
 </table>
 <div class="pager">
     @Html.PageLinks(Model.paginginfo, x => Url.Action("DiscountsList", new { page = x }))
 </div>
+<!--СКРИПТЫ-->
+<script>
+    //!!!! перед тем как убрать комментарий Url.Action -добавить собаку!!!!
+    $(document).ready(function () {
+
+        $.ajaxSetup({ cache: false });
+        //СОЗДАНИЕ ПОЗИЦИИ
+        //открываем диалог создания товара
+        $("#createitem").on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({   title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 700, buttons: {}});
+        });
+        //кнопка сохранения товара и закрытия соответствующего диалога
+        $("#savebutton").on("click", function (e) {e.preventDefault();$(this).closest(".dialog").dialog("destroy");});
+
+        //УДАЛЕНИЕ ПОЗИЦИИ
+        //открываем диалог удаления товара
+        $(".deleteitem").on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({   title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 300, buttons: {}});
+        });
+        //кнопка удаления товара и закрытия соответствующего диалога
+        $("#deletebutton").on("click", function (e) { e.preventDefault(); $(this).closest(".dialog").dialog("destroy"); });
+
+        //РЕДАКТИРОВАНИЕ ПОЗИЦИИ
+        //открываем диалог редактирования товара
+        $(".edititem").on("click", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>").addClass("dialog").appendTo("body").load(this.href)
+            .dialog({
+                title: $(this).attr("data-dialog-title"),
+                close: function () { $(this).remove() }, modal: true, position: [200, 200], width: 700, buttons: {}
+            });
+        });
+        //для кнопки сохранения изменений применяется тотже обработчик что и для кнопки сохранения новой позиции, только
+        //post запрос она отправить в метод контроллера который создал эту форму, т.е. в метод EditGood
+
+
+
+        //закрывает любой диалог
+        $(".close").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("destroy");
+        });
+
+
+    });
+</script>

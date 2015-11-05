@@ -1,0 +1,24 @@
+﻿@model DataManager.Model.Discount
+
+@using (Html.BeginForm())
+{
+    <p>
+        <div class="editor-label">Дата начала действия</div>
+        @Html.DisplayFor(model => model.BeginDate)
+    </p>
+    <p>
+        <div class="editor-label">Дата окончания действия</div>
+        @Html.DisplayFor(model => model.EndDate)
+    </p>
+    <p>
+        <ul>
+            @foreach (var item in Model.Goods)
+            {
+                <li>@item.Title</li>
+            }
+        </ul>
+    </p>
+    <div class="savebuttonarea">
+        <input type="submit" value="Удалить" id="deletebutton" />
+    </div>
+}

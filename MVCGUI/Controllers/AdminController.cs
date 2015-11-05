@@ -51,7 +51,8 @@ namespace MVCGUI.Controllers
         {
             ViewBag.Categories = repository.Categories().ToList();
             ViewBag.CategoryTypes = repository.CategoryTypes.ToList();
-            return PartialView("PartialCreateCategory");
+            Category newitem = new Category();
+            return PartialView("PartialCreateCategory", newitem);
         }
         [HttpPost]
         //public ActionResult CreateCategory(HttpPostedFileBase Image, Category category, int[] selected, int[] selected2)
@@ -75,7 +76,7 @@ namespace MVCGUI.Controllers
             {
                 ViewBag.Categories = repository.Categories().ToList();
                 ViewBag.CategoryTypes = repository.CategoryTypes.ToList();
-                return View(category);
+                return PartialView("PartialEditCategory",category);
             }
             return RedirectToAction("CategoriesList");
         }
@@ -98,7 +99,7 @@ namespace MVCGUI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return PartialView("PartialDeleteCategory", category);
         }
         [HttpPost, ActionName("DeleteCategory")]
         public ActionResult DeleteCategoryConfirmed(int? id)
@@ -138,7 +139,8 @@ namespace MVCGUI.Controllers
         [HttpGet]
         public ActionResult CreateCategoryType()
         {
-            return  PartialView("PartialCreateCategoryType");
+            CategoryType newitem = new CategoryType();
+            return PartialView("PartialCreateCategoryType", newitem);
         }
         [HttpPost]
         public ActionResult CreateCategoryType(CategoryType categorytype)
@@ -157,7 +159,7 @@ namespace MVCGUI.Controllers
             CategoryType categorytype = repository.FindCategoryType(id);
             if (categorytype != null)
             {
-                return View(categorytype);
+                return PartialView("PartialEditCategoryType", categorytype);
             }
             return RedirectToAction("CategoryTypesList");
         }
@@ -179,7 +181,7 @@ namespace MVCGUI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(categorytype);
+            return PartialView("PartialDeleteCetegoryType", categorytype);
         }
         [HttpPost, ActionName("DeleteCategoryType")]
         public ActionResult DeleteCategoryTypeConfirmed(int? id)
@@ -326,7 +328,8 @@ namespace MVCGUI.Controllers
         public ActionResult CreateDiscount()
         {
             ViewBag.Goods = repository.PureGoods().ToList();
-            return View();
+            Discount newitem = new Discount();
+            return PartialView("PartialCreateDiscount", newitem);
         }
         [HttpPost]
         public ActionResult CreateDiscount(Discount item, int[] selected)
@@ -345,7 +348,7 @@ namespace MVCGUI.Controllers
             if (item != null)
             {
                 ViewBag.Goods = repository.PureGoods().ToList();
-                return View(item);
+                return PartialView("PartialEditDiscount", item);
             }
             return RedirectToAction("DiscountsList");
         }
@@ -363,7 +366,7 @@ namespace MVCGUI.Controllers
             Discount item = repository.FindDiscount(id);
             if (item == null) return HttpNotFound();
             
-            return View(item);
+            return PartialView("PartialDeleteDiscount", item);
         }
         [HttpPost, ActionName("DeleteDiscount")]
         public ActionResult DeleteDiscountConfirmed(int? id)
@@ -405,8 +408,8 @@ namespace MVCGUI.Controllers
         {
             // Формируем список для передачи в представление
             ViewBag.Goods = new SelectList(repository.PureGoods().ToList(), "Id", "Title");//категории для формирования DropListDown
+
             Purchase newitem = new Purchase();
-            //return View(newitem);
             return PartialView("PartialCreatePurchase", newitem);
         }
         [HttpPost]
@@ -500,8 +503,9 @@ namespace MVCGUI.Controllers
         {
             // Формируем список для передачи в представление
             ViewBag.Goods = new SelectList(repository.PureGoods().ToList(), "Id", "Title");//категории для формирования DropListDown
-
-            return PartialView("PartialCreateSale");
+   
+            Sale newitem = new Sale();
+            return PartialView("PartialCreateSale", newitem);
         }
         [HttpPost]
         public ActionResult CreateSale(Sale sale)

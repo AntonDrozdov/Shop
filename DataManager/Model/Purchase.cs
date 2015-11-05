@@ -14,11 +14,14 @@ namespace DataManager.Model
     {
         [HiddenInput(DisplayValue=false)]
         public int Id { get; set; }
+   
         [DataType(System.ComponentModel.DataAnnotations.DataType.DateTime)]
         public DateTime Date { get; set; }
+    
         [Required]
         [Range(0,1000)]
         public int? Amount { get; set; }
+     
         [Required]
         public double PurchasePricePerItem { get; set; }
 

@@ -49,7 +49,7 @@ header, footer, nav, section {display: block;}
     color:black;
     border-radius:8px;
     padding:0px 5px 3px 5px;
-    width:80px;
+    width:auto;
 }
 .menuiteminTable:hover a{color:white;}
 .menuiteminTable A.selected { color:white; }
@@ -58,7 +58,7 @@ header, footer, nav, section {display: block;}
     font-size:larger;
     border-radius:8px;
     background: #ddd;
-    padding:0px 3px 3px 3px;
+    padding:0px 10px 3px 10px;
     font-style:italic;
     margin:0px 0px 0px 10px;
 }
