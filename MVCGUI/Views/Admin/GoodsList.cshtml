@@ -10,7 +10,7 @@
 <br />
 <!--КНОПКА СОЗДАНИЯ ПОЗИЦИИ-->
 <div class="menuitem">
-    @Html.RouteLink("Добавить позицию", 
+    @Html.RouteLink("Новая позиция", 
                     new{controller = "Admin",action = "CreateGood"},
                     new {@id = "creategood", data_dialog_title = "Добавить позицию" })
 </div>
@@ -38,7 +38,7 @@
 <table>
     <thead>
         <tr>
-            <th>ID</th>
+            <th>Id</th>
             <th>Наименование</th>
             <th>Количество</th>
             <th>Описание</th>

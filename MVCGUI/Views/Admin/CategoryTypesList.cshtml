@@ -10,7 +10,7 @@
 <br />
 <!--КНОПКА СОЗДАНИЯ ТОВАРА-->
 <div class="menuitem">
-    @Html.RouteLink("Добавить тип категории",
+    @Html.RouteLink("Новый тип категории",
                     new { controller = "Admin", action = "CreateCategoryType" },
                     new { @id = "createcategorytype", data_dialog_title = "Добавить тип категории" })
 </div>
@@ -18,11 +18,11 @@
 <table>
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Consist of</th>
-            <th>OPTIONS</th>
+            <th>Id</th>
+            <th>Наименование</th>
+            <th>Описание</th>
+            <th>Содержит</th>
+            <th><b>ОПЦИИ</b></th>
         </tr>
 
     </thead>

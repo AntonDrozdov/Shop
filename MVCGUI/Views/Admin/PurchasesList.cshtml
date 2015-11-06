@@ -24,10 +24,10 @@
                 <td style=" border:none;">
                     <span style="font-size:12px; font-weight:400;">Позиция:</span>
                     @Html.DropDownList("good", ViewBag.Goods as SelectList, "-- ВСЕ --")
-                    <span style="padding-left:50px;"><input type="submit" value="     Apply     " /></span>
+                    <span style="padding-left:50px;"><input type="submit" value="     Применить     " /></span>
                 </td>
                 <td style="text-align:right; border:none;   ">
-                    @Html.ActionLink(" FULL PURCHASES LIST ", "PurchasesList", "Admin", new { @class = "inTableLink" })
+                    @Html.ActionLink(" ПОЛНЫЙ ПЕРЕЧЕНЬ ", "PurchasesList", "Admin", new { @class = "inTableLink" })
                 </td>
             </tr>
         </table>
@@ -38,12 +38,12 @@
 <table>
     <thead>
         <tr>
-            <td>Id</td>
-            <td>Date</td>
-            <td>GoodTitle</td>
-            <td>Amount</td>
-            <td>PurchasePrice</td>
-            <td><b>OPTIONS</b></td>
+            <th>Id</th>
+            <th>Дата закупки</th>
+            <th>Позиция</th>
+            <th>Количество</th>
+            <th>Цена закупки</th>
+            <th><b>ОПЦИИ</b></th>
         </tr>
     </thead>
 @foreach (var item in Model.Purchases)
@@ -52,7 +52,7 @@
         <td>@Html.DisplayFor(modelItem => item.Id)</td>
         <td>@Html.DisplayFor(modelItem => item.Date)</td>
         <td>
-            <div class="menuiteminTable" style="width:300px;">
+            <div class="menuiteminTable">
                 @Html.RouteLink(@item.Good.Title,
                  new { controller = "Admin", action = "EditPurchase", id = item.Id },
                  new { @class = "editpurchase", data_dialog_title = "Редактирование закупки" })

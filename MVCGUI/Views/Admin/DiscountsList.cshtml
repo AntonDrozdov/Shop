@@ -11,18 +11,19 @@
 <br />
 <!--КНОПКА СОЗДАНИЯ ТОВАРА-->
 <div class="menuitem">
-    @Html.RouteLink("Добавить скидку",
+    @Html.RouteLink("Новая скидка",
                     new { controller = "Admin", action = "CreateDiscount" },
                             new { @id = "createitem", data_dialog_title = "Добавить скидку" })
 </div>
 <table>
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Goods</th>
-            <th>BeginDate</th>
-            <th>EndDate</th>
-            <th>DiscountRate</th>
+            <th>Id</th>
+            <th>Позиции</th>
+            <th>Дата начала действия</th>
+            <th>Дата окончания действия</th>
+            <th>Величина скидки (%)</th>
+            <td><b>ОПЦИИ</b></td>
         </tr>
     </thead>
     @foreach (var item in Model.Items)

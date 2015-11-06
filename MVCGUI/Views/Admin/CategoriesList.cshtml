@@ -10,7 +10,7 @@
 <br />
 <!--КНОПКА СОЗДАНИЯ ПОЗИЦИИ-->
 <div class="menuitem">
-    @Html.RouteLink("Добавить категорию",
+    @Html.RouteLink("Новая категория",
                     new { controller = "Admin", action = "CreateCategory" },
                     new { @id = "createcategory", data_dialog_title = "Добавить категорию" })
 </div>
@@ -22,14 +22,16 @@
         <table style=" border:none;">
             <tr style=" border:none;">
                 <td style=" border:none;">
-                    <span style="font-size:12px; font-weight:400;">ParentCategory:</span>
-                    @Html.DropDownList("parentcat", ViewBag.ParentCategories as SelectList, "-- ALL --")
-                    <span style="font-size:12px; font-weight:400;">CategoryType:</span>
-                    @Html.DropDownList("cattype", ViewBag.CategoryTypes as SelectList, "-- ALL --")
-                    <span style = "padding-left:50px;"><input type="submit" value="     Apply     " /></span>
+                    <span style="font-size:12px; font-weight:400;">Родительская категория: </span>
+                    @Html.DropDownList("parentcat", ViewBag.ParentCategories as SelectList, "-- ВСЕ --")
+                    <span style="font-size:12px; font-weight:400;">Тип категории: </span>
+                    @Html.DropDownList("cattype", ViewBag.CategoryTypes as SelectList, "-- ВСЕ --")
+                    <span style = "padding-left:50px;"><input type="submit" value="     Применить     " /></span>
                 </td>
+            </tr>
+            <tr>
                 <td style="text-align:right; border:none;   ">
-                    @Html.ActionLink(" FULL CATEGORIES LIST ", "CategoriesList", "Admin", new { @class = "inTableLink" })
+                    @Html.ActionLink(" ПОЛНЫЙ ПЕРЕЧЕНЬ ", "CategoriesList", "Admin", new { @class = "inTableLink" })
                 </td>
             </tr>
         </table>
@@ -40,12 +42,12 @@
 <table>
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Included In</th>
-            <th>CategoryTypes</th>
-            <th>OPTIONS</th>
+            <th>Id</th>
+            <th>Наименование</th>
+            <th>Описание</th>
+            <th>Родительская категория</th>
+            <th>Тип категории</th>
+            <th><b>ОПЦИИ</b></th>
         </tr>
 
     </thead>

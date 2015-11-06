@@ -10,7 +10,7 @@
 <br />
 <!--КНОПКА СОЗДАНИЯ ТОВАРА-->
 <div class="menuitem">
-    @Html.RouteLink("Добавить продажу",
+    @Html.RouteLink("Новая продажа",
                     new { controller = "Admin", action = "CreateSale" },
                     new { @id = "createsale", data_dialog_title = "Добавить продажу" })
 </div>
@@ -25,7 +25,7 @@
                     <span style="padding-left:50px;"><input type="submit" value="     Применить     " /></span>
                 </td>
                 <td style="text-align:right; border:none;   ">
-                    @Html.ActionLink(" ПОЛНЫЙ СПИСОК ПРОДАЖ ", "SalesList", "Admin", new { @class = "inTableLink" })
+                    @Html.ActionLink(" ПОЛНЫЙ ПЕРЕЧЕНЬ ", "SalesList", "Admin", new { @class = "inTableLink" })
                 </td>
             </tr>
         </table>
@@ -34,12 +34,12 @@
 <table>
     <thead>
         <tr>
-            <td>Id</td>
-            <td>Date</td>
-            <td>GoodTitle</td>
-            <td>Amount</td>
-            <td>PurchasePrice</td>
-            <td><b>OPTIONS</b></td>
+            <th>Id</th>
+            <th>Дата продажи</th>
+            <th>Позиция</th>
+            <th>Количество</th>
+            <th>Цена продажи</th>
+            <th><b>ОПЦИИ</b></th>
         </tr>
     </thead>
     @foreach (var item in Model.Sales)
