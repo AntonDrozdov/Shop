@@ -11,8 +11,8 @@ using MVCGUI.Infrastructure;
 
 namespace MVCGUI
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
+    // Примечание: Инструкции по включению классического режима IIS6 или IIS7 
+    // см. по ссылке http://go.microsoft.com/?LinkId=9394801
 
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -24,6 +24,7 @@ namespace MVCGUI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AuthConfig.RegisterAuth();
 
             ControllerBuilder.Current.SetControllerFactory(new NinjectControllerFactory());
         }

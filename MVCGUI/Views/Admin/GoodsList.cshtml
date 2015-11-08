@@ -81,7 +81,7 @@
 
 <!--СТРАНИЦЫ-->
 <div class="pager">
-    @Html.PageLinks(Model.paginginfo, x => Url.Action("GoodsList", new { page = x, parentcat = Model.parentcat }))
+       @Html.PageLinks(Model.paginginfo, x => Url.Action("GoodsList", new { page = x, parentcat = Model.parentcat }))
 </div>
 
 <!--СКРИПТЫ-->

@@ -15,6 +15,16 @@ D:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.dll
 D:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.SqlServer.dll
 D:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.xml
 D:\DEVELOP\shop\DataManager\bin\Debug\EntityFramework.SqlServer.xml
-D:\DEVELOP\shop\DataManager\obj\Debug\DataManager.csprojResolveAssemblyReference.cache
 D:\DEVELOP\shop\DataManager\obj\Debug\DataManager.dll
 D:\DEVELOP\shop\DataManager\obj\Debug\DataManager.pdb
+D:\DEVELOP\SHOPCENTER\DataManager\bin\Debug\DataManager.dll.config
+D:\DEVELOP\SHOPCENTER\DataManager\bin\Debug\DataManager.dll
+D:\DEVELOP\SHOPCENTER\DataManager\bin\Debug\DataManager.pdb
+D:\DEVELOP\SHOPCENTER\DataManager\bin\Debug\EntityFramework.dll
+D:\DEVELOP\SHOPCENTER\DataManager\bin\Debug\EntityFramework.SqlServer.dll
+D:\DEVELOP\SHOPCENTER\DataManager\bin\Debug\EntityFramework.xml
+D:\DEVELOP\SHOPCENTER\DataManager\bin\Debug\EntityFramework.SqlServer.xml
+D:\DEVELOP\SHOPCENTER\DataManager\bin\Debug\ru\EntityFramework.resources.dll
+D:\DEVELOP\SHOPCENTER\DataManager\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+D:\DEVELOP\SHOPCENTER\DataManager\obj\Debug\DataManager.dll
+D:\DEVELOP\SHOPCENTER\DataManager\obj\Debug\DataManager.pdb

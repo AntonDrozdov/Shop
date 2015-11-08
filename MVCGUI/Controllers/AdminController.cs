@@ -11,7 +11,7 @@ using System.Web.Helpers;
 
 namespace MVCGUI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public partial class AdminController : Controller
     {
         private IRepository repository;

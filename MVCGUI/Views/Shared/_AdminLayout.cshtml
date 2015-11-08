@@ -11,6 +11,14 @@
     <script src="~/Scripts/jquery.validate.min.js"></script>
 </head>
 <body>
+    <header>
+            <div class="float-right">
+                <section id="login">
+                    @Html.Partial("_LoginPartial")
+                </section>
+            </div>
+
+    </header>
     <div class="content">
         @RenderBody()
     </div>
