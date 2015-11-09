@@ -13,12 +13,12 @@
         <header>
             <div class="content-wrapper">
                 <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("ваша эмблема здесь", "Index", "Home")</p>
+                    <p class="site-title">@Html.ActionLink("ваша эмблема здесь", "MainPage", "ShopCenter")</p>
                 </div>
                 <div class="float-right">
                     <section id="login">
-                        <li>@Html.Partial("_LoginPartial")
-</section>
+                        @Html.Partial("_LoginPartial")
+                    </section>
                     <nav>
                         <ul id="menu">
                             <li>
@@ -29,15 +29,14 @@
                                                             action = "GoodsList"
                                                         },
                                                     new { @class = "selected" })
+                            
                             </li>
-                            <li>@Html.ActionLink("Админка", "GoodsList", "Admin")</li>
                         </ul>
                     </nav>
                 </div>
             </div>
         </header>
         <div id="body">
-            @RenderSection("featured", required: false)
             <section class="content-wrapper main-content clear-fix">
                 @RenderBody()
             </section>

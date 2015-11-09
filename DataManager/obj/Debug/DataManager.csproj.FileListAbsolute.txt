@@ -28,3 +28,15 @@ D:\DEVELOP\SHOPCENTER\DataManager\bin\Debug\ru\EntityFramework.resources.dll
 D:\DEVELOP\SHOPCENTER\DataManager\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
 D:\DEVELOP\SHOPCENTER\DataManager\obj\Debug\DataManager.dll
 D:\DEVELOP\SHOPCENTER\DataManager\obj\Debug\DataManager.pdb
+E:\DEVELOP\ShopCenter2\DataManager\bin\Debug\DataManager.dll.config
+E:\DEVELOP\ShopCenter2\DataManager\bin\Debug\DataManager.dll
+E:\DEVELOP\ShopCenter2\DataManager\bin\Debug\DataManager.pdb
+E:\DEVELOP\ShopCenter2\DataManager\bin\Debug\EntityFramework.dll
+E:\DEVELOP\ShopCenter2\DataManager\bin\Debug\EntityFramework.SqlServer.dll
+E:\DEVELOP\ShopCenter2\DataManager\bin\Debug\EntityFramework.xml
+E:\DEVELOP\ShopCenter2\DataManager\bin\Debug\EntityFramework.SqlServer.xml
+E:\DEVELOP\ShopCenter2\DataManager\bin\Debug\ru\EntityFramework.resources.dll
+E:\DEVELOP\ShopCenter2\DataManager\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+E:\DEVELOP\ShopCenter2\DataManager\obj\Debug\DataManager.csprojResolveAssemblyReference.cache
+E:\DEVELOP\ShopCenter2\DataManager\obj\Debug\DataManager.dll
+E:\DEVELOP\ShopCenter2\DataManager\obj\Debug\DataManager.pdb

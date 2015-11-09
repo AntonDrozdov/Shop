@@ -105,7 +105,7 @@ h5, h6 {
 }
 
     .main-content {
-        background: url("../Images/accent.png") no-repeat;
+        /*background: url("../Images/accent.png") no-repeat;*/
         padding-left: 10px;
         padding-top: 30px;
     }
@@ -191,6 +191,13 @@ ul#menu {
         display: inline;
         list-style: none;
         padding-left: 15px;
+    }
+    
+    ul#menu li .selected{
+        display: inline;
+        list-style: none;
+        padding-left: 15px;
+        color: #000;
     }
 
         ul#menu li a {
